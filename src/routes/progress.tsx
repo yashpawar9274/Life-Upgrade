@@ -83,7 +83,7 @@ function ProgressPage() {
                 />
               </div>
               <p className="mt-1 text-center text-[10px] text-muted-foreground">
-                {new Date(w.keys[i]).toLocaleDateString(undefined, { weekday: "narrow" })}
+                {new Date(w.keys[i] ?? "").toLocaleDateString(undefined, { weekday: "narrow" })}
               </p>
             </div>
           ))}

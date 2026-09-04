@@ -121,7 +121,7 @@ function PlansPage() {
   const { state, addFocusMinutes } = useStore();
   const [tab, setTab] = useState<Tab>("workout");
   const level = state.profile.fitnessLevel;
-  const plan = PLANS[tab][level];
+  const plan = PLANS[tab][level] ?? PLANS[tab]['beginner']!;
 
   return (
     <AppShell title="Plans" subtitle={`Matched to your level: ${level}`} backTo="/">
