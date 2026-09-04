@@ -10,7 +10,6 @@ import { lovable } from "@/integrations/lovable/index";
 import { DISCLAIMER } from "@/lib/store";
 
 export const Route = createFileRoute("/auth")({
-  ssr: false,
   head: () => ({
     meta: [
       { title: "Sign in — LIFE UPGRADE" },
