@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { AppShell, Card, Disclaimer, SectionTitle } from "@/components/AppShell";
 import { DISCLAIMER, GOAL_OPTIONS, useStore, type Profile as ProfileType } from "@/lib/store";
 
-export const Route = createFileRoute("/profile")({
+export const Route = createFileRoute("/_authenticated/profile")({
   head: () => ({
     meta: [
       { title: "Profile & Settings — LIFE UPGRADE" },

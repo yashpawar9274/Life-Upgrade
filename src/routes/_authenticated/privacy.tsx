@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { AppShell, Card, Disclaimer, SectionTitle } from "@/components/AppShell";
 import { DISCLAIMER, useStore } from "@/lib/store";
 
-export const Route = createFileRoute("/privacy")({
+export const Route = createFileRoute("/_authenticated/privacy")({
   head: () => ({
     meta: [
       { title: "Privacy & Data Controls — LIFE UPGRADE" },

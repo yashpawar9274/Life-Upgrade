@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { AppShell, Card, SectionTitle } from "@/components/AppShell";
 import { todayKey, useStore } from "@/lib/store";
 
-export const Route = createFileRoute("/focus")({
+export const Route = createFileRoute("/_authenticated/focus")({
   head: () => ({
     meta: [
       { title: "Focus Mode Timer — LIFE UPGRADE" },

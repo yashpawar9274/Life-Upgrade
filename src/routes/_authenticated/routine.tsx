@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { AppShell, Card, EmptyState } from "@/components/AppShell";
 import { todayKey, useStore, type Block, type RoutineItem } from "@/lib/store";
 
-export const Route = createFileRoute("/routine")({
+export const Route = createFileRoute("/_authenticated/routine")({
   head: () => ({
     meta: [
       { title: "Today's Routine — LIFE UPGRADE" },

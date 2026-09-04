@@ -14,7 +14,7 @@ import {
   weeklyStats,
 } from "@/lib/store";
 
-export const Route = createFileRoute("/progress")({
+export const Route = createFileRoute("/_authenticated/progress")({
   head: () => ({
     meta: [
       { title: "Progress & Weekly Report — LIFE UPGRADE" },

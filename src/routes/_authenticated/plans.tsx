@@ -5,7 +5,7 @@ import { Dumbbell, Footprints, Brain, Timer } from "lucide-react";
 import { AppShell, Card, Disclaimer, SectionTitle } from "@/components/AppShell";
 import { DISCLAIMER, useStore } from "@/lib/store";
 
-export const Route = createFileRoute("/plans")({
+export const Route = createFileRoute("/_authenticated/plans")({
   head: () => ({
     meta: [
       { title: "Workout, Walking & Meditation Plans — LIFE UPGRADE" },
