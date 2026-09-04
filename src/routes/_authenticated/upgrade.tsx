@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { AppShell, Card, Disclaimer, SectionTitle } from "@/components/AppShell";
 import { DISCLAIMER, useStore } from "@/lib/store";
 
-export const Route = createFileRoute("/upgrade")({
+export const Route = createFileRoute("/_authenticated/upgrade")({
   head: () => ({
     meta: [
       { title: "Upgrade to Premium — LIFE UPGRADE" },

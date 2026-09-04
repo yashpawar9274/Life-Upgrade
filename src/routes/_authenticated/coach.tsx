@@ -8,7 +8,7 @@ import { AppShell, Card, Disclaimer, SectionTitle } from "@/components/AppShell"
 import { askCoach } from "@/lib/coach.functions";
 import { DISCLAIMER, dayScore, streak, todayKey, useStore, weeklyStats } from "@/lib/store";
 
-export const Route = createFileRoute("/coach")({
+export const Route = createFileRoute("/_authenticated/coach")({
   head: () => ({
     meta: [
       { title: "LIFE AI COACH — LIFE UPGRADE Premium" },

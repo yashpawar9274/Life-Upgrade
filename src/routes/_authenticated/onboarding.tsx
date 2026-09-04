@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { Card, Disclaimer } from "@/components/AppShell";
 import { DISCLAIMER, GOAL_OPTIONS, useStore, type Profile } from "@/lib/store";
 
-export const Route = createFileRoute("/onboarding")({
+export const Route = createFileRoute("/_authenticated/onboarding")({
   head: () => ({
     meta: [
       { title: "Get started — LIFE UPGRADE" },

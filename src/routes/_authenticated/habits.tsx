@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { AppShell, Card, Disclaimer, EmptyState, SectionTitle } from "@/components/AppShell";
 import { DISCLAIMER, dayKeysBack, todayKey, useStore } from "@/lib/store";
 
-export const Route = createFileRoute("/habits")({
+export const Route = createFileRoute("/_authenticated/habits")({
   head: () => ({
     meta: [
       { title: "Habit Tracker & Streaks — LIFE UPGRADE" },
