@@ -14,6 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      daily_logs: {
+        Row: {
+          day: string
+          focus_minutes: number
+          habit_done: string[]
+          limit_counts: Json
+          mood: string | null
+          routine_done: string[]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          day: string
+          focus_minutes?: number
+          habit_done?: string[]
+          limit_counts?: Json
+          mood?: string | null
+          routine_done?: string[]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          day?: string
+          focus_minutes?: number
+          habit_done?: string[]
+          limit_counts?: Json
+          mood?: string | null
+          routine_done?: string[]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       premium_members: {
         Row: {
           email: string
@@ -53,6 +86,39 @@ export type Database = {
           id?: string
           name?: string | null
           updated_at?: string
+        }
+        Relationships: []
+      }
+      user_config: {
+        Row: {
+          chat: Json
+          habits: Json
+          limits: Json
+          profile: Json
+          roadmap: Json
+          routines: Json
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          chat?: Json
+          habits?: Json
+          limits?: Json
+          profile?: Json
+          roadmap?: Json
+          routines?: Json
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          chat?: Json
+          habits?: Json
+          limits?: Json
+          profile?: Json
+          roadmap?: Json
+          routines?: Json
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }

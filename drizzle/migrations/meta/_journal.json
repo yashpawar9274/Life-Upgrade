@@ -8,6 +8,13 @@
       "when": 1788517227580,
       "tag": "0000_profiles_and_lifetime_premium",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1788518228730,
+      "tag": "0001_life_upgrade_cloud_sync",
+      "breakpoints": true
     }
   ]
 }
