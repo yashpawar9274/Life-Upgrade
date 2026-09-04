@@ -64,12 +64,13 @@ function Ring({ value }: { value: number }) {
 }
 
 const quickLinks = [
-  { to: "/routine", label: "Today's routine", icon: ListChecks },
-  { to: "/habits", label: "Habits & streaks", icon: Flame },
-  { to: "/limits", label: "Bad habit limits", icon: ShieldAlert },
-  { to: "/plans", label: "Workout & meditation", icon: Dumbbell },
-  { to: "/focus", label: "Focus mode", icon: Timer },
-  { to: "/progress", label: "Weekly report", icon: TrendingUp },
+  { to: "/routine", key: "link.routine", icon: ListChecks },
+  { to: "/habits", key: "link.habits", icon: Flame },
+  { to: "/limits", key: "link.limits", icon: ShieldAlert },
+  { to: "/plans", key: "link.plans", icon: Dumbbell },
+  { to: "/focus", key: "link.focus", icon: Timer },
+  { to: "/progress", key: "link.report", icon: TrendingUp },
+  { to: "/roadmap", key: "roadmap.title", icon: Map },
 ] as const;
 
 function Home() {
