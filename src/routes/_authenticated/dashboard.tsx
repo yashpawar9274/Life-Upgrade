@@ -12,9 +12,11 @@ import {
   TrendingUp,
   Sparkles,
   ChevronRight,
+  Map,
 } from "lucide-react";
 
 import { AppShell, Card, Disclaimer, SectionTitle } from "@/components/AppShell";
+import { t } from "@/lib/i18n";
 import {
   DISCLAIMER,
   MOODS,
@@ -64,16 +66,18 @@ function Ring({ value }: { value: number }) {
 }
 
 const quickLinks = [
-  { to: "/routine", label: "Today's routine", icon: ListChecks },
-  { to: "/habits", label: "Habits & streaks", icon: Flame },
-  { to: "/limits", label: "Bad habit limits", icon: ShieldAlert },
-  { to: "/plans", label: "Workout & meditation", icon: Dumbbell },
-  { to: "/focus", label: "Focus mode", icon: Timer },
-  { to: "/progress", label: "Weekly report", icon: TrendingUp },
+  { to: "/routine", key: "link.routine", icon: ListChecks },
+  { to: "/habits", key: "link.habits", icon: Flame },
+  { to: "/limits", key: "link.limits", icon: ShieldAlert },
+  { to: "/plans", key: "link.plans", icon: Dumbbell },
+  { to: "/focus", key: "link.focus", icon: Timer },
+  { to: "/progress", key: "link.report", icon: TrendingUp },
+  { to: "/roadmap", key: "roadmap.title", icon: Map },
 ] as const;
 
 function Home() {
   const { state, setMood, toggleHabit, hydrated } = useStore();
+  const lang = state.profile.language;
   const navigate = useNavigate();
   const today = todayKey();
   const score = dayScore(state);
@@ -110,7 +114,7 @@ function Home() {
       <Card className="hero-gradient flex items-center gap-4">
         <Ring value={score} />
         <div className="min-w-0 flex-1">
-          <p className="text-xs uppercase tracking-widest text-muted-foreground">Today's score</p>
+          <p className="text-xs uppercase tracking-widest text-muted-foreground">{t(lang, "dash.todayScore")}</p>
           <p className="mt-1 flex items-center gap-1.5 font-display text-lg font-semibold">
             <Flame className="h-4 w-4 text-gold" aria-hidden /> {days} day streak
           </p>
@@ -134,7 +138,7 @@ function Home() {
       </Card>
 
       <Card>
-        <p className="text-xs uppercase tracking-widest text-muted-foreground">Mood check-in</p>
+        <p className="text-xs uppercase tracking-widest text-muted-foreground">{t(lang, "dash.mood")}</p>
         <div className="no-scrollbar mt-3 flex gap-2 overflow-x-auto pb-1">
           {MOODS.map((m) => (
             <button
@@ -159,8 +163,8 @@ function Home() {
       </Card>
 
       <Card className="border-gold/30">
-        <p className="text-xs uppercase tracking-widest text-gold">Daily motivation</p>
-        <p className="mt-2 text-[15px] leading-relaxed">{motivationOfDay()}</p>
+        <p className="text-xs uppercase tracking-widest text-gold">{t(lang, "dash.motivation")}</p>
+        <p className="mt-2 text-[15px] leading-relaxed">{motivationOfDay(lang)}</p>
       </Card>
 
       <SectionTitle right={<Link to="/habits" className="text-xs font-semibold text-primary">All</Link>}>
@@ -192,10 +196,10 @@ function Home() {
 
       <SectionTitle>Your toolkit</SectionTitle>
       <div className="grid grid-cols-2 gap-2">
-        {quickLinks.map(({ to, label, icon: Icon }) => (
+        {quickLinks.map(({ to, key, icon: Icon }) => (
           <Link key={to} to={to} className="press surface flex items-center gap-2 p-3 text-sm font-medium">
             <Icon className="h-4 w-4 text-primary" aria-hidden />
-            <span className="min-w-0 truncate">{label}</span>
+            <span className="min-w-0 truncate">{t(lang, key)}</span>
           </Link>
         ))}
       </div>

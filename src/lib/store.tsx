@@ -8,6 +8,8 @@ import {
   type ReactNode,
 } from "react";
 
+import { MOTIVATIONS_HI } from "./i18n";
+
 export type Block = "morning" | "afternoon" | "evening" | "night";
 export type Mood = "happy" | "motivated" | "focused" | "stressed" | "low-energy" | "anxious";
 export type Plan = "free" | "premium";
@@ -68,6 +70,8 @@ export type AppState = {
   moodLog: Record<string, Mood>;
   /** date -> focus minutes */
   focusLog: Record<string, number>;
+  /** roadmap step key -> done */
+  roadmap: Record<string, boolean>;
   chat: ChatMessage[];
   seenSplash: boolean;
 };
@@ -111,7 +115,8 @@ export const MOTIVATIONS = [
 export const DISCLAIMER =
   "This app supports personal wellbeing and is not a substitute for medical or mental-health care.";
 
-const STORAGE_KEY = "life-upgrade-state-v1";
+/** v2 — every account now starts completely fresh (no sample data). */
+const STORAGE_KEY = "life-upgrade-state-v2";
 
 export function todayKey(d: Date = new Date()): string {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
@@ -129,105 +134,66 @@ export function dayKeysBack(n: number): string[] {
 
 const uid = () => Math.random().toString(36).slice(2, 10);
 
-function seedState(): AppState {
-  const routines: RoutineItem[] = [
-    { id: "r1", block: "morning", title: "Wake up + 500ml water", time: "06:00" },
-    { id: "r2", block: "morning", title: "10 min meditation", time: "06:20" },
-    { id: "r3", block: "morning", title: "Walk / run 25 min", time: "06:40" },
-    { id: "r4", block: "morning", title: "Protein breakfast", time: "08:00" },
-    { id: "r5", block: "afternoon", title: "Deep work block (90 min)", time: "11:00" },
-    { id: "r6", block: "afternoon", title: "Balanced lunch, no sugar drink", time: "13:30" },
-    { id: "r7", block: "afternoon", title: "10 min sunlight break", time: "16:00" },
-    { id: "r8", block: "evening", title: "Strength workout", time: "18:30" },
-    { id: "r9", block: "evening", title: "Read 15 pages", time: "20:30" },
-    { id: "r10", block: "night", title: "No spending review + plan tomorrow", time: "21:30" },
-    { id: "r11", block: "night", title: "Screens off, lights low", time: "22:15" },
-    { id: "r12", block: "night", title: "Sleep by 22:45", time: "22:45" },
-  ];
+const DEFAULT_ROUTINES: RoutineItem[] = [
+  { id: "r1", block: "morning", title: "Wake up + 500ml water", time: "06:00" },
+  { id: "r2", block: "morning", title: "10 min meditation", time: "06:20" },
+  { id: "r3", block: "morning", title: "Walk / run 25 min", time: "06:40" },
+  { id: "r4", block: "morning", title: "Protein breakfast", time: "08:00" },
+  { id: "r5", block: "afternoon", title: "Deep work block (90 min)", time: "11:00" },
+  { id: "r6", block: "afternoon", title: "Balanced lunch, no sugar drink", time: "13:30" },
+  { id: "r7", block: "afternoon", title: "10 min sunlight break", time: "16:00" },
+  { id: "r8", block: "evening", title: "Strength workout", time: "18:30" },
+  { id: "r9", block: "evening", title: "Read 15 pages", time: "20:30" },
+  { id: "r10", block: "night", title: "No spending review + plan tomorrow", time: "21:30" },
+  { id: "r11", block: "night", title: "Screens off, lights low", time: "22:15" },
+  { id: "r12", block: "night", title: "Sleep by 22:45", time: "22:45" },
+];
 
-  const habits: Habit[] = [
-    { id: "h1", title: "Water 3L", icon: "droplet" },
-    { id: "h2", title: "Walk / run", icon: "footprints" },
-    { id: "h3", title: "Workout", icon: "dumbbell" },
-    { id: "h4", title: "Meditation", icon: "brain" },
-    { id: "h5", title: "Reading", icon: "book" },
-    { id: "h6", title: "Sleep on time", icon: "moon" },
-    { id: "h7", title: "Work focus block", icon: "target" },
-    { id: "h8", title: "Healthy food", icon: "salad" },
-    { id: "h9", title: "No unnecessary spending", icon: "wallet" },
-  ];
+const DEFAULT_HABITS: Habit[] = [
+  { id: "h1", title: "Water 3L", icon: "droplet" },
+  { id: "h2", title: "Walk / run", icon: "footprints" },
+  { id: "h3", title: "Workout", icon: "dumbbell" },
+  { id: "h4", title: "Meditation", icon: "brain" },
+  { id: "h5", title: "Reading", icon: "book" },
+  { id: "h6", title: "Sleep on time", icon: "moon" },
+  { id: "h7", title: "Work focus block", icon: "target" },
+  { id: "h8", title: "Healthy food", icon: "salad" },
+  { id: "h9", title: "No unnecessary spending", icon: "wallet" },
+];
 
-  const limits: Limit[] = [
-    {
-      id: "l1",
-      name: "Cigarettes",
-      unit: "cigarettes",
-      dailyLimit: 4,
-      goal: "Step down by 1 every 10 days",
-    },
-    { id: "l2", name: "Alcohol", unit: "drinks", dailyLimit: 1, goal: "Only weekends, max 2" },
-    { id: "l3", name: "Junk food", unit: "meals", dailyLimit: 1, goal: "Max 3 per week" },
-    { id: "l4", name: "Doom scrolling", unit: "minutes", dailyLimit: 45, goal: "Under 30 min/day" },
-  ];
+const DEFAULT_LIMITS: Limit[] = [
+  { id: "l1", name: "Cigarettes", unit: "cigarettes", dailyLimit: 4, goal: "Step down by 1 every 10 days" },
+  { id: "l2", name: "Alcohol", unit: "drinks", dailyLimit: 1, goal: "Only weekends, max 2" },
+  { id: "l3", name: "Junk food", unit: "meals", dailyLimit: 1, goal: "Max 3 per week" },
+  { id: "l4", name: "Doom scrolling", unit: "minutes", dailyLimit: 45, goal: "Under 30 min/day" },
+];
 
-  const routineLog: Record<string, string[]> = {};
-  const habitLog: Record<string, string[]> = {};
-  const limitLog: Record<string, Record<string, number>> = {};
-  const moodLog: Record<string, Mood> = {};
-  const focusLog: Record<string, number> = {};
-  const moods: Mood[] = ["motivated", "focused", "stressed", "happy", "low-energy", "focused"];
-
-  // Deterministic pseudo-random sample data so server and client render identically.
-  let seed = 20260904;
-  const rnd = () => {
-    seed = (seed * 1103515245 + 12345) % 2147483648;
-    return seed / 2147483648;
-  };
-
-  dayKeysBack(21).forEach((key, i) => {
-    const strength = 0.45 + ((i % 7) / 7) * 0.4 + (i > 13 ? 0.12 : 0);
-    routineLog[key] = routines.filter(() => rnd() < strength).map((r) => r.id);
-    habitLog[key] = habits.filter(() => rnd() < strength).map((h) => h.id);
-    limitLog[key] = {
-      l1: Math.max(0, Math.round(6 - i * 0.15 - rnd())),
-      l2: rnd() < 0.25 ? 2 : 0,
-      l3: rnd() < 0.3 ? 1 : 0,
-      l4: 20 + Math.round(rnd() * 50),
-    };
-    moodLog[key] = moods[i % moods.length] ?? "focused";
-    focusLog[key] = [0, 25, 50, 75, 90, 50, 25][i % 7] ?? 0;
-  });
-
-
-  const today = todayKey();
-  routineLog[today] = ["r1", "r2", "r3"];
-  habitLog[today] = ["h1", "h2", "h4"];
-  limitLog[today] = { l1: 1, l2: 0, l3: 0, l4: 12 };
-  focusLog[today] = 25;
-
+/** A brand-new account: starter templates, zero history. */
+export function freshState(): AppState {
   return {
     profile: {
-      name: "Aarav",
+      name: "",
       plan: "free",
       onboarded: false,
-      goals: ["Wake up early", "Exercise daily", "Deep focus", "Reduce smoking", "Better sleep"],
+      goals: [],
       wakeTime: "06:00",
       sleepTime: "22:45",
       workStart: "10:00",
       workEnd: "19:00",
       fitnessLevel: "beginner",
-      language: "hinglish",
+      language: "english",
       remindersEnabled: true,
       locationReminders: false,
     },
-    routines,
-    habits,
-    limits,
-    routineLog,
-    habitLog,
-    limitLog,
-    moodLog,
-    focusLog,
+    routines: DEFAULT_ROUTINES.map((r) => ({ ...r })),
+    habits: DEFAULT_HABITS.map((h) => ({ ...h })),
+    limits: DEFAULT_LIMITS.map((l) => ({ ...l })),
+    routineLog: {},
+    habitLog: {},
+    limitLog: {},
+    moodLog: {},
+    focusLog: {},
+    roadmap: {},
     chat: [],
     seenSplash: false,
   };
@@ -237,6 +203,7 @@ type Store = {
   state: AppState;
   hydrated: boolean;
   update: (fn: (s: AppState) => AppState) => void;
+  merge: (patch: Partial<AppState>) => void;
   setProfile: (patch: Partial<Profile>) => void;
   toggleRoutine: (id: string) => void;
   toggleHabit: (id: string) => void;
@@ -251,6 +218,7 @@ type Store = {
   logLimit: (id: string, delta: number) => void;
   setMood: (mood: Mood) => void;
   addFocusMinutes: (min: number) => void;
+  toggleRoadmapStep: (key: string) => void;
   pushChat: (m: Omit<ChatMessage, "id" | "at">) => void;
   clearChat: () => void;
   resetAll: () => void;
@@ -260,19 +228,22 @@ type Store = {
 const StoreContext = createContext<Store | null>(null);
 
 export function StoreProvider({ children }: { children: ReactNode }) {
-  const [state, setState] = useState<AppState>(() => seedState());
+  const [state, setState] = useState<AppState>(() => freshState());
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) setState({ ...seedState(), ...(JSON.parse(raw) as AppState) });
+      if (raw) setState({ ...freshState(), ...(JSON.parse(raw) as AppState) });
+      // Drop the old sample-data era store so everybody starts fresh.
+      localStorage.removeItem("life-upgrade-state-v1");
     } catch {
-      /* corrupted storage — keep sample data */
+      /* corrupted storage — keep the fresh state */
     }
     setHydrated(true);
   }, []);
 
+  // Autosave locally on every change.
   useEffect(() => {
     if (!hydrated) return;
     try {
@@ -290,6 +261,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       state,
       hydrated,
       update,
+      merge: (patch) => update((s) => ({ ...s, ...patch })),
       setProfile: (patch) => update((s) => ({ ...s, profile: { ...s.profile, ...patch } })),
       toggleRoutine: (id) =>
         update((s) => {
@@ -329,25 +301,26 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           ...s,
           focusLog: { ...s.focusLog, [today()]: (s.focusLog[today()] ?? 0) + min },
         })),
+      toggleRoadmapStep: (key) =>
+        update((s) => ({ ...s, roadmap: { ...s.roadmap, [key]: !s.roadmap[key] } })),
       pushChat: (m) =>
         update((s) => ({ ...s, chat: [...s.chat, { ...m, id: uid(), at: Date.now() }] })),
       clearChat: () => update((s) => ({ ...s, chat: [] })),
-      resetAll: () => setState(seedState()),
+      resetAll: () =>
+        setState((s) => ({
+          ...freshState(),
+          profile: { ...freshState().profile, plan: s.profile.plan },
+          seenSplash: true,
+        })),
       wipeData: () =>
-        setState({
-          ...seedState(),
+        setState((s) => ({
+          ...freshState(),
           routines: [],
           habits: [],
           limits: [],
-          routineLog: {},
-          habitLog: {},
-          limitLog: {},
-          moodLog: {},
-          focusLog: {},
-          chat: [],
           seenSplash: true,
-          profile: { ...seedState().profile, name: "", goals: [], onboarded: true, plan: "free" },
-        }),
+          profile: { ...freshState().profile, onboarded: true, plan: s.profile.plan },
+        })),
     };
   }, [state, hydrated, update]);
 
@@ -417,7 +390,8 @@ export function weeklyStats(s: AppState) {
   };
 }
 
-export function motivationOfDay(): string {
+export function motivationOfDay(lang: Profile["language"] = "english"): string {
   const day = Math.floor(Date.now() / 86400000);
-  return MOTIVATIONS[day % MOTIVATIONS.length] ?? MOTIVATIONS[0]!;
+  const list = lang === "hindi" ? MOTIVATIONS_HI : MOTIVATIONS;
+  return list[day % list.length] ?? list[0]!;
 }

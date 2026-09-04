@@ -16,6 +16,7 @@ import { Toaster } from "../components/ui/sonner";
 import { registerServiceWorker } from "../lib/pwa";
 import { ThemeProvider } from "../lib/theme";
 import { AuthProvider } from "../lib/auth";
+import { InstallPrompt } from "../components/InstallPrompt";
 
 function NotFoundComponent() {
   return (
@@ -142,6 +143,7 @@ function RootComponent() {
           <AuthProvider>
             {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
             <Outlet />
+            <InstallPrompt />
             <Toaster position="top-center" />
           </AuthProvider>
         </StoreProvider>
