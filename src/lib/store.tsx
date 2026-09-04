@@ -177,20 +177,27 @@ function seedState(): AppState {
   const focusLog: Record<string, number> = {};
   const moods: Mood[] = ["motivated", "focused", "stressed", "happy", "low-energy", "focused"];
 
+  // Deterministic pseudo-random sample data so server and client render identically.
+  let seed = 20260904;
+  const rnd = () => {
+    seed = (seed * 1103515245 + 12345) % 2147483648;
+    return seed / 2147483648;
+  };
+
   dayKeysBack(21).forEach((key, i) => {
     const strength = 0.45 + ((i % 7) / 7) * 0.4 + (i > 13 ? 0.12 : 0);
-    routineLog[key] = routines.filter(() => Math.random() < strength).map((r) => r.id);
-    habitLog[key] = habits.filter(() => Math.random() < strength).map((h) => h.id);
+    routineLog[key] = routines.filter(() => rnd() < strength).map((r) => r.id);
+    habitLog[key] = habits.filter(() => rnd() < strength).map((h) => h.id);
     limitLog[key] = {
-      l1: Math.max(0, Math.round(6 - i * 0.15 - Math.random())),
-      l2: Math.random() < 0.25 ? 2 : 0,
-      l3: Math.random() < 0.3 ? 1 : 0,
-      l4: 20 + Math.round(Math.random() * 50),
+      l1: Math.max(0, Math.round(6 - i * 0.15 - rnd())),
+      l2: rnd() < 0.25 ? 2 : 0,
+      l3: rnd() < 0.3 ? 1 : 0,
+      l4: 20 + Math.round(rnd() * 50),
     };
     moodLog[key] = moods[i % moods.length] ?? "focused";
     focusLog[key] = [0, 25, 50, 75, 90, 50, 25][i % 7] ?? 0;
-
   });
+
 
   const today = todayKey();
   routineLog[today] = ["r1", "r2", "r3"];
