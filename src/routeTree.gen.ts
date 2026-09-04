@@ -16,6 +16,7 @@ import { Route as HabitsRouteImport } from './routes/habits'
 import { Route as LimitsRouteImport } from './routes/limits'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as PlansRouteImport } from './routes/plans'
+import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as ProgressRouteImport } from './routes/progress'
 import { Route as RoutineRouteImport } from './routes/routine'
 import { Route as UpgradeRouteImport } from './routes/upgrade'
@@ -55,6 +56,11 @@ const PlansRoute = PlansRouteImport.update({
   path: '/plans',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProgressRoute = ProgressRouteImport.update({
   id: '/progress',
   path: '/progress',
@@ -79,6 +85,7 @@ export interface FileRoutesByFullPath {
   '/limits': typeof LimitsRoute
   '/onboarding': typeof OnboardingRoute
   '/plans': typeof PlansRoute
+  '/profile': typeof ProfileRoute
   '/progress': typeof ProgressRoute
   '/routine': typeof RoutineRoute
   '/upgrade': typeof UpgradeRoute
@@ -91,6 +98,7 @@ export interface FileRoutesByTo {
   '/limits': typeof LimitsRoute
   '/onboarding': typeof OnboardingRoute
   '/plans': typeof PlansRoute
+  '/profile': typeof ProfileRoute
   '/progress': typeof ProgressRoute
   '/routine': typeof RoutineRoute
   '/upgrade': typeof UpgradeRoute
@@ -104,6 +112,7 @@ export interface FileRoutesById {
   '/limits': typeof LimitsRoute
   '/onboarding': typeof OnboardingRoute
   '/plans': typeof PlansRoute
+  '/profile': typeof ProfileRoute
   '/progress': typeof ProgressRoute
   '/routine': typeof RoutineRoute
   '/upgrade': typeof UpgradeRoute
@@ -118,6 +127,7 @@ export interface FileRouteTypes {
     | '/limits'
     | '/onboarding'
     | '/plans'
+    | '/profile'
     | '/progress'
     | '/routine'
     | '/upgrade'
@@ -130,6 +140,7 @@ export interface FileRouteTypes {
     | '/limits'
     | '/onboarding'
     | '/plans'
+    | '/profile'
     | '/progress'
     | '/routine'
     | '/upgrade'
@@ -142,6 +153,7 @@ export interface FileRouteTypes {
     | '/limits'
     | '/onboarding'
     | '/plans'
+    | '/profile'
     | '/progress'
     | '/routine'
     | '/upgrade'
@@ -155,6 +167,7 @@ export interface RootRouteChildren {
   LimitsRoute: typeof LimitsRoute
   OnboardingRoute: typeof OnboardingRoute
   PlansRoute: typeof PlansRoute
+  ProfileRoute: typeof ProfileRoute
   ProgressRoute: typeof ProgressRoute
   RoutineRoute: typeof RoutineRoute
   UpgradeRoute: typeof UpgradeRoute
@@ -211,6 +224,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlansRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/progress': {
       id: '/progress'
       path: '/progress'
@@ -243,6 +263,7 @@ const rootRouteChildren: RootRouteChildren = {
   LimitsRoute: LimitsRoute,
   OnboardingRoute: OnboardingRoute,
   PlansRoute: PlansRoute,
+  ProfileRoute: ProfileRoute,
   ProgressRoute: ProgressRoute,
   RoutineRoute: RoutineRoute,
   UpgradeRoute: UpgradeRoute,
