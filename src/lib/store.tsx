@@ -187,8 +187,9 @@ function seedState(): AppState {
       l3: Math.random() < 0.3 ? 1 : 0,
       l4: 20 + Math.round(Math.random() * 50),
     };
-    moodLog[key] = moods[i % moods.length];
-    focusLog[key] = [0, 25, 50, 75, 90, 50, 25][i % 7];
+    moodLog[key] = moods[i % moods.length] ?? "focused";
+    focusLog[key] = [0, 25, 50, 75, 90, 50, 25][i % 7] ?? 0;
+
   });
 
   const today = todayKey();
