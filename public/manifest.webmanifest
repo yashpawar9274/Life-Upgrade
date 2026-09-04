@@ -1,0 +1,17 @@
+{
+  "name": "LIFE UPGRADE — Personal Transformation Coach",
+  "short_name": "LIFE UPGRADE",
+  "description": "Build strong routines, track habits, reduce harmful habits gently, and move toward a confident, healthy, productive life.",
+  "start_url": "/",
+  "id": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0a0f1c",
+  "theme_color": "#0a0f1c",
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

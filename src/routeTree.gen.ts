@@ -16,6 +16,7 @@ import { Route as HabitsRouteImport } from './routes/habits'
 import { Route as LimitsRouteImport } from './routes/limits'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as PlansRouteImport } from './routes/plans'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as ProgressRouteImport } from './routes/progress'
 import { Route as RoutineRouteImport } from './routes/routine'
@@ -56,6 +57,11 @@ const PlansRoute = PlansRouteImport.update({
   path: '/plans',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProfileRoute = ProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
@@ -85,6 +91,7 @@ export interface FileRoutesByFullPath {
   '/limits': typeof LimitsRoute
   '/onboarding': typeof OnboardingRoute
   '/plans': typeof PlansRoute
+  '/privacy': typeof PrivacyRoute
   '/profile': typeof ProfileRoute
   '/progress': typeof ProgressRoute
   '/routine': typeof RoutineRoute
@@ -98,6 +105,7 @@ export interface FileRoutesByTo {
   '/limits': typeof LimitsRoute
   '/onboarding': typeof OnboardingRoute
   '/plans': typeof PlansRoute
+  '/privacy': typeof PrivacyRoute
   '/profile': typeof ProfileRoute
   '/progress': typeof ProgressRoute
   '/routine': typeof RoutineRoute
@@ -112,6 +120,7 @@ export interface FileRoutesById {
   '/limits': typeof LimitsRoute
   '/onboarding': typeof OnboardingRoute
   '/plans': typeof PlansRoute
+  '/privacy': typeof PrivacyRoute
   '/profile': typeof ProfileRoute
   '/progress': typeof ProgressRoute
   '/routine': typeof RoutineRoute
@@ -127,6 +136,7 @@ export interface FileRouteTypes {
     | '/limits'
     | '/onboarding'
     | '/plans'
+    | '/privacy'
     | '/profile'
     | '/progress'
     | '/routine'
@@ -140,6 +150,7 @@ export interface FileRouteTypes {
     | '/limits'
     | '/onboarding'
     | '/plans'
+    | '/privacy'
     | '/profile'
     | '/progress'
     | '/routine'
@@ -153,6 +164,7 @@ export interface FileRouteTypes {
     | '/limits'
     | '/onboarding'
     | '/plans'
+    | '/privacy'
     | '/profile'
     | '/progress'
     | '/routine'
@@ -167,6 +179,7 @@ export interface RootRouteChildren {
   LimitsRoute: typeof LimitsRoute
   OnboardingRoute: typeof OnboardingRoute
   PlansRoute: typeof PlansRoute
+  PrivacyRoute: typeof PrivacyRoute
   ProfileRoute: typeof ProfileRoute
   ProgressRoute: typeof ProgressRoute
   RoutineRoute: typeof RoutineRoute
@@ -224,6 +237,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlansRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/profile': {
       id: '/profile'
       path: '/profile'
@@ -263,6 +283,7 @@ const rootRouteChildren: RootRouteChildren = {
   LimitsRoute: LimitsRoute,
   OnboardingRoute: OnboardingRoute,
   PlansRoute: PlansRoute,
+  PrivacyRoute: PrivacyRoute,
   ProfileRoute: ProfileRoute,
   ProgressRoute: ProgressRoute,
   RoutineRoute: RoutineRoute,
