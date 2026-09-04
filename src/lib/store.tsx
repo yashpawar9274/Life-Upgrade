@@ -412,5 +412,5 @@ export function weeklyStats(s: AppState) {
 
 export function motivationOfDay(): string {
   const day = Math.floor(Date.now() / 86400000);
-  return MOTIVATIONS[day % MOTIVATIONS.length];
+  return MOTIVATIONS[day % MOTIVATIONS.length] ?? MOTIVATIONS[0]!;
 }
