@@ -14,6 +14,8 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { StoreProvider } from "../lib/store";
 import { Toaster } from "../components/ui/sonner";
 import { registerServiceWorker } from "../lib/pwa";
+import { ThemeProvider } from "../lib/theme";
+import { AuthProvider } from "../lib/auth";
 
 function NotFoundComponent() {
   return (
@@ -84,7 +86,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content:
           "width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no",
       },
-      { name: "theme-color", content: "#0a0f1c" },
+      { name: "theme-color", content: "#ffffff" },
       { name: "apple-mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
       { name: "apple-mobile-web-app-title", content: "LIFE UPGRADE" },
@@ -114,7 +116,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <head>
         <HeadContent />
       </head>
@@ -135,11 +137,15 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <StoreProvider>
-        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-        <Outlet />
-        <Toaster position="top-center" />
-      </StoreProvider>
+      <ThemeProvider>
+        <StoreProvider>
+          <AuthProvider>
+            {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+            <Outlet />
+            <Toaster position="top-center" />
+          </AuthProvider>
+        </StoreProvider>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }

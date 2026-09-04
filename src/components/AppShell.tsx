@@ -3,6 +3,7 @@ import { ChevronLeft } from "lucide-react";
 import type { ReactNode } from "react";
 
 import { BottomNav } from "./BottomNav";
+import { ThemeToggle } from "./ThemeToggle";
 
 export function AppShell({
   title,
@@ -34,6 +35,7 @@ export function AppShell({
             <h1 className="truncate text-2xl font-semibold">{title}</h1>
             {subtitle ? <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p> : null}
           </div>
+          <ThemeToggle />
           {action}
         </header>
         <main className="animate-rise space-y-4">{children}</main>

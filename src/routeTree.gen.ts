@@ -10,127 +10,153 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as CoachRouteImport } from './routes/coach'
-import { Route as FocusRouteImport } from './routes/focus'
-import { Route as HabitsRouteImport } from './routes/habits'
-import { Route as LimitsRouteImport } from './routes/limits'
-import { Route as OnboardingRouteImport } from './routes/onboarding'
-import { Route as PlansRouteImport } from './routes/plans'
-import { Route as PrivacyRouteImport } from './routes/privacy'
-import { Route as ProfileRouteImport } from './routes/profile'
-import { Route as ProgressRouteImport } from './routes/progress'
-import { Route as RoutineRouteImport } from './routes/routine'
-import { Route as UpgradeRouteImport } from './routes/upgrade'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedCoachRouteImport } from './routes/_authenticated/coach'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedFocusRouteImport } from './routes/_authenticated/focus'
+import { Route as AuthenticatedHabitsRouteImport } from './routes/_authenticated/habits'
+import { Route as AuthenticatedLimitsRouteImport } from './routes/_authenticated/limits'
+import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authenticated/onboarding'
+import { Route as AuthenticatedPlansRouteImport } from './routes/_authenticated/plans'
+import { Route as AuthenticatedPrivacyRouteImport } from './routes/_authenticated/privacy'
+import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
+import { Route as AuthenticatedProgressRouteImport } from './routes/_authenticated/progress'
+import { Route as AuthenticatedRoutineRouteImport } from './routes/_authenticated/routine'
+import { Route as AuthenticatedUpgradeRouteImport } from './routes/_authenticated/upgrade'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CoachRoute = CoachRouteImport.update({
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedCoachRoute = AuthenticatedCoachRouteImport.update({
   id: '/coach',
   path: '/coach',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const FocusRoute = FocusRouteImport.update({
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedFocusRoute = AuthenticatedFocusRouteImport.update({
   id: '/focus',
   path: '/focus',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const HabitsRoute = HabitsRouteImport.update({
+const AuthenticatedHabitsRoute = AuthenticatedHabitsRouteImport.update({
   id: '/habits',
   path: '/habits',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const LimitsRoute = LimitsRouteImport.update({
+const AuthenticatedLimitsRoute = AuthenticatedLimitsRouteImport.update({
   id: '/limits',
   path: '/limits',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const OnboardingRoute = OnboardingRouteImport.update({
+const AuthenticatedOnboardingRoute = AuthenticatedOnboardingRouteImport.update({
   id: '/onboarding',
   path: '/onboarding',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const PlansRoute = PlansRouteImport.update({
+const AuthenticatedPlansRoute = AuthenticatedPlansRouteImport.update({
   id: '/plans',
   path: '/plans',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const PrivacyRoute = PrivacyRouteImport.update({
+const AuthenticatedPrivacyRoute = AuthenticatedPrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const ProfileRoute = ProfileRouteImport.update({
+const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const ProgressRoute = ProgressRouteImport.update({
+const AuthenticatedProgressRoute = AuthenticatedProgressRouteImport.update({
   id: '/progress',
   path: '/progress',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const RoutineRoute = RoutineRouteImport.update({
+const AuthenticatedRoutineRoute = AuthenticatedRoutineRouteImport.update({
   id: '/routine',
   path: '/routine',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const UpgradeRoute = UpgradeRouteImport.update({
+const AuthenticatedUpgradeRoute = AuthenticatedUpgradeRouteImport.update({
   id: '/upgrade',
   path: '/upgrade',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/coach': typeof CoachRoute
-  '/focus': typeof FocusRoute
-  '/habits': typeof HabitsRoute
-  '/limits': typeof LimitsRoute
-  '/onboarding': typeof OnboardingRoute
-  '/plans': typeof PlansRoute
-  '/privacy': typeof PrivacyRoute
-  '/profile': typeof ProfileRoute
-  '/progress': typeof ProgressRoute
-  '/routine': typeof RoutineRoute
-  '/upgrade': typeof UpgradeRoute
+  '/auth': typeof AuthRoute
+  '/coach': typeof AuthenticatedCoachRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/focus': typeof AuthenticatedFocusRoute
+  '/habits': typeof AuthenticatedHabitsRoute
+  '/limits': typeof AuthenticatedLimitsRoute
+  '/onboarding': typeof AuthenticatedOnboardingRoute
+  '/plans': typeof AuthenticatedPlansRoute
+  '/privacy': typeof AuthenticatedPrivacyRoute
+  '/profile': typeof AuthenticatedProfileRoute
+  '/progress': typeof AuthenticatedProgressRoute
+  '/routine': typeof AuthenticatedRoutineRoute
+  '/upgrade': typeof AuthenticatedUpgradeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/coach': typeof CoachRoute
-  '/focus': typeof FocusRoute
-  '/habits': typeof HabitsRoute
-  '/limits': typeof LimitsRoute
-  '/onboarding': typeof OnboardingRoute
-  '/plans': typeof PlansRoute
-  '/privacy': typeof PrivacyRoute
-  '/profile': typeof ProfileRoute
-  '/progress': typeof ProgressRoute
-  '/routine': typeof RoutineRoute
-  '/upgrade': typeof UpgradeRoute
+  '/auth': typeof AuthRoute
+  '/coach': typeof AuthenticatedCoachRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/focus': typeof AuthenticatedFocusRoute
+  '/habits': typeof AuthenticatedHabitsRoute
+  '/limits': typeof AuthenticatedLimitsRoute
+  '/onboarding': typeof AuthenticatedOnboardingRoute
+  '/plans': typeof AuthenticatedPlansRoute
+  '/privacy': typeof AuthenticatedPrivacyRoute
+  '/profile': typeof AuthenticatedProfileRoute
+  '/progress': typeof AuthenticatedProgressRoute
+  '/routine': typeof AuthenticatedRoutineRoute
+  '/upgrade': typeof AuthenticatedUpgradeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/coach': typeof CoachRoute
-  '/focus': typeof FocusRoute
-  '/habits': typeof HabitsRoute
-  '/limits': typeof LimitsRoute
-  '/onboarding': typeof OnboardingRoute
-  '/plans': typeof PlansRoute
-  '/privacy': typeof PrivacyRoute
-  '/profile': typeof ProfileRoute
-  '/progress': typeof ProgressRoute
-  '/routine': typeof RoutineRoute
-  '/upgrade': typeof UpgradeRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/_authenticated/coach': typeof AuthenticatedCoachRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/focus': typeof AuthenticatedFocusRoute
+  '/_authenticated/habits': typeof AuthenticatedHabitsRoute
+  '/_authenticated/limits': typeof AuthenticatedLimitsRoute
+  '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
+  '/_authenticated/plans': typeof AuthenticatedPlansRoute
+  '/_authenticated/privacy': typeof AuthenticatedPrivacyRoute
+  '/_authenticated/profile': typeof AuthenticatedProfileRoute
+  '/_authenticated/progress': typeof AuthenticatedProgressRoute
+  '/_authenticated/routine': typeof AuthenticatedRoutineRoute
+  '/_authenticated/upgrade': typeof AuthenticatedUpgradeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/auth'
     | '/coach'
+    | '/dashboard'
     | '/focus'
     | '/habits'
     | '/limits'
@@ -144,7 +170,9 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/auth'
     | '/coach'
+    | '/dashboard'
     | '/focus'
     | '/habits'
     | '/limits'
@@ -158,32 +186,26 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/coach'
-    | '/focus'
-    | '/habits'
-    | '/limits'
-    | '/onboarding'
-    | '/plans'
-    | '/privacy'
-    | '/profile'
-    | '/progress'
-    | '/routine'
-    | '/upgrade'
+    | '/_authenticated'
+    | '/auth'
+    | '/_authenticated/coach'
+    | '/_authenticated/dashboard'
+    | '/_authenticated/focus'
+    | '/_authenticated/habits'
+    | '/_authenticated/limits'
+    | '/_authenticated/onboarding'
+    | '/_authenticated/plans'
+    | '/_authenticated/privacy'
+    | '/_authenticated/profile'
+    | '/_authenticated/progress'
+    | '/_authenticated/routine'
+    | '/_authenticated/upgrade'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  CoachRoute: typeof CoachRoute
-  FocusRoute: typeof FocusRoute
-  HabitsRoute: typeof HabitsRoute
-  LimitsRoute: typeof LimitsRoute
-  OnboardingRoute: typeof OnboardingRoute
-  PlansRoute: typeof PlansRoute
-  PrivacyRoute: typeof PrivacyRoute
-  ProfileRoute: typeof ProfileRoute
-  ProgressRoute: typeof ProgressRoute
-  RoutineRoute: typeof RoutineRoute
-  UpgradeRoute: typeof UpgradeRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -195,99 +217,144 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/coach': {
-      id: '/coach'
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/coach': {
+      id: '/_authenticated/coach'
       path: '/coach'
       fullPath: '/coach'
-      preLoaderRoute: typeof CoachRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedCoachRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/focus': {
-      id: '/focus'
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/focus': {
+      id: '/_authenticated/focus'
       path: '/focus'
       fullPath: '/focus'
-      preLoaderRoute: typeof FocusRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedFocusRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/habits': {
-      id: '/habits'
+    '/_authenticated/habits': {
+      id: '/_authenticated/habits'
       path: '/habits'
       fullPath: '/habits'
-      preLoaderRoute: typeof HabitsRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedHabitsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/limits': {
-      id: '/limits'
+    '/_authenticated/limits': {
+      id: '/_authenticated/limits'
       path: '/limits'
       fullPath: '/limits'
-      preLoaderRoute: typeof LimitsRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedLimitsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/onboarding': {
-      id: '/onboarding'
+    '/_authenticated/onboarding': {
+      id: '/_authenticated/onboarding'
       path: '/onboarding'
       fullPath: '/onboarding'
-      preLoaderRoute: typeof OnboardingRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedOnboardingRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/plans': {
-      id: '/plans'
+    '/_authenticated/plans': {
+      id: '/_authenticated/plans'
       path: '/plans'
       fullPath: '/plans'
-      preLoaderRoute: typeof PlansRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedPlansRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/privacy': {
-      id: '/privacy'
+    '/_authenticated/privacy': {
+      id: '/_authenticated/privacy'
       path: '/privacy'
       fullPath: '/privacy'
-      preLoaderRoute: typeof PrivacyRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedPrivacyRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/profile': {
-      id: '/profile'
+    '/_authenticated/profile': {
+      id: '/_authenticated/profile'
       path: '/profile'
       fullPath: '/profile'
-      preLoaderRoute: typeof ProfileRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedProfileRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/progress': {
-      id: '/progress'
+    '/_authenticated/progress': {
+      id: '/_authenticated/progress'
       path: '/progress'
       fullPath: '/progress'
-      preLoaderRoute: typeof ProgressRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedProgressRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/routine': {
-      id: '/routine'
+    '/_authenticated/routine': {
+      id: '/_authenticated/routine'
       path: '/routine'
       fullPath: '/routine'
-      preLoaderRoute: typeof RoutineRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedRoutineRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/upgrade': {
-      id: '/upgrade'
+    '/_authenticated/upgrade': {
+      id: '/_authenticated/upgrade'
       path: '/upgrade'
       fullPath: '/upgrade'
-      preLoaderRoute: typeof UpgradeRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedUpgradeRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedCoachRoute: typeof AuthenticatedCoachRoute
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedFocusRoute: typeof AuthenticatedFocusRoute
+  AuthenticatedHabitsRoute: typeof AuthenticatedHabitsRoute
+  AuthenticatedLimitsRoute: typeof AuthenticatedLimitsRoute
+  AuthenticatedOnboardingRoute: typeof AuthenticatedOnboardingRoute
+  AuthenticatedPlansRoute: typeof AuthenticatedPlansRoute
+  AuthenticatedPrivacyRoute: typeof AuthenticatedPrivacyRoute
+  AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
+  AuthenticatedProgressRoute: typeof AuthenticatedProgressRoute
+  AuthenticatedRoutineRoute: typeof AuthenticatedRoutineRoute
+  AuthenticatedUpgradeRoute: typeof AuthenticatedUpgradeRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedCoachRoute: AuthenticatedCoachRoute,
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedFocusRoute: AuthenticatedFocusRoute,
+  AuthenticatedHabitsRoute: AuthenticatedHabitsRoute,
+  AuthenticatedLimitsRoute: AuthenticatedLimitsRoute,
+  AuthenticatedOnboardingRoute: AuthenticatedOnboardingRoute,
+  AuthenticatedPlansRoute: AuthenticatedPlansRoute,
+  AuthenticatedPrivacyRoute: AuthenticatedPrivacyRoute,
+  AuthenticatedProfileRoute: AuthenticatedProfileRoute,
+  AuthenticatedProgressRoute: AuthenticatedProgressRoute,
+  AuthenticatedRoutineRoute: AuthenticatedRoutineRoute,
+  AuthenticatedUpgradeRoute: AuthenticatedUpgradeRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  CoachRoute: CoachRoute,
-  FocusRoute: FocusRoute,
-  HabitsRoute: HabitsRoute,
-  LimitsRoute: LimitsRoute,
-  OnboardingRoute: OnboardingRoute,
-  PlansRoute: PlansRoute,
-  PrivacyRoute: PrivacyRoute,
-  ProfileRoute: ProfileRoute,
-  ProgressRoute: ProgressRoute,
-  RoutineRoute: RoutineRoute,
-  UpgradeRoute: UpgradeRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
