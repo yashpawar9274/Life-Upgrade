@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-type Body = { text?: unknown; language?: unknown };
+type Body = { text?: unknown; language?: unknown; speed?: unknown };
 
 export const Route = createFileRoute("/api/tts")({
   server: {
@@ -9,13 +9,14 @@ export const Route = createFileRoute("/api/tts")({
         const apiKey = process.env["LOVABLE_API_KEY"];
         if (!apiKey) return new Response("Voice coach is not configured", { status: 500 });
 
-        const { text, language } = (await request.json()) as Body;
+        const { text, language, speed } = (await request.json()) as Body;
         if (typeof text !== "string" || !text.trim()) {
           return new Response("Text is required", { status: 400 });
         }
 
         const lang = language === "hindi" ? "Hindi" : language === "hinglish" ? "Hinglish" : "English";
         const input = text.slice(0, 3500);
+        const rate = typeof speed === "number" && speed >= 0.7 && speed <= 1.4 ? speed : 1;
 
         const res = await fetch("https://ai.gateway.lovable.dev/v1/audio/speech", {
           method: "POST",
@@ -25,9 +26,11 @@ export const Route = createFileRoute("/api/tts")({
             input,
             voice: "alloy",
             response_format: "mp3",
+            speed: rate,
             instructions: `Speak in ${lang} as a warm, calm, encouraging personal life coach. Natural pacing, never robotic, never shaming.`,
           }),
         });
+
 
         if (!res.ok) {
           const body = await res.text().catch(() => "");
