@@ -15,6 +15,13 @@
       "when": 1788518228730,
       "tag": "0001_life_upgrade_cloud_sync",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1788585266334,
+      "tag": "0002_add_voice_settings_and_sessions",
+      "breakpoints": true
     }
   ]
 }

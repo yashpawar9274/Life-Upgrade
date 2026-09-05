@@ -99,6 +99,8 @@ export type Database = {
           routines: Json
           updated_at: string
           user_id: string
+          voice_sessions: Json
+          voice_settings: Json
         }
         Insert: {
           chat?: Json
@@ -109,6 +111,8 @@ export type Database = {
           routines?: Json
           updated_at?: string
           user_id: string
+          voice_sessions?: Json
+          voice_settings?: Json
         }
         Update: {
           chat?: Json
@@ -119,6 +123,8 @@ export type Database = {
           routines?: Json
           updated_at?: string
           user_id?: string
+          voice_sessions?: Json
+          voice_settings?: Json
         }
         Relationships: []
       }
