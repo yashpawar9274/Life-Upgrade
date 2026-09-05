@@ -1,6 +1,17 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Crown, Download, Flame, Lock, TrendingUp } from "lucide-react";
 import { toast } from "sonner";
+import {
+  Area,
+  AreaChart,
+  CartesianGrid,
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 
 import { AppShell, Card, Disclaimer, SectionTitle } from "@/components/AppShell";
 import {
@@ -12,7 +23,37 @@ import {
   streak,
   useStore,
   weeklyStats,
+  type AppState,
+  type Mood,
 } from "@/lib/store";
+
+const MOOD_SCORE: Record<Mood, number> = {
+  motivated: 5,
+  happy: 4,
+  focused: 3,
+  "low-energy": 2,
+  stressed: 1,
+  anxious: 1,
+};
+
+/** Streak length as it stood at the end of each day, plus adherence and mood. */
+function buildTrend(state: AppState, keys: string[]) {
+  let running = 0;
+  return keys.map((key) => {
+    const score = dayScore(state, key);
+    running = score >= 50 ? running + 1 : 0;
+    const mood = state.moodLog[key];
+    return {
+      key,
+      label: new Date(key).toLocaleDateString(undefined, { day: "numeric", month: "short" }),
+      score,
+      streak: running,
+      mood: mood ? MOOD_SCORE[mood] : null,
+      moodLabel: mood ? (MOODS.find((m) => m.key === mood)?.label ?? mood) : "Not logged",
+    };
+  });
+}
+
 
 export const Route = createFileRoute("/_authenticated/progress")({
   head: () => ({
