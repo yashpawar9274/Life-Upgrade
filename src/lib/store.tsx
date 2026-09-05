@@ -40,6 +40,33 @@ export type Limit = {
 
 export type ChatMessage = { id: string; role: "user" | "assistant"; content: string; at: number };
 
+/** Premium voice-mode controls. */
+export type VoiceSettings = {
+  /** 1 (only clear speech) … 10 (picks up quiet speech). */
+  sensitivity: number;
+  /** Playback rate for the coach's voice, 0.7 – 1.4. */
+  speed: number;
+  /** Stop listening after this many silent seconds. 0 = never auto-stop. */
+  autoStopSeconds: number;
+  /** Keep the conversation alive (audio + lock-screen controls) when the app is in the background. */
+  backgroundMode: boolean;
+  /** Automatically save every voice conversation to history. */
+  autoSaveSessions: boolean;
+};
+
+export type VoiceTurn = { role: "user" | "assistant"; content: string; at: number };
+
+export type VoiceSession = {
+  id: string;
+  title: string;
+  startedAt: number;
+  endedAt: number;
+  language: Profile["language"];
+  turns: VoiceTurn[];
+  notes?: string;
+};
+
+
 export type Profile = {
   name: string;
   plan: Plan;
@@ -73,7 +100,10 @@ export type AppState = {
   /** roadmap step key -> done */
   roadmap: Record<string, boolean>;
   chat: ChatMessage[];
+  voice: VoiceSettings;
+  voiceSessions: VoiceSession[];
   seenSplash: boolean;
+
 };
 
 export const GOAL_OPTIONS = [
@@ -168,7 +198,16 @@ const DEFAULT_LIMITS: Limit[] = [
   { id: "l4", name: "Doom scrolling", unit: "minutes", dailyLimit: 45, goal: "Under 30 min/day" },
 ];
 
+export const DEFAULT_VOICE: VoiceSettings = {
+  sensitivity: 6,
+  speed: 1,
+  autoStopSeconds: 8,
+  backgroundMode: true,
+  autoSaveSessions: true,
+};
+
 /** A brand-new account: starter templates, zero history. */
+
 export function freshState(): AppState {
   return {
     profile: {
@@ -195,7 +234,10 @@ export function freshState(): AppState {
     focusLog: {},
     roadmap: {},
     chat: [],
+    voice: { ...DEFAULT_VOICE },
+    voiceSessions: [],
     seenSplash: false,
+
   };
 }
 
@@ -221,6 +263,11 @@ type Store = {
   toggleRoadmapStep: (key: string) => void;
   pushChat: (m: Omit<ChatMessage, "id" | "at">) => void;
   clearChat: () => void;
+  setVoiceSettings: (patch: Partial<VoiceSettings>) => void;
+  saveVoiceSession: (session: VoiceSession) => void;
+  updateVoiceSession: (id: string, patch: Partial<VoiceSession>) => void;
+  removeVoiceSession: (id: string) => void;
+
   resetAll: () => void;
   wipeData: () => void;
 };
@@ -234,7 +281,16 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) setState({ ...freshState(), ...(JSON.parse(raw) as AppState) });
+      if (raw) {
+        const saved = JSON.parse(raw) as Partial<AppState>;
+        setState({
+          ...freshState(),
+          ...saved,
+          voice: { ...DEFAULT_VOICE, ...(saved.voice ?? {}) },
+          voiceSessions: saved.voiceSessions ?? [],
+        });
+      }
+
       // Drop the old sample-data era store so everybody starts fresh.
       localStorage.removeItem("life-upgrade-state-v1");
     } catch {
@@ -306,6 +362,21 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       pushChat: (m) =>
         update((s) => ({ ...s, chat: [...s.chat, { ...m, id: uid(), at: Date.now() }] })),
       clearChat: () => update((s) => ({ ...s, chat: [] })),
+      setVoiceSettings: (patch) =>
+        update((s) => ({ ...s, voice: { ...DEFAULT_VOICE, ...s.voice, ...patch } })),
+      saveVoiceSession: (session) =>
+        update((s) => ({
+          ...s,
+          voiceSessions: [session, ...s.voiceSessions.filter((v) => v.id !== session.id)].slice(0, 60),
+        })),
+      updateVoiceSession: (id, patch) =>
+        update((s) => ({
+          ...s,
+          voiceSessions: s.voiceSessions.map((v) => (v.id === id ? { ...v, ...patch } : v)),
+        })),
+      removeVoiceSession: (id) =>
+        update((s) => ({ ...s, voiceSessions: s.voiceSessions.filter((v) => v.id !== id) })),
+
       resetAll: () =>
         setState((s) => ({
           ...freshState(),

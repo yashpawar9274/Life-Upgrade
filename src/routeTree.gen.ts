@@ -25,6 +25,7 @@ import { Route as AuthenticatedProgressRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedRoadmapRouteImport } from './routes/_authenticated/roadmap'
 import { Route as AuthenticatedRoutineRouteImport } from './routes/_authenticated/routine'
 import { Route as AuthenticatedUpgradeRouteImport } from './routes/_authenticated/upgrade'
+import { Route as AuthenticatedVoiceLogRouteImport } from './routes/_authenticated/voice-log'
 import { Route as ApiTtsRouteImport } from './routes/api/tts'
 
 const IndexRoute = IndexRouteImport.update({
@@ -106,6 +107,11 @@ const AuthenticatedUpgradeRoute = AuthenticatedUpgradeRouteImport.update({
   path: '/upgrade',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedVoiceLogRoute = AuthenticatedVoiceLogRouteImport.update({
+  id: '/voice-log',
+  path: '/voice-log',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const ApiTtsRoute = ApiTtsRouteImport.update({
   id: '/api/tts',
   path: '/api/tts',
@@ -128,6 +134,7 @@ export interface FileRoutesByFullPath {
   '/roadmap': typeof AuthenticatedRoadmapRoute
   '/routine': typeof AuthenticatedRoutineRoute
   '/upgrade': typeof AuthenticatedUpgradeRoute
+  '/voice-log': typeof AuthenticatedVoiceLogRoute
   '/api/tts': typeof ApiTtsRoute
 }
 export interface FileRoutesByTo {
@@ -146,6 +153,7 @@ export interface FileRoutesByTo {
   '/roadmap': typeof AuthenticatedRoadmapRoute
   '/routine': typeof AuthenticatedRoutineRoute
   '/upgrade': typeof AuthenticatedUpgradeRoute
+  '/voice-log': typeof AuthenticatedVoiceLogRoute
   '/api/tts': typeof ApiTtsRoute
 }
 export interface FileRoutesById {
@@ -166,6 +174,7 @@ export interface FileRoutesById {
   '/_authenticated/roadmap': typeof AuthenticatedRoadmapRoute
   '/_authenticated/routine': typeof AuthenticatedRoutineRoute
   '/_authenticated/upgrade': typeof AuthenticatedUpgradeRoute
+  '/_authenticated/voice-log': typeof AuthenticatedVoiceLogRoute
   '/api/tts': typeof ApiTtsRoute
 }
 export interface FileRouteTypes {
@@ -186,6 +195,7 @@ export interface FileRouteTypes {
     | '/roadmap'
     | '/routine'
     | '/upgrade'
+    | '/voice-log'
     | '/api/tts'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -204,6 +214,7 @@ export interface FileRouteTypes {
     | '/roadmap'
     | '/routine'
     | '/upgrade'
+    | '/voice-log'
     | '/api/tts'
   id:
     | '__root__'
@@ -223,6 +234,7 @@ export interface FileRouteTypes {
     | '/_authenticated/roadmap'
     | '/_authenticated/routine'
     | '/_authenticated/upgrade'
+    | '/_authenticated/voice-log'
     | '/api/tts'
   fileRoutesById: FileRoutesById
 }
@@ -347,6 +359,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedUpgradeRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/voice-log': {
+      id: '/_authenticated/voice-log'
+      path: '/voice-log'
+      fullPath: '/voice-log'
+      preLoaderRoute: typeof AuthenticatedVoiceLogRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/api/tts': {
       id: '/api/tts'
       path: '/api/tts'
@@ -371,6 +390,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedRoadmapRoute: typeof AuthenticatedRoadmapRoute
   AuthenticatedRoutineRoute: typeof AuthenticatedRoutineRoute
   AuthenticatedUpgradeRoute: typeof AuthenticatedUpgradeRoute
+  AuthenticatedVoiceLogRoute: typeof AuthenticatedVoiceLogRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -387,6 +407,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedRoadmapRoute: AuthenticatedRoadmapRoute,
   AuthenticatedRoutineRoute: AuthenticatedRoutineRoute,
   AuthenticatedUpgradeRoute: AuthenticatedUpgradeRoute,
+  AuthenticatedVoiceLogRoute: AuthenticatedVoiceLogRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =

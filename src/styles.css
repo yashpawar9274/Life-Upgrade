@@ -173,17 +173,26 @@
   html {
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
-    overflow-x: hidden;
+    overflow-x: clip;
+    overflow-y: auto;
+    height: auto;
+    scroll-behavior: smooth;
   }
 
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
-    overflow-x: hidden;
-    overscroll-behavior-y: none;
+    min-height: 100dvh;
+    height: auto;
+    overflow-x: clip;
+    overflow-y: visible;
+    overscroll-behavior-x: none;
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
     -webkit-tap-highlight-color: transparent;
   }
+
 
   h1,
   h2,
