@@ -78,6 +78,8 @@ function ProgressPage() {
   const days = streak(state);
   const level = levelFor(days);
   const heat = dayKeysBack(21);
+  const trend = buildTrend(state, heat);
+
   const premium = state.profile.plan === "premium";
 
   const exportReport = () => {
