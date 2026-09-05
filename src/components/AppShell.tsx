@@ -19,8 +19,9 @@ export function AppShell({
   action?: ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-background">
-      <div className="mx-auto w-full max-w-md px-4 pb-28 pt-[max(1rem,env(safe-area-inset-top))]">
+    <div className="min-h-dvh bg-background">
+      <div className="mx-auto w-full max-w-md px-4 pt-[max(1rem,env(safe-area-inset-top))] pb-[calc(7.5rem+env(safe-area-inset-bottom))]">
+
         <header className="mb-5 flex items-start gap-3">
           {backTo ? (
             <Link

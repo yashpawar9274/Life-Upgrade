@@ -281,7 +281,16 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) setState({ ...freshState(), ...(JSON.parse(raw) as AppState) });
+      if (raw) {
+        const saved = JSON.parse(raw) as Partial<AppState>;
+        setState({
+          ...freshState(),
+          ...saved,
+          voice: { ...DEFAULT_VOICE, ...(saved.voice ?? {}) },
+          voiceSessions: saved.voiceSessions ?? [],
+        });
+      }
+
       // Drop the old sample-data era store so everybody starts fresh.
       localStorage.removeItem("life-upgrade-state-v1");
     } catch {

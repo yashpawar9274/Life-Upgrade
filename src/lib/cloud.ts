@@ -1,5 +1,14 @@
 import { supabase } from "@/integrations/supabase/client";
-import type { AppState, Habit, Limit, Mood, Profile, RoutineItem } from "@/lib/store";
+import type {
+  AppState,
+  Habit,
+  Limit,
+  Mood,
+  Profile,
+  RoutineItem,
+  VoiceSession,
+  VoiceSettings,
+} from "@/lib/store";
 
 export type CloudSnapshot = Partial<
   Pick<
@@ -14,15 +23,18 @@ export type CloudSnapshot = Partial<
     | "limitLog"
     | "moodLog"
     | "focusLog"
+    | "voice"
+    | "voiceSessions"
   >
 >;
+
 
 /** Load everything the signed-in user has stored in the backend. */
 export async function loadCloudState(userId: string): Promise<CloudSnapshot | null> {
   const [{ data: config }, { data: logs }] = await Promise.all([
     supabase
       .from("user_config")
-      .select("profile, routines, habits, limits, roadmap")
+      .select("profile, routines, habits, limits, roadmap, voice_settings, voice_sessions")
       .eq("user_id", userId)
       .maybeSingle(),
     supabase
@@ -48,6 +60,11 @@ export async function loadCloudState(userId: string): Promise<CloudSnapshot | nu
     if (limits?.length) snapshot.limits = limits;
     const roadmap = config.roadmap as Record<string, boolean> | null;
     if (roadmap) snapshot.roadmap = roadmap;
+    const voice = config.voice_settings as Partial<VoiceSettings> | null;
+    if (voice && Object.keys(voice).length) snapshot.voice = voice as VoiceSettings;
+    const sessions = config.voice_sessions as VoiceSession[] | null;
+    if (Array.isArray(sessions) && sessions.length) snapshot.voiceSessions = sessions;
+
   }
 
   if (logs?.length) {
@@ -83,7 +100,10 @@ export async function saveCloudConfig(userId: string, state: AppState): Promise<
     habits: state.habits,
     limits: state.limits,
     roadmap: state.roadmap,
+    voice_settings: state.voice,
+    voice_sessions: state.voiceSessions,
     updated_at: new Date().toISOString(),
+
   });
 }
 
