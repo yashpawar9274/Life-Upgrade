@@ -89,6 +89,63 @@ export type Database = {
         }
         Relationships: []
       }
+      subscriptions: {
+        Row: {
+          amount: number
+          cancelled_at: string | null
+          cashfree_order_id: string | null
+          cashfree_payment_id: string | null
+          cashfree_subscription_id: string | null
+          created_at: string
+          currency: string
+          current_period_end: string | null
+          email: string | null
+          id: string
+          interval: string
+          plan_code: string
+          provider: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          cancelled_at?: string | null
+          cashfree_order_id?: string | null
+          cashfree_payment_id?: string | null
+          cashfree_subscription_id?: string | null
+          created_at?: string
+          currency?: string
+          current_period_end?: string | null
+          email?: string | null
+          id?: string
+          interval: string
+          plan_code: string
+          provider?: string
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          cancelled_at?: string | null
+          cashfree_order_id?: string | null
+          cashfree_payment_id?: string | null
+          cashfree_subscription_id?: string | null
+          created_at?: string
+          currency?: string
+          current_period_end?: string | null
+          email?: string | null
+          id?: string
+          interval?: string
+          plan_code?: string
+          provider?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_config: {
         Row: {
           chat: Json
