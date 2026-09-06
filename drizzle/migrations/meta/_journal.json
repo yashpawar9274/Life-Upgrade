@@ -22,6 +22,13 @@
       "when": 1788585266334,
       "tag": "0002_add_voice_settings_and_sessions",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1788683246092,
+      "tag": "0003_create_subscriptions_cashfree",
+      "breakpoints": true
     }
   ]
 }
