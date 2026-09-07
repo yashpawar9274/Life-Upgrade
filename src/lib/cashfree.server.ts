@@ -8,6 +8,18 @@ export function cashfreeCreds() {
   return { appId, secretKey };
 }
 
+/** Turns Cashfree account-level errors into something a user can act on. */
+export function friendlyCashfreeError(message?: string | null): string {
+  const raw = (message ?? "").trim();
+  if (/profile is inactive/i.test(raw)) {
+    return "Your Cashfree account is not activated for live payments yet. Finish KYC/activation in Cashfree (and enable Subscriptions for auto-renewing plans), then try again.";
+  }
+  if (/authentication|unauthorized|x-client/i.test(raw)) {
+    return "Cashfree rejected the API keys. Check that the live App ID and Secret Key are correct.";
+  }
+  return raw || "Cashfree could not process this request.";
+}
+
 async function call<T>(
   path: string,
   init: { method: "GET" | "POST"; body?: unknown },
@@ -56,7 +68,7 @@ export async function createOrder(input: {
     },
   });
   if (!res.ok || !res.data?.payment_session_id) {
-    throw new Error(res.data?.message ?? "Cashfree could not start this payment.");
+    throw new Error(friendlyCashfreeError(res.data?.message));
   }
   return res.data.payment_session_id;
 }
@@ -86,7 +98,7 @@ export async function ensurePlan(input: {
     },
   });
   if (!res.ok && !String(res.data?.message ?? "").toLowerCase().includes("already")) {
-    throw new Error(res.data?.message ?? "Cashfree could not create the subscription plan.");
+    throw new Error(friendlyCashfreeError(res.data?.message));
   }
 }
 
@@ -115,7 +127,7 @@ export async function createSubscription(input: {
     },
   });
   if (!res.ok || !res.data?.subscription_session_id) {
-    throw new Error(res.data?.message ?? "Cashfree could not start this subscription.");
+    throw new Error(friendlyCashfreeError(res.data?.message));
   }
   return res.data.subscription_session_id;
 }
