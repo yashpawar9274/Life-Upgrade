@@ -1,9 +1,11 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { Bell, Crown, MapPin, Shield, RefreshCw, ChevronRight } from "lucide-react";
+import { Bell, Crown, KeyRound, LogOut, MapPin, RefreshCw, Shield, UserCog, ChevronRight } from "lucide-react";
 import { toast } from "sonner";
 
+import { supabase } from "@/integrations/supabase/client";
 import { AppShell, Card, Disclaimer, SectionTitle } from "@/components/AppShell";
+import { useAuth } from "@/lib/auth";
 import { DISCLAIMER, GOAL_OPTIONS, useStore, type Profile as ProfileType } from "@/lib/store";
 
 export const Route = createFileRoute("/_authenticated/profile")({
@@ -49,6 +51,8 @@ function Toggle({
 
 function ProfilePage() {
   const { state, setProfile, resetAll } = useStore();
+  const { signOut, user } = useAuth();
+  const navigate = useNavigate();
   const p = state.profile;
   const [confirmReset, setConfirmReset] = useState(false);
 
@@ -56,6 +60,25 @@ function ProfilePage() {
     setProfile({
       goals: p.goals.includes(goal) ? p.goals.filter((g) => g !== goal) : [...p.goals, goal],
     });
+
+  const handleResetPassword = async () => {
+    const email = user?.email;
+    if (!email) {
+      toast.error("No account email found.");
+      return;
+    }
+
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/profile`,
+      });
+      if (error) throw error;
+      toast.success("Password reset email sent.");
+    } catch (error) {
+      console.error(error);
+      toast.error("Could not send reset email right now.");
+    }
+  };
 
   return (
     <AppShell title="Profile" subtitle="Your plan, your settings, your data">
@@ -80,6 +103,44 @@ function ProfilePage() {
         >
           <Crown className="h-3.5 w-3.5" aria-hidden /> {p.plan === "premium" ? "Manage" : "Upgrade"}
         </Link>
+      </Card>
+
+      <Card className="space-y-3">
+        <button
+          type="button"
+          onClick={() => navigate({ to: "/onboarding" })}
+          className="press flex w-full items-center justify-between gap-3 rounded-xl border border-border bg-elevated px-4 py-3 text-left text-sm font-medium"
+        >
+          <span className="flex items-center gap-3">
+            <UserCog className="h-4 w-4 text-primary" aria-hidden />
+            Manage Profile
+          </span>
+          <ChevronRight className="h-4 w-4 text-muted-foreground" aria-hidden />
+        </button>
+
+        <button
+          type="button"
+          onClick={() => void handleResetPassword()}
+          className="press flex w-full items-center justify-between gap-3 rounded-xl border border-border bg-elevated px-4 py-3 text-left text-sm font-medium"
+        >
+          <span className="flex items-center gap-3">
+            <KeyRound className="h-4 w-4 text-gold" aria-hidden />
+            Reset Password
+          </span>
+          <ChevronRight className="h-4 w-4 text-muted-foreground" aria-hidden />
+        </button>
+
+        <button
+          type="button"
+          onClick={() => void signOut().then(() => navigate({ to: "/auth" }))}
+          className="press flex w-full items-center justify-between gap-3 rounded-xl border border-destructive/40 bg-destructive/10 px-4 py-3 text-left text-sm font-semibold text-destructive"
+        >
+          <span className="flex items-center gap-3">
+            <LogOut className="h-4 w-4" aria-hidden />
+            Log Out
+          </span>
+          <ChevronRight className="h-4 w-4" aria-hidden />
+        </button>
       </Card>
 
       <SectionTitle>Your goals</SectionTitle>
