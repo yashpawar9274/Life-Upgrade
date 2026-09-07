@@ -109,8 +109,14 @@ function UpgradePage() {
   }, []);
 
   const pay = async () => {
-    if (!name.trim()) return toast.error("Add your name first.");
-    if (!/^[0-9]{10}$/.test(phone.trim())) return toast.error("Enter a 10-digit mobile number.");
+    if (!name.trim()) {
+      toast.error("Add your name first.");
+      return;
+    }
+    if (!/^[0-9]{10}$/.test(phone.trim())) {
+      toast.error("Enter a 10-digit mobile number.");
+      return;
+    }
     setBusy(true);
     try {
       const res = await start({
