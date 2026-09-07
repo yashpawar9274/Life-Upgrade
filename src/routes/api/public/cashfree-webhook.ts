@@ -57,7 +57,7 @@ export const Route = createFileRoute("/api/public/cashfree-webhook")({
           const nextPayment: string | undefined =
             d?.subscription?.next_payment_time ?? d?.next_payment_time;
 
-          const patch: Record<string, unknown> = {};
+          const patch: { status?: string; current_period_end?: string } = {};
           if (raw) patch["status"] = raw.toLowerCase();
           if (/NEW_PAYMENT|PAYMENT_SUCCESS/i.test(type)) patch["status"] = "active";
           if (nextPayment) patch["current_period_end"] = nextPayment;
