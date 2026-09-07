@@ -517,7 +517,7 @@ function CoachPage() {
   return (
     <AppShell
       title="LIFE AI COACH"
-      subtitle={`${t(lang, "coach.voice")}: ${voiceMode ? (hi ? "चालू" : "on") : hi ? "बंद" : "off"}`}
+      subtitle={voiceMode ? (hi ? "आवाज़ चालू है" : "Voice mode active") : hi ? "आवाज़ से बात करें" : "Talk by voice"}
       action={
         <div className="mt-1 flex gap-1.5">
           <button
@@ -537,16 +537,6 @@ function CoachPage() {
           >
             <History className="h-4 w-4" aria-hidden />
           </Link>
-          <button
-            onClick={() => void toggleVoiceMode()}
-            aria-pressed={voiceMode}
-            aria-label={t(lang, "coach.voice")}
-            className={`press rounded-full border p-2 ${
-              voiceMode ? "border-primary bg-primary/15 text-primary" : "border-border text-muted-foreground"
-            }`}
-          >
-            {voiceMode ? <Volume2 className="h-4 w-4" aria-hidden /> : <VolumeX className="h-4 w-4" aria-hidden />}
-          </button>
           {state.chat.length ? (
             <button
               onClick={() => {
@@ -562,58 +552,63 @@ function CoachPage() {
         </div>
       }
     >
-      {/* live status indicator */}
-      <div
-        role="status"
-        aria-live="polite"
-        className="surface flex items-center gap-3 px-3 py-2.5"
-      >
-        <span
-          className={`grid h-9 w-9 shrink-0 place-items-center rounded-full ${
-            status === "listening"
-              ? "bg-primary/20 text-primary"
-              : status === "speaking"
-                ? "bg-gold/20 text-gold"
-                : status === "background"
-                  ? "bg-muted text-muted-foreground"
-                  : "bg-elevated text-muted-foreground"
-          }`}
-        >
-          {status === "background" ? (
-            <MicOff className="h-4 w-4" aria-hidden />
-          ) : status === "speaking" ? (
-            <Volume2 className="h-4 w-4" aria-hidden />
-          ) : (
-            <Mic className="h-4 w-4" aria-hidden />
-          )}
-        </span>
-        <div className="min-w-0 flex-1">
-          <p className="truncate text-sm font-semibold">{statusLabel[status]}</p>
-          <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-muted">
+      <Card className="overflow-hidden border-primary/30 bg-gradient-to-br from-primary/10 via-background to-gold/10">
+        <div className="flex items-center justify-between gap-3">
+          <div>
+            <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Audio to audio</p>
+            <h2 className="mt-1 font-display text-xl font-semibold">Your coach is listening</h2>
+          </div>
+          <button
+            onClick={() => void toggleVoiceMode()}
+            aria-pressed={voiceMode}
+            className={`press grid h-12 w-12 place-items-center rounded-full border ${
+              voiceMode ? "border-primary bg-primary text-primary-foreground" : "border-border bg-elevated text-foreground"
+            }`}
+            aria-label={voiceMode ? (hi ? "कोच बंद करें" : "Stop coach") : hi ? "कोच शुरू करें" : "Start coach"}
+          >
+            {voiceMode ? <Volume2 className="h-5 w-5" aria-hidden /> : <Mic className="h-5 w-5" aria-hidden />}
+          </button>
+        </div>
+
+        <div className="mt-5 flex flex-col items-center justify-center text-center">
+          <button
+            onClick={() => (status === "listening" ? recRef.current?.stop?.() : void startVoice())}
+            className={`press grid h-28 w-28 place-items-center rounded-full border shadow-[0_0_30px_rgba(122,92,255,0.25)] transition-all ${
+              status === "listening"
+                ? "border-primary bg-primary text-primary-foreground scale-105"
+                : status === "speaking"
+                  ? "border-gold bg-gold/20 text-gold scale-105"
+                  : "border-border bg-elevated text-foreground"
+            }`}
+            aria-label={hi ? "माइक से बात करें" : "Talk with microphone"}
+          >
+            {status === "speaking" ? <Volume2 className="h-10 w-10" aria-hidden /> : <Mic className="h-10 w-10" aria-hidden />}
+          </button>
+
+          <p className="mt-4 text-sm font-medium text-muted-foreground">
+            {voiceMode
+              ? statusLabel[status]
+              : hi
+                ? "माइक दबाकर अपनी बात शुरू करें। कोच तुरंत जवाब देगा।"
+                : "Tap the mic and speak naturally. Your coach will answer in your voice."}
+          </p>
+
+          <div className="mt-4 h-2 w-full overflow-hidden rounded-full bg-muted">
             <div
-              className="h-full rounded-full bg-primary transition-[width] duration-100"
-              style={{ width: `${status === "listening" ? Math.max(4, level * 100) : status === "speaking" ? 100 : 4}%` }}
+              className="h-full rounded-full bg-primary transition-[width] duration-200"
+              style={{ width: `${status === "listening" ? Math.max(10, level * 100) : status === "speaking" ? 100 : 12}%` }}
             />
           </div>
         </div>
-        {status === "speaking" ? (
-          <button
-            onClick={stopAudio}
-            aria-label={hi ? "रोकें" : "Stop"}
-            className="press rounded-full border border-border p-2 text-muted-foreground"
-          >
-            <Square className="h-3.5 w-3.5" aria-hidden />
-          </button>
-        ) : null}
-      </div>
+      </Card>
 
       {micPermission === "denied" ? (
         <Card className="space-y-1">
           <p className="text-sm font-semibold">{hi ? "माइक्रोफ़ोन बंद है" : "Microphone is blocked"}</p>
           <p className="text-xs text-muted-foreground">
             {hi
-              ? "वॉइस बातचीत के लिए माइक की अनुमति ज़रूरी है। हम कभी बैकग्राउंड में चुपचाप रिकॉर्ड नहीं करते — माइक सिर्फ़ तब चलता है जब आप वॉइस मोड चालू करते हैं।"
-              : "Voice chat needs microphone access. We never record silently in the background — the mic only runs while you have voice mode on."}
+              ? "आवाज़ से बात करने के लिए माइक की अनुमति ज़रूरी है।"
+              : "Voice chat needs microphone access to work in audio-to-audio mode."}
           </p>
         </Card>
       ) : null}
@@ -621,15 +616,12 @@ function CoachPage() {
       {showSettings ? (
         <Card className="space-y-4">
           <p className="flex items-center gap-2 font-display text-sm font-semibold">
-            <Settings2 className="h-4 w-4 text-primary" aria-hidden />{" "}
-            {hi ? "वॉइस मोड सेटिंग" : "Voice mode settings"}
+            <Settings2 className="h-4 w-4 text-primary" aria-hidden /> {hi ? "वॉइस मोड सेटिंग" : "Voice mode settings"}
           </p>
 
           <label className="block space-y-1.5">
             <span className="flex items-center justify-between text-xs">
-              <span className="text-muted-foreground">
-                {hi ? "सुनने की संवेदनशीलता" : "Listening sensitivity"}
-              </span>
+              <span className="text-muted-foreground">{hi ? "सुनने की संवेदनशीलता" : "Listening sensitivity"}</span>
               <span className="font-semibold text-primary">{voice.sensitivity}/10</span>
             </span>
             <input
@@ -641,16 +633,11 @@ function CoachPage() {
               onChange={(e) => setVoiceSettings({ sensitivity: Number(e.target.value) })}
               className="w-full accent-[var(--primary)]"
             />
-            <span className="block text-[11px] text-muted-foreground">
-              {hi
-                ? "ऊँचा = धीमी आवाज़ भी पकड़ेगा (शोर वाली जगह पर कम रखें)।"
-                : "Higher picks up quieter speech; lower it in noisy places."}
-            </span>
           </label>
 
           <label className="block space-y-1.5">
             <span className="flex items-center justify-between text-xs">
-              <span className="text-muted-foreground">{hi ? "कोच की बोलने की गति" : "Coach speaking speed"}</span>
+              <span className="text-muted-foreground">{hi ? "बोलने की गति" : "Speaking speed"}</span>
               <span className="font-semibold text-primary">{voice.speed.toFixed(2)}×</span>
             </span>
             <input
@@ -666,10 +653,8 @@ function CoachPage() {
 
           <label className="block space-y-1.5">
             <span className="flex items-center justify-between text-xs">
-              <span className="text-muted-foreground">{hi ? "चुप्पी के बाद रुकना" : "Auto-stop after silence"}</span>
-              <span className="font-semibold text-primary">
-                {voice.autoStopSeconds ? `${voice.autoStopSeconds}s` : hi ? "कभी नहीं" : "Never"}
-              </span>
+              <span className="text-muted-foreground">{hi ? "साइलेंस बाद रुकना" : "Auto-stop after silence"}</span>
+              <span className="font-semibold text-primary">{voice.autoStopSeconds ? `${voice.autoStopSeconds}s` : hi ? "कभी नहीं" : "Never"}</span>
             </span>
             <input
               type="range"
@@ -681,52 +666,23 @@ function CoachPage() {
               className="w-full accent-[var(--primary)]"
             />
           </label>
-
-          {[
-            {
-              key: "backgroundMode" as const,
-              label: hi ? "बैकग्राउंड में चालू रखें" : "Keep going in the background",
-              hint: hi
-                ? "दूसरी ऐप खोलने पर जवाब बजता रहेगा और लॉक स्क्रीन से कंट्रोल मिलेगा; वापस आते ही सुनना फिर शुरू।"
-                : "Replies keep playing with lock-screen controls when you switch apps, and listening resumes when you come back.",
-              value: voice.backgroundMode,
-            },
-            {
-              key: "autoSaveSessions" as const,
-              label: hi ? "बातचीत इतिहास में सेव करें" : "Save conversations to history",
-              hint: hi ? "ट्रांसक्रिप्ट बाद में पढ़, बदल और दोबारा भेज सकते हैं।" : "Transcripts you can read, edit and reuse later.",
-              value: voice.autoSaveSessions,
-            },
-          ].map((row) => (
-            <button
-              key={row.key}
-              onClick={() => setVoiceSettings({ [row.key]: !row.value })}
-              aria-pressed={row.value}
-              className="press flex w-full items-start gap-3 rounded-xl bg-elevated p-3 text-left"
-            >
-              <span
-                className={`mt-0.5 h-5 w-9 shrink-0 rounded-full p-0.5 transition-colors ${
-                  row.value ? "bg-primary" : "bg-muted"
-                }`}
-              >
-                <span
-                  className={`block h-4 w-4 rounded-full bg-card transition-transform ${row.value ? "translate-x-4" : ""}`}
-                />
-              </span>
-              <span className="min-w-0">
-                <span className="block text-sm font-semibold">{row.label}</span>
-                <span className="block text-[11px] text-muted-foreground">{row.hint}</span>
-              </span>
-            </button>
-          ))}
         </Card>
       ) : null}
 
-      {state.chat.length === 0 && (
-        <Card className="space-y-3">
-          <p className="flex items-center gap-2 font-display text-sm font-semibold">
-            <Map className="h-4 w-4 text-gold" aria-hidden /> {hi ? "यहाँ से शुरू करें" : "Start here"}
-          </p>
+      <Card className="space-y-3">
+        <div className="flex items-center justify-between">
+          <p className="font-display text-sm font-semibold">{hi ? "हाल की बातचीत" : "Recent conversation"}</p>
+          {state.chat.length > 0 ? (
+            <button
+              onClick={() => clearChat()}
+              className="text-xs font-medium text-muted-foreground"
+            >
+              {hi ? "साफ़ करें" : "Clear"}
+            </button>
+          ) : null}
+        </div>
+
+        {state.chat.length === 0 ? (
           <div className="flex flex-wrap gap-2">
             {prompts.map((p) => (
               <button
@@ -738,53 +694,46 @@ function CoachPage() {
               </button>
             ))}
           </div>
-        </Card>
-      )}
-
-      <div className="space-y-3">
-        {state.chat.map((m) => (
-          <div key={m.id} className={m.role === "user" ? "flex justify-end" : "flex justify-start"}>
-            <div
-              className={`max-w-[88%] whitespace-pre-wrap rounded-2xl px-3.5 py-3 text-sm leading-relaxed ${
-                m.role === "user" ? "bg-primary/20 text-foreground" : "surface bg-card"
-              }`}
-            >
-              {m.content}
-              {m.role === "assistant" ? (
-                <button
-                  onClick={() => void speak(m.content)}
-                  aria-label="Play reply"
-                  className="press mt-2 flex items-center gap-1 text-xs font-semibold text-primary"
+        ) : (
+          <div className="space-y-2">
+            {state.chat.slice(-4).map((m) => (
+              <div key={m.id} className={m.role === "user" ? "text-right" : "text-left"}>
+                <div
+                  className={`inline-block max-w-[88%] rounded-2xl px-3 py-2 text-sm leading-relaxed ${
+                    m.role === "user" ? "bg-primary/20 text-foreground" : "border border-border bg-elevated"
+                  }`}
                 >
-                  <Volume2 className="h-3.5 w-3.5" aria-hidden /> {hi ? "सुनें" : "Listen"}
-                </button>
-              ) : null}
-            </div>
-          </div>
-        ))}
-        {loading && (
-          <div className="surface mr-auto flex max-w-[60%] gap-1 px-4 py-3">
-            {[0, 150, 300].map((d) => (
-              <span
-                key={d}
-                className="h-2 w-2 animate-bounce rounded-full bg-primary"
-                style={{ animationDelay: `${d}ms` }}
-              />
+                  {m.content}
+                  {m.role === "assistant" ? (
+                    <button
+                      onClick={() => void speak(m.content)}
+                      className="mt-2 flex items-center gap-1 text-xs font-semibold text-primary"
+                    >
+                      <Volume2 className="h-3.5 w-3.5" aria-hidden /> {hi ? "सुनें" : "Listen"}
+                    </button>
+                  ) : null}
+                </div>
+              </div>
             ))}
           </div>
         )}
-        <div ref={endRef} />
-      </div>
+
+        {loading ? (
+          <div className="mr-auto flex max-w-[60%] gap-1 px-2 py-2">
+            {[0, 150, 300].map((d) => (
+              <span key={d} className="h-2 w-2 animate-bounce rounded-full bg-primary" style={{ animationDelay: `${d}ms` }} />
+            ))}
+          </div>
+        ) : null}
+      </Card>
 
       <div className="fixed inset-x-0 bottom-[calc(72px+env(safe-area-inset-bottom))] z-30 mx-auto max-w-md px-4">
         <div className="surface flex items-center gap-2 p-2">
           <button
             onClick={() => (status === "listening" ? recRef.current?.stop?.() : void startVoice())}
-            aria-label="Voice input"
-            className={`press grid h-10 w-10 shrink-0 place-items-center rounded-xl border ${
-              status === "listening"
-                ? "border-primary bg-primary/20 text-primary"
-                : "border-border text-muted-foreground"
+            aria-label={hi ? "माइक से बात करें" : "Talk with microphone"}
+            className={`press grid h-11 w-11 shrink-0 place-items-center rounded-xl border ${
+              status === "listening" ? "border-primary bg-primary/20 text-primary" : "border-border text-muted-foreground"
             }`}
           >
             <Mic className="h-4 w-4" aria-hidden />
@@ -795,14 +744,14 @@ function CoachPage() {
             onKeyDown={(e) => {
               if (e.key === "Enter") void send(input);
             }}
-            placeholder={t(lang, "coach.placeholder")}
+            placeholder={hi ? "या टाइप करके पूछें…" : "Or type if you prefer…"}
             className="min-w-0 flex-1 bg-transparent px-1 py-2 text-base outline-none"
           />
           <button
             onClick={() => void send(input)}
             disabled={loading}
-            aria-label="Send message"
-            className="press grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary text-primary-foreground disabled:opacity-50"
+            className="press grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-primary text-primary-foreground disabled:opacity-50"
+            aria-label="Send"
           >
             <Send className="h-4 w-4" aria-hidden />
           </button>
