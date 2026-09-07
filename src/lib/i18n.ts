@@ -63,6 +63,8 @@ const HI: Dict = {
   "install.body": "होम स्क्रीन पर जोड़ें और ऐप की तरह इस्तेमाल करें — ऑफलाइन चेक-इन के साथ।",
   "install.cta": "होम स्क्रीन पर जोड़ें",
   "install.later": "बाद में",
+  "install.ios": "Safari में शेयर बटन दबाएँ, फिर “Add to Home Screen” चुनें।",
+  "install.share": "शेयर बटन",
 
   "coach.voice": "वॉइस मोड",
   "coach.listening": "सुन रहा हूँ…",
@@ -131,6 +133,8 @@ const EN: Dict = {
   "install.body": "Add it to your home screen and use it like an app — with offline check-ins.",
   "install.cta": "Add to home screen",
   "install.later": "Later",
+  "install.ios": "Tap the Share button in Safari, then choose “Add to Home Screen”.",
+  "install.share": "Share button",
 
   "coach.voice": "Voice mode",
   "coach.listening": "Listening…",
