@@ -36,3 +36,62 @@ export function registerServiceWorker() {
     /* offline support is optional */
   });
 }
+
+/* ---------------------------------------------------------------------------
+ * Install prompt plumbing
+ * `beforeinstallprompt` can fire before React mounts, so capture it here (this
+ * module is imported from the root route) and let the UI subscribe afterwards.
+ * ------------------------------------------------------------------------- */
+
+export type InstallEvent = Event & {
+  prompt: () => Promise<void>;
+  userChoice: Promise<{ outcome: string }>;
+};
+
+let deferredPrompt: InstallEvent | null = null;
+const listeners = new Set<(e: InstallEvent | null) => void>();
+
+function emit() {
+  listeners.forEach((fn) => fn(deferredPrompt));
+}
+
+export function initInstallCapture() {
+  if (typeof window === "undefined") return;
+  window.addEventListener("beforeinstallprompt", (e) => {
+    e.preventDefault();
+    deferredPrompt = e as InstallEvent;
+    emit();
+  });
+  window.addEventListener("appinstalled", () => {
+    deferredPrompt = null;
+    emit();
+  });
+}
+
+export function getInstallPrompt(): InstallEvent | null {
+  return deferredPrompt;
+}
+
+export function onInstallPromptChange(fn: (e: InstallEvent | null) => void) {
+  listeners.add(fn);
+  return () => listeners.delete(fn);
+}
+
+export function clearInstallPrompt() {
+  deferredPrompt = null;
+  emit();
+}
+
+/** True when the app is already running as an installed app. */
+export function isStandalone(): boolean {
+  if (typeof window === "undefined") return false;
+  const nav = window.navigator as Navigator & { standalone?: boolean };
+  return window.matchMedia("(display-mode: standalone)").matches || nav.standalone === true;
+}
+
+/** iOS/iPadOS Safari never fires `beforeinstallprompt`; it needs manual steps. */
+export function isIos(): boolean {
+  if (typeof navigator === "undefined") return false;
+  const ua = navigator.userAgent;
+  return /iPad|iPhone|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+}
