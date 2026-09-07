@@ -68,7 +68,7 @@ export async function createOrder(input: {
     },
   });
   if (!res.ok || !res.data?.payment_session_id) {
-    throw new Error(res.data?.message ?? "Cashfree could not start this payment.");
+    throw new Error(friendlyCashfreeError(res.data?.message));
   }
   return res.data.payment_session_id;
 }
@@ -98,7 +98,7 @@ export async function ensurePlan(input: {
     },
   });
   if (!res.ok && !String(res.data?.message ?? "").toLowerCase().includes("already")) {
-    throw new Error(res.data?.message ?? "Cashfree could not create the subscription plan.");
+    throw new Error(friendlyCashfreeError(res.data?.message));
   }
 }
 
@@ -127,7 +127,7 @@ export async function createSubscription(input: {
     },
   });
   if (!res.ok || !res.data?.subscription_session_id) {
-    throw new Error(res.data?.message ?? "Cashfree could not start this subscription.");
+    throw new Error(friendlyCashfreeError(res.data?.message));
   }
   return res.data.subscription_session_id;
 }
