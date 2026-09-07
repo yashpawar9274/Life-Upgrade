@@ -80,7 +80,7 @@ export async function ensurePlan(input: {
       plan_currency: "INR",
       plan_recurring_amount: input.amount,
       plan_max_amount: input.amount,
-      plan_interval_type: input.intervalType,
+      plan_interval_type: input.intervalType.toUpperCase(),
       plan_intervals: 1,
       plan_note: "LIFE UPGRADE Premium",
     },
