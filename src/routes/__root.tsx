@@ -13,7 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { StoreProvider } from "../lib/store";
 import { Toaster } from "../components/ui/sonner";
-import { registerServiceWorker } from "../lib/pwa";
+import { initInstallCapture, registerServiceWorker } from "../lib/pwa";
 import { ThemeProvider } from "../lib/theme";
 import { AuthProvider } from "../lib/auth";
 import { InstallPrompt } from "../components/InstallPrompt";
@@ -133,6 +133,7 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   useEffect(() => {
+    initInstallCapture();
     registerServiceWorker();
   }, []);
 
