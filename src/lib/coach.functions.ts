@@ -12,8 +12,8 @@ const schema = z.object({
 export const askCoach = createServerFn({ method: "POST" })
   .inputValidator((data) => schema.parse(data))
   .handler(async ({ data }) => {
-    const apiKey = process.env["LOVABLE_API_KEY"];
-    if (!apiKey) throw new Error("AI coach is not configured yet.");
+    const apiKey = process.env["GEMINI_API_KEY"] ?? process.env["LOVABLE_API_KEY"];
+    if (!apiKey) throw new Error("AI coach is not configured yet. Add GEMINI_API_KEY to your environment.");
 
     const system = `You are "LIFE AI COACH" inside the LIFE UPGRADE app: a warm, respectful personal trainer + life coach.
 Rules:
@@ -27,12 +27,17 @@ Rules:
 Reply language: ${data.language === "hindi" ? "Hindi (Devanagari)" : data.language === "hinglish" ? "Hinglish (Roman script Hindi + English mix)" : "English"}.
 User data snapshot: ${data.context}`;
 
-    const res = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
       method: "POST",
-      headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        model: "google/gemini-3.7-flash",
-        messages: [{ role: "system", content: system }, ...data.messages],
+        system_instruction: {
+          parts: [{ text: system }],
+        },
+        contents: data.messages.map((m) => ({
+          role: m.role === "user" ? "user" : "model",
+          parts: [{ text: m.content }],
+        })),
       }),
     });
 
@@ -42,6 +47,16 @@ User data snapshot: ${data.context}`;
       throw new Error(`Coach unavailable (${res.status}): ${body.slice(0, 200)}`);
     }
 
-    const json = (await res.json()) as { choices?: { message?: { content?: string } }[] };
-    return { reply: json.choices?.[0]?.message?.content ?? "I'm here. Tell me more." };
+    const json = (await res.json()) as {
+      candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }>;
+    };
+
+    const reply =
+      json.candidates
+        ?.flatMap((candidate) => candidate.content?.parts ?? [])
+        .map((part) => part.text ?? "")
+        .join("")
+        .trim() || "I'm here. Tell me more.";
+
+    return { reply };
   });

@@ -31,7 +31,6 @@ export const Route = createFileRoute("/api/tts")({
           }),
         });
 
-
         if (!res.ok) {
           const body = await res.text().catch(() => "");
           return new Response(`Voice failed (${res.status}): ${body.slice(0, 200)}`, {
