@@ -1,7 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
-import { Check, Crown, Loader2, ShieldCheck, Sparkles } from "lucide-react";
+import { Check, Crown, Gift, Loader2, ShieldCheck, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 
 import { AppShell, Card, Disclaimer, SectionTitle } from "@/components/AppShell";
