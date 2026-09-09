@@ -1,7 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
-import { Check, Crown, Loader2, ShieldCheck, Sparkles } from "lucide-react";
+import { Check, Crown, Gift, Loader2, ShieldCheck, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 
 import { AppShell, Card, Disclaimer, SectionTitle } from "@/components/AppShell";
@@ -11,9 +11,12 @@ import { loadCashfree } from "@/lib/cashfree-sdk";
 import {
   cancelMySubscription,
   getMySubscription,
+  getTrialStatus,
   startCheckout,
+  startFreeTrial,
   verifyCheckout,
 } from "@/lib/billing.functions";
+
 
 export const Route = createFileRoute("/_authenticated/upgrade")({
   head: () => ({
@@ -62,6 +65,13 @@ type SubRow = {
   current_period_end: string | null;
   cashfree_subscription_id: string | null;
 };
+type TrialInfo = {
+  eligible: boolean;
+  trialActive: boolean;
+  trialEndsAt: string | null;
+  trialUsed: boolean;
+};
+
 
 function UpgradePage() {
   const { state, setProfile } = useStore();
@@ -72,6 +82,8 @@ function UpgradePage() {
   const verify = useServerFn(verifyCheckout);
   const loadSub = useServerFn(getMySubscription);
   const cancel = useServerFn(cancelMySubscription);
+  const loadTrial = useServerFn(getTrialStatus);
+  const beginTrial = useServerFn(startFreeTrial);
 
   const [selected, setSelected] = useState<PlanCode>("yearly");
   const [name, setName] = useState(state.profile.name ?? "");
@@ -79,11 +91,28 @@ function UpgradePage() {
   const [busy, setBusy] = useState(false);
   const [checking, setChecking] = useState(false);
   const [sub, setSub] = useState<SubRow | null>(null);
+  const [trial, setTrial] = useState<TrialInfo | null>(null);
 
   useEffect(() => {
     void loadSub({}).then((row) => setSub((row as SubRow | null) ?? null));
+    void loadTrial({}).then((info) => setTrial(info as TrialInfo));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const activateTrial = async () => {
+    setBusy(true);
+    try {
+      const res = await beginTrial({});
+      setProfile({ plan: "premium" });
+      setTrial({ eligible: false, trialActive: true, trialEndsAt: res.trialEndsAt, trialUsed: true });
+      toast.success("7-day free trial started. Enjoy full Premium!");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Could not start the trial.");
+    } finally {
+      setBusy(false);
+    }
+  };
+
 
   // Coming back from Cashfree: confirm the payment and unlock Premium.
   useEffect(() => {
@@ -159,9 +188,46 @@ function UpgradePage() {
           LIFE UPGRADE <span className="gold-text">Premium</span>
         </h2>
         <p className="text-sm text-muted-foreground">
-          Monthly, yearly or lifetime · secure payment by Cashfree
+          Start free for 7 days · monthly, yearly or lifetime after that
         </p>
       </Card>
+
+      {trial?.eligible && (
+        <Card className="space-y-3 border-primary/50">
+          <div className="flex items-center gap-2">
+            <Gift className="h-5 w-5 shrink-0 text-primary" aria-hidden />
+            <h3 className="font-display text-lg font-semibold">7 days free, no card needed</h3>
+          </div>
+          <p className="text-sm text-muted-foreground">
+            Try everything in Premium — AI coach, voice coaching, smart planner, analytics and the
+            Luxury Life Roadmap. Nothing is charged, and it ends on its own after 7 days.
+          </p>
+          <button
+            onClick={() => void activateTrial()}
+            disabled={busy}
+            className="press flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-3.5 text-sm font-semibold text-primary-foreground disabled:opacity-60"
+          >
+            {busy ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden /> : null}
+            Start my 7-day free trial
+          </button>
+        </Card>
+      )}
+
+      {trial?.trialActive && trial.trialEndsAt && (
+        <Card className="space-y-1 border-primary/50">
+          <p className="font-display text-base font-semibold">Free trial active</p>
+          <p className="text-xs text-muted-foreground">
+            Full Premium until{" "}
+            {new Date(trial.trialEndsAt).toLocaleDateString("en-IN", {
+              day: "numeric",
+              month: "short",
+              year: "numeric",
+            })}
+            . Pick a plan below anytime to keep it going.
+          </p>
+        </Card>
+      )}
+
 
       {checking && (
         <Card className="flex items-center gap-2 text-sm text-muted-foreground">

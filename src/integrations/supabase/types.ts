@@ -14,6 +14,54 @@ export type Database = {
   }
   public: {
     Tables: {
+      ai_usage_logs: {
+        Row: {
+          created_at: string
+          estimated_tokens: number
+          id: string
+          request_type: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          estimated_tokens?: number
+          id?: string
+          request_type: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          estimated_tokens?: number
+          id?: string
+          request_type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      coach_memory: {
+        Row: {
+          created_at: string
+          id: string
+          summary: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          summary: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          summary?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       daily_logs: {
         Row: {
           day: string
