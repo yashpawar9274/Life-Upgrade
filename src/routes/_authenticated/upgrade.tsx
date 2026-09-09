@@ -65,6 +65,13 @@ type SubRow = {
   current_period_end: string | null;
   cashfree_subscription_id: string | null;
 };
+type TrialInfo = {
+  eligible: boolean;
+  trialActive: boolean;
+  trialEndsAt: string | null;
+  trialUsed: boolean;
+};
+
 
 function UpgradePage() {
   const { state, setProfile } = useStore();
