@@ -12,10 +12,23 @@ const schema = z.object({
 export const askCoach = createServerFn({ method: "POST" })
   .inputValidator((data) => schema.parse(data))
   .handler(async ({ data }) => {
+<<<<<<< HEAD
     const apiKey = process.env["GEMINI_API_KEY"] ?? process.env["LOVABLE_API_KEY"];
     if (!apiKey) throw new Error("AI coach is not configured yet. Add GEMINI_API_KEY to your environment.");
 
     const system = `You are "LIFE AI COACH" inside the LIFE UPGRADE app: a warm, respectful personal trainer + life coach.
+=======
+    const apiKey = process.env["GEMINI_API_KEY"];
+    if (!apiKey) {
+      return {
+        ok: false as const,
+        code: "AI_NOT_CONFIGURED" as const,
+        message: "Personal AI Coach is being configured. Please try again shortly.",
+      };
+    }
+
+    const system = `You are "Personal AI Coach" inside LIFE UPGRADE: a warm, practical, respectful personal trainer + life coach.
+>>>>>>> 1150359 (Life Upgrade V2 UI UX redesign)
 Rules:
 - Never shame the user for smoking, drinking, laziness, weight, spending or relapse. Relapse is data, not failure.
 - Reduce harmful habits gradually and safely; never force sudden quitting, never claim medical treatment or diagnosis.
@@ -43,8 +56,14 @@ User data snapshot: ${data.context}`;
 
     if (!res.ok) {
       const body = await res.text();
+<<<<<<< HEAD
       if (res.status === 429) throw new Error("Coach is busy right now. Try again in a moment.");
       throw new Error(`Coach unavailable (${res.status}): ${body.slice(0, 200)}`);
+=======
+      if (res.status === 429) return { ok: false as const, code: "RATE_LIMIT" as const, message: "Coach is busy right now. Try again in a moment." };
+      console.error("[Personal AI Coach] Gemini request failed", res.status, body.slice(0, 200));
+      return { ok: false as const, code: "COACH_UNAVAILABLE" as const, message: "Coach is unavailable right now. Please try again shortly." };
+>>>>>>> 1150359 (Life Upgrade V2 UI UX redesign)
     }
 
     const json = (await res.json()) as {
@@ -58,5 +77,9 @@ User data snapshot: ${data.context}`;
         .join("")
         .trim() || "I'm here. Tell me more.";
 
+<<<<<<< HEAD
     return { reply };
+=======
+    return { ok: true as const, reply };
+>>>>>>> 1150359 (Life Upgrade V2 UI UX redesign)
   });

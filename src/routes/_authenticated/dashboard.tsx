@@ -111,6 +111,7 @@ function Home() {
         </Link>
       }
     >
+<<<<<<< HEAD
       <Card className="hero-gradient flex items-center gap-4">
         <Ring value={score} />
         <div className="min-w-0 flex-1">
@@ -127,13 +128,42 @@ function Home() {
       <Card>
         <p className="text-xs uppercase tracking-widest text-muted-foreground">Key focus now</p>
         <p className="mt-2 font-display text-lg font-semibold">
+=======
+      <Card className="hero-gradient relative overflow-hidden border-primary/25 p-5">
+        <div className="absolute -right-10 -top-12 h-36 w-36 rounded-full bg-primary/20 blur-3xl" />
+        <div className="relative flex items-center gap-4">
+          <Ring value={score} />
+          <div className="min-w-0 flex-1">
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">Your discipline score</p>
+            <p className="mt-1 font-display text-3xl font-semibold">{score}<span className="text-base text-muted-foreground">/100</span></p>
+            <p className="mt-1 flex items-center gap-1.5 text-sm font-medium">
+              <Flame className="h-4 w-4 text-gold" aria-hidden /> {days} day streak · {level.name}
+            </p>
+          </div>
+        </div>
+        <div className="relative mt-5 grid grid-cols-2 gap-2 border-t border-border/70 pt-4 text-xs">
+          <div><p className="text-muted-foreground">Today’s mission</p><p className="mt-1 font-semibold">Show up once</p></div>
+          <div className="border-l border-border/70 pl-3"><p className="text-muted-foreground">Level</p><p className="mt-1 font-semibold text-primary">{level.name}</p></div>
+        </div>
+      </Card>
+
+      <Card className="border-primary/20 bg-gradient-to-br from-card to-primary/5">
+        <div className="flex items-center justify-between"><p className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">Your next step</p><span className="rounded-full bg-primary/10 px-2 py-1 text-[10px] font-semibold text-primary">DO THIS NOW</span></div>
+        <p className="mt-3 font-display text-xl font-semibold">
+>>>>>>> 1150359 (Life Upgrade V2 UI UX redesign)
           {nextRoutine ? `${nextRoutine.time} · ${nextRoutine.title}` : "All routine blocks done 🎉"}
         </p>
         <Link
           to="/routine"
+<<<<<<< HEAD
           className="press mt-3 inline-flex items-center gap-1 text-sm font-semibold text-primary"
         >
           Open routine <ChevronRight className="h-4 w-4" aria-hidden />
+=======
+          className="press mt-4 inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground"
+        >
+          Start next step <ChevronRight className="h-4 w-4" aria-hidden />
+>>>>>>> 1150359 (Life Upgrade V2 UI UX redesign)
         </Link>
       </Card>
 

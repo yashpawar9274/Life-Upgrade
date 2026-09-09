@@ -7,7 +7,11 @@ export const Route = createFileRoute("/api/tts")({
     handlers: {
       POST: async ({ request }) => {
         const apiKey = process.env["LOVABLE_API_KEY"];
+<<<<<<< HEAD
         if (!apiKey) return new Response("Voice coach is not configured", { status: 500 });
+=======
+        if (!apiKey) return new Response("Voice replies are being configured. Please try again shortly.", { status: 503 });
+>>>>>>> 1150359 (Life Upgrade V2 UI UX redesign)
 
         const { text, language, speed } = (await request.json()) as Body;
         if (typeof text !== "string" || !text.trim()) {

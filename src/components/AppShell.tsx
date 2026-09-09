@@ -20,7 +20,11 @@ export function AppShell({
 }) {
   return (
     <div className="min-h-dvh bg-background">
+<<<<<<< HEAD
       <div className="mx-auto w-full max-w-md px-4 pt-[max(1rem,env(safe-area-inset-top))] pb-[calc(7.5rem+env(safe-area-inset-bottom))]">
+=======
+      <div className="mx-auto w-full max-w-lg px-4 pt-[max(1rem,env(safe-area-inset-top))] pb-[calc(8.5rem+env(safe-area-inset-bottom))]">
+>>>>>>> 1150359 (Life Upgrade V2 UI UX redesign)
 
         <header className="mb-5 flex items-start gap-3">
           {backTo ? (
@@ -33,7 +37,12 @@ export function AppShell({
             </Link>
           ) : null}
           <div className="min-w-0 flex-1">
+<<<<<<< HEAD
             <h1 className="truncate text-2xl font-semibold">{title}</h1>
+=======
+            <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.22em] text-primary">LIFE UPGRADE</p>
+            <h1 className="truncate font-display text-2xl font-semibold tracking-tight">{title}</h1>
+>>>>>>> 1150359 (Life Upgrade V2 UI UX redesign)
             {subtitle ? <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p> : null}
           </div>
           <ThemeToggle />
@@ -52,7 +61,11 @@ export function Card({
   ...rest
 }: { children: ReactNode; className?: string } & React.HTMLAttributes<HTMLDivElement>) {
   return (
+<<<<<<< HEAD
     <div className={`surface p-4 ${className}`} {...rest}>
+=======
+    <div className={`surface rounded-3xl p-4 shadow-[0_12px_35px_rgba(0,0,0,0.16)] ${className}`} {...rest}>
+>>>>>>> 1150359 (Life Upgrade V2 UI UX redesign)
       {children}
     </div>
   );

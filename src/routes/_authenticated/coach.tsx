@@ -34,6 +34,7 @@ import {
 export const Route = createFileRoute("/_authenticated/coach")({
   head: () => ({
     meta: [
+<<<<<<< HEAD
       { title: "LIFE AI COACH — Voice Life Coach | LIFE UPGRADE" },
       {
         name: "description",
@@ -41,6 +42,15 @@ export const Route = createFileRoute("/_authenticated/coach")({
           "Talk out loud with your personal AI life coach in Hindi, Hinglish or English — voice in, voice out, background-friendly, with saved transcripts.",
       },
       { property: "og:title", content: "LIFE AI COACH — Premium voice coaching" },
+=======
+      { title: "Personal AI Coach | LIFE UPGRADE" },
+      {
+        name: "description",
+        content:
+          "Plan your day, build discipline and get practical support in Hindi, Hinglish or English.",
+      },
+      { property: "og:title", content: "Personal AI Coach — LIFE UPGRADE" },
+>>>>>>> 1150359 (Life Upgrade V2 UI UX redesign)
       {
         property: "og:description",
         content: "Voice conversations, personalised routines, urge alternatives and weekly plans.",
@@ -301,7 +311,11 @@ function CoachPage() {
 
         if ("mediaSession" in navigator) {
           navigator.mediaSession.metadata = new MediaMetadata({
+<<<<<<< HEAD
             title: hi ? "LIFE AI कोच" : "LIFE AI COACH",
+=======
+            title: hi ? "पर्सनल एआई कोच" : "Personal AI Coach",
+>>>>>>> 1150359 (Life Upgrade V2 UI UX redesign)
             artist: hi ? "आपका लाइफ कोच" : "Your life coach",
             album: "LIFE UPGRADE",
             artwork: [{ src: "/icons/icon-192.png", sizes: "192x192", type: "image/png" }],
@@ -359,6 +373,14 @@ function CoachPage() {
       const res = await call({
         data: { messages: history, context: contextString(), language: lang },
       });
+<<<<<<< HEAD
+=======
+      if (!res.ok) {
+        toast.error(res.message);
+        if (voiceModeRef.current) setStat("idle");
+        return;
+      }
+>>>>>>> 1150359 (Life Upgrade V2 UI UX redesign)
       pushChat({ role: "assistant", content: res.reply });
       recordTurn({ role: "assistant", content: res.reply, at: Date.now() });
       if (voiceModeRef.current) void speak(res.reply);
@@ -471,7 +493,11 @@ function CoachPage() {
 
   if (!premium) {
     return (
+<<<<<<< HEAD
       <AppShell title="LIFE AI COACH" subtitle="Premium feature">
+=======
+      <AppShell title="Personal AI Coach" subtitle="Premium feature">
+>>>>>>> 1150359 (Life Upgrade V2 UI UX redesign)
         <Card className="hero-gradient space-y-3 text-center">
           <Sparkles className="mx-auto h-8 w-8 text-gold" aria-hidden />
           <h2 className="font-display text-xl font-semibold">Your personal AI life coach</h2>
@@ -488,9 +514,15 @@ function CoachPage() {
         </Card>
         <SectionTitle>What you'd get</SectionTitle>
         {[
+<<<<<<< HEAD
           "Voice-to-voice conversations with your coach",
           "Keeps talking when you switch apps, with lock-screen controls",
           "Voice mode controls: sensitivity, speed, auto-stop",
+=======
+          "Personal daily plans built around your time and goals",
+          "Voice input and voice replies while the app is open",
+          "Weekly reviews, recovery plans and habit guidance",
+>>>>>>> 1150359 (Life Upgrade V2 UI UX redesign)
           "Saved transcripts you can edit and reuse",
           "Luxury Life Roadmap: health, skills, savings, circle",
         ].map((line) => (
@@ -516,7 +548,11 @@ function CoachPage() {
 
   return (
     <AppShell
+<<<<<<< HEAD
       title="LIFE AI COACH"
+=======
+      title="Personal AI Coach"
+>>>>>>> 1150359 (Life Upgrade V2 UI UX redesign)
       subtitle={voiceMode ? (hi ? "आवाज़ चालू है" : "Voice mode active") : hi ? "आवाज़ से बात करें" : "Talk by voice"}
       action={
         <div className="mt-1 flex gap-1.5">
@@ -555,8 +591,13 @@ function CoachPage() {
       <Card className="overflow-hidden border-primary/30 bg-gradient-to-br from-primary/10 via-background to-gold/10">
         <div className="flex items-center justify-between gap-3">
           <div>
+<<<<<<< HEAD
             <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Audio to audio</p>
             <h2 className="mt-1 font-display text-xl font-semibold">Your coach is listening</h2>
+=======
+            <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Personal coaching</p>
+            <h2 className="mt-1 font-display text-xl font-semibold">Your next step, made personal</h2>
+>>>>>>> 1150359 (Life Upgrade V2 UI UX redesign)
           </div>
           <button
             onClick={() => void toggleVoiceMode()}
@@ -590,7 +631,11 @@ function CoachPage() {
               ? statusLabel[status]
               : hi
                 ? "माइक दबाकर अपनी बात शुरू करें। कोच तुरंत जवाब देगा।"
+<<<<<<< HEAD
                 : "Tap the mic and speak naturally. Your coach will answer in your voice."}
+=======
+                : "Tap the mic, speak, review your transcript, then get a personal reply."}
+>>>>>>> 1150359 (Life Upgrade V2 UI UX redesign)
           </p>
 
           <div className="mt-4 h-2 w-full overflow-hidden rounded-full bg-muted">
