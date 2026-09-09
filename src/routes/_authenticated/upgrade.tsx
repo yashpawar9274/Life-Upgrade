@@ -75,6 +75,8 @@ function UpgradePage() {
   const verify = useServerFn(verifyCheckout);
   const loadSub = useServerFn(getMySubscription);
   const cancel = useServerFn(cancelMySubscription);
+  const loadTrial = useServerFn(getTrialStatus);
+  const beginTrial = useServerFn(startFreeTrial);
 
   const [selected, setSelected] = useState<PlanCode>("yearly");
   const [name, setName] = useState(state.profile.name ?? "");
@@ -82,11 +84,28 @@ function UpgradePage() {
   const [busy, setBusy] = useState(false);
   const [checking, setChecking] = useState(false);
   const [sub, setSub] = useState<SubRow | null>(null);
+  const [trial, setTrial] = useState<TrialInfo | null>(null);
 
   useEffect(() => {
     void loadSub({}).then((row) => setSub((row as SubRow | null) ?? null));
+    void loadTrial({}).then((info) => setTrial(info as TrialInfo));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const activateTrial = async () => {
+    setBusy(true);
+    try {
+      const res = await beginTrial({});
+      setProfile({ plan: "premium" });
+      setTrial({ eligible: false, trialActive: true, trialEndsAt: res.trialEndsAt, trialUsed: true });
+      toast.success("7-day free trial started. Enjoy full Premium!");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Could not start the trial.");
+    } finally {
+      setBusy(false);
+    }
+  };
+
 
   // Coming back from Cashfree: confirm the payment and unlock Premium.
   useEffect(() => {
