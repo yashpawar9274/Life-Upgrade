@@ -34,23 +34,13 @@ import {
 export const Route = createFileRoute("/_authenticated/coach")({
   head: () => ({
     meta: [
-<<<<<<< HEAD
-      { title: "LIFE AI COACH — Voice Life Coach | LIFE UPGRADE" },
-      {
-        name: "description",
-        content:
-          "Talk out loud with your personal AI life coach in Hindi, Hinglish or English — voice in, voice out, background-friendly, with saved transcripts.",
-      },
-      { property: "og:title", content: "LIFE AI COACH — Premium voice coaching" },
-=======
       { title: "Personal AI Coach | LIFE UPGRADE" },
       {
         name: "description",
         content:
           "Plan your day, build discipline and get practical support in Hindi, Hinglish or English.",
       },
-      { property: "og:title", content: "Personal AI Coach — LIFE UPGRADE" },
->>>>>>> 1150359 (Life Upgrade V2 UI UX redesign)
+      { property: "og:title", content: "Personal AI Coach â€” LIFE UPGRADE" },
       {
         property: "og:description",
         content: "Voice conversations, personalised routines, urge alternatives and weekly plans.",
@@ -69,11 +59,11 @@ const PROMPTS_EN = [
 ];
 
 const PROMPTS_HI = [
-  "कल के लिए एक असली रूटीन बनाओ",
-  "आज ऊर्जा कम है, क्या करूँ?",
-  "सिगरेट धीरे-धीरे कम करने में मदद करो",
-  "मेरा लक्ज़री लाइफ रोडमैप बनाओ",
-  "मेरे डेटा से हफ़्ते का प्लान बनाओ",
+  "à¤•à¤² à¤•à¥‡ à¤²à¤¿à¤ à¤à¤• à¤…à¤¸à¤²à¥€ à¤°à¥‚à¤Ÿà¥€à¤¨ à¤¬à¤¨à¤¾à¤“",
+  "à¤†à¤œ à¤Šà¤°à¥à¤œà¤¾ à¤•à¤® à¤¹à¥ˆ, à¤•à¥à¤¯à¤¾ à¤•à¤°à¥‚à¤?",
+  "à¤¸à¤¿à¤—à¤°à¥‡à¤Ÿ à¤§à¥€à¤°à¥‡-à¤§à¥€à¤°à¥‡ à¤•à¤® à¤•à¤°à¤¨à¥‡ à¤®à¥‡à¤‚ à¤®à¤¦à¤¦ à¤•à¤°à¥‹",
+  "à¤®à¥‡à¤°à¤¾ à¤²à¤•à¥à¤œà¤¼à¤°à¥€ à¤²à¤¾à¤‡à¤« à¤°à¥‹à¤¡à¤®à¥ˆà¤ª à¤¬à¤¨à¤¾à¤“",
+  "à¤®à¥‡à¤°à¥‡ à¤¡à¥‡à¤Ÿà¤¾ à¤¸à¥‡ à¤¹à¤«à¤¼à¥à¤¤à¥‡ à¤•à¤¾ à¤ªà¥à¤²à¤¾à¤¨ à¤¬à¤¨à¤¾à¤“",
 ];
 
 type Status = "idle" | "listening" | "thinking" | "speaking" | "background";
@@ -146,7 +136,7 @@ function CoachPage() {
       setMicPermission("denied");
       toast.error(
         hi
-          ? "माइक की अनुमति नहीं मिली। ब्राउज़र सेटिंग में माइक्रोफ़ोन चालू करें।"
+          ? "à¤®à¤¾à¤‡à¤• à¤•à¥€ à¤…à¤¨à¥à¤®à¤¤à¤¿ à¤¨à¤¹à¥€à¤‚ à¤®à¤¿à¤²à¥€à¥¤ à¤¬à¥à¤°à¤¾à¤‰à¤œà¤¼à¤° à¤¸à¥‡à¤Ÿà¤¿à¤‚à¤— à¤®à¥‡à¤‚ à¤®à¤¾à¤‡à¤•à¥à¤°à¥‹à¤«à¤¼à¥‹à¤¨ à¤šà¤¾à¤²à¥‚ à¤•à¤°à¥‡à¤‚à¥¤"
           : "Microphone permission was blocked. Enable it in your browser settings.",
       );
       return null;
@@ -182,14 +172,14 @@ function CoachPage() {
         analyser.fftSize = 512;
         src.connect(analyser);
         const buf = new Uint8Array(analyser.frequencyBinCount);
-        const threshold = (11 - voice.sensitivity) / 100; // higher sensitivity → lower threshold
+        const threshold = (11 - voice.sensitivity) / 100; // higher sensitivity â†’ lower threshold
         const tick = () => {
           analyser.getByteTimeDomainData(buf);
           let sum = 0;
           for (const v of buf) sum += (v - 128) * (v - 128);
           const rms = Math.sqrt(sum / buf.length) / 128;
           setLevel(Math.min(1, rms * 6));
-          if (rms > threshold) armAutoStop(); // still talking → push the auto-stop timer out
+          if (rms > threshold) armAutoStop(); // still talking â†’ push the auto-stop timer out
           const raf = requestAnimationFrame(tick);
           if (meterRef.current) meterRef.current.raf = raf;
         };
@@ -208,7 +198,7 @@ function CoachPage() {
       const wl = (navigator as any).wakeLock;
       if (wl?.request) wakeLockRef.current = await wl.request("screen");
     } catch {
-      /* not supported — audio still continues */
+      /* not supported â€” audio still continues */
     }
   }, []);
 
@@ -311,12 +301,8 @@ function CoachPage() {
 
         if ("mediaSession" in navigator) {
           navigator.mediaSession.metadata = new MediaMetadata({
-<<<<<<< HEAD
-            title: hi ? "LIFE AI कोच" : "LIFE AI COACH",
-=======
-            title: hi ? "पर्सनल एआई कोच" : "Personal AI Coach",
->>>>>>> 1150359 (Life Upgrade V2 UI UX redesign)
-            artist: hi ? "आपका लाइफ कोच" : "Your life coach",
+            title: hi ? "à¤ªà¤°à¥à¤¸à¤¨à¤² à¤à¤†à¤ˆ à¤•à¥‹à¤š" : "Personal AI Coach",
+            artist: hi ? "à¤†à¤ªà¤•à¤¾ à¤²à¤¾à¤‡à¤« à¤•à¥‹à¤š" : "Your life coach",
             album: "LIFE UPGRADE",
             artwork: [{ src: "/icons/icon-192.png", sizes: "192x192", type: "image/png" }],
           });
@@ -348,7 +334,7 @@ function CoachPage() {
         await audio.play();
       } catch {
         setStat("idle");
-        toast.error(hi ? "आवाज़ अभी उपलब्ध नहीं है।" : "Voice is unavailable right now.");
+        toast.error(hi ? "à¤†à¤µà¤¾à¤œà¤¼ à¤…à¤­à¥€ à¤‰à¤ªà¤²à¤¬à¥à¤§ à¤¨à¤¹à¥€à¤‚ à¤¹à¥ˆà¥¤" : "Voice is unavailable right now.");
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -373,14 +359,11 @@ function CoachPage() {
       const res = await call({
         data: { messages: history, context: contextString(), language: lang },
       });
-<<<<<<< HEAD
-=======
       if (!res.ok) {
         toast.error(res.message);
         if (voiceModeRef.current) setStat("idle");
         return;
       }
->>>>>>> 1150359 (Life Upgrade V2 UI UX redesign)
       pushChat({ role: "assistant", content: res.reply });
       recordTurn({ role: "assistant", content: res.reply, at: Date.now() });
       if (voiceModeRef.current) void speak(res.reply);
@@ -389,7 +372,7 @@ function CoachPage() {
       pushChat({
         role: "assistant",
         content: hi
-          ? "अभी मैं जवाब नहीं ला पाया। तब तक: 10 गहरी सांसें, 300ml पानी और 10 मिनट की वॉक। थोड़ी देर में फिर कोशिश करें।"
+          ? "à¤…à¤­à¥€ à¤®à¥ˆà¤‚ à¤œà¤µà¤¾à¤¬ à¤¨à¤¹à¥€à¤‚ à¤²à¤¾ à¤ªà¤¾à¤¯à¤¾à¥¤ à¤¤à¤¬ à¤¤à¤•: 10 à¤—à¤¹à¤°à¥€ à¤¸à¤¾à¤‚à¤¸à¥‡à¤‚, 300ml à¤ªà¤¾à¤¨à¥€ à¤”à¤° 10 à¤®à¤¿à¤¨à¤Ÿ à¤•à¥€ à¤µà¥‰à¤•à¥¤ à¤¥à¥‹à¤¡à¤¼à¥€ à¤¦à¥‡à¤° à¤®à¥‡à¤‚ à¤«à¤¿à¤° à¤•à¥‹à¤¶à¤¿à¤¶ à¤•à¤°à¥‡à¤‚à¥¤"
           : "I couldn't reach my brain just now. Meanwhile: 10 slow breaths, 300ml water, and a 10 minute walk. Try again in a moment.",
       });
       if (voiceModeRef.current) setStat("idle");
@@ -405,7 +388,7 @@ function CoachPage() {
       const SR =
         (window as any).SpeechRecognition ?? (window as any).webkitSpeechRecognition;
       if (!SR) {
-        toast.error(hi ? "इस ब्राउज़र में वॉइस इनपुट नहीं है।" : "Voice input isn't supported in this browser.");
+        toast.error(hi ? "à¤‡à¤¸ à¤¬à¥à¤°à¤¾à¤‰à¤œà¤¼à¤° à¤®à¥‡à¤‚ à¤µà¥‰à¤‡à¤¸ à¤‡à¤¨à¤ªà¥à¤Ÿ à¤¨à¤¹à¥€à¤‚ à¤¹à¥ˆà¥¤" : "Voice input isn't supported in this browser.");
         return;
       }
       const stream = await requestMic();
@@ -493,16 +476,12 @@ function CoachPage() {
 
   if (!premium) {
     return (
-<<<<<<< HEAD
-      <AppShell title="LIFE AI COACH" subtitle="Premium feature">
-=======
       <AppShell title="Personal AI Coach" subtitle="Premium feature">
->>>>>>> 1150359 (Life Upgrade V2 UI UX redesign)
         <Card className="hero-gradient space-y-3 text-center">
           <Sparkles className="mx-auto h-8 w-8 text-gold" aria-hidden />
           <h2 className="font-display text-xl font-semibold">Your personal AI life coach</h2>
           <p className="text-sm text-muted-foreground">
-            Talk out loud — voice in, voice out — in Hindi, Hinglish or English, with routines built from
+            Talk out loud â€” voice in, voice out â€” in Hindi, Hinglish or English, with routines built from
             your goals, sleep, work timing and mood.
           </p>
           <Link
@@ -514,15 +493,9 @@ function CoachPage() {
         </Card>
         <SectionTitle>What you'd get</SectionTitle>
         {[
-<<<<<<< HEAD
-          "Voice-to-voice conversations with your coach",
-          "Keeps talking when you switch apps, with lock-screen controls",
-          "Voice mode controls: sensitivity, speed, auto-stop",
-=======
           "Personal daily plans built around your time and goals",
           "Voice input and voice replies while the app is open",
           "Weekly reviews, recovery plans and habit guidance",
->>>>>>> 1150359 (Life Upgrade V2 UI UX redesign)
           "Saved transcripts you can edit and reuse",
           "Luxury Life Roadmap: health, skills, savings, circle",
         ].map((line) => (
@@ -539,27 +512,23 @@ function CoachPage() {
   const prompts = hi ? PROMPTS_HI : PROMPTS_EN;
 
   const statusLabel: Record<Status, string> = {
-    idle: hi ? "तैयार" : "Ready",
-    listening: hi ? "सुन रहा हूँ…" : "Listening…",
-    thinking: hi ? "सोच रहा हूँ…" : "Thinking…",
-    speaking: hi ? "बोल रहा हूँ…" : "Speaking…",
-    background: hi ? "बैकग्राउंड में रुका — वापस आते ही चालू" : "Paused in background — resumes on return",
+    idle: hi ? "à¤¤à¥ˆà¤¯à¤¾à¤°" : "Ready",
+    listening: hi ? "à¤¸à¥à¤¨ à¤°à¤¹à¤¾ à¤¹à¥‚à¤â€¦" : "Listeningâ€¦",
+    thinking: hi ? "à¤¸à¥‹à¤š à¤°à¤¹à¤¾ à¤¹à¥‚à¤â€¦" : "Thinkingâ€¦",
+    speaking: hi ? "à¤¬à¥‹à¤² à¤°à¤¹à¤¾ à¤¹à¥‚à¤â€¦" : "Speakingâ€¦",
+    background: hi ? "à¤¬à¥ˆà¤•à¤—à¥à¤°à¤¾à¤‰à¤‚à¤¡ à¤®à¥‡à¤‚ à¤°à¥à¤•à¤¾ â€” à¤µà¤¾à¤ªà¤¸ à¤†à¤¤à¥‡ à¤¹à¥€ à¤šà¤¾à¤²à¥‚" : "Paused in background â€” resumes on return",
   };
 
   return (
     <AppShell
-<<<<<<< HEAD
-      title="LIFE AI COACH"
-=======
       title="Personal AI Coach"
->>>>>>> 1150359 (Life Upgrade V2 UI UX redesign)
-      subtitle={voiceMode ? (hi ? "आवाज़ चालू है" : "Voice mode active") : hi ? "आवाज़ से बात करें" : "Talk by voice"}
+      subtitle={voiceMode ? (hi ? "à¤†à¤µà¤¾à¤œà¤¼ à¤šà¤¾à¤²à¥‚ à¤¹à¥ˆ" : "Voice mode active") : hi ? "à¤†à¤µà¤¾à¤œà¤¼ à¤¸à¥‡ à¤¬à¤¾à¤¤ à¤•à¤°à¥‡à¤‚" : "Talk by voice"}
       action={
         <div className="mt-1 flex gap-1.5">
           <button
             onClick={() => setShowSettings((v) => !v)}
             aria-pressed={showSettings}
-            aria-label={hi ? "वॉइस सेटिंग" : "Voice settings"}
+            aria-label={hi ? "à¤µà¥‰à¤‡à¤¸ à¤¸à¥‡à¤Ÿà¤¿à¤‚à¤—" : "Voice settings"}
             className={`press rounded-full border p-2 ${
               showSettings ? "border-primary bg-primary/15 text-primary" : "border-border text-muted-foreground"
             }`}
@@ -568,7 +537,7 @@ function CoachPage() {
           </button>
           <Link
             to="/voice-log"
-            aria-label={hi ? "वॉइस इतिहास" : "Voice history"}
+            aria-label={hi ? "à¤µà¥‰à¤‡à¤¸ à¤‡à¤¤à¤¿à¤¹à¤¾à¤¸" : "Voice history"}
             className="press rounded-full border border-border p-2 text-muted-foreground"
           >
             <History className="h-4 w-4" aria-hidden />
@@ -577,7 +546,7 @@ function CoachPage() {
             <button
               onClick={() => {
                 clearChat();
-                toast.success(hi ? "चैट साफ़ हो गई।" : "Chat cleared.");
+                toast.success(hi ? "à¤šà¥ˆà¤Ÿ à¤¸à¤¾à¤«à¤¼ à¤¹à¥‹ à¤—à¤ˆà¥¤" : "Chat cleared.");
               }}
               aria-label="Clear chat"
               className="press rounded-full border border-border p-2 text-muted-foreground"
@@ -591,13 +560,8 @@ function CoachPage() {
       <Card className="overflow-hidden border-primary/30 bg-gradient-to-br from-primary/10 via-background to-gold/10">
         <div className="flex items-center justify-between gap-3">
           <div>
-<<<<<<< HEAD
-            <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Audio to audio</p>
-            <h2 className="mt-1 font-display text-xl font-semibold">Your coach is listening</h2>
-=======
             <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Personal coaching</p>
             <h2 className="mt-1 font-display text-xl font-semibold">Your next step, made personal</h2>
->>>>>>> 1150359 (Life Upgrade V2 UI UX redesign)
           </div>
           <button
             onClick={() => void toggleVoiceMode()}
@@ -605,7 +569,7 @@ function CoachPage() {
             className={`press grid h-12 w-12 place-items-center rounded-full border ${
               voiceMode ? "border-primary bg-primary text-primary-foreground" : "border-border bg-elevated text-foreground"
             }`}
-            aria-label={voiceMode ? (hi ? "कोच बंद करें" : "Stop coach") : hi ? "कोच शुरू करें" : "Start coach"}
+            aria-label={voiceMode ? (hi ? "à¤•à¥‹à¤š à¤¬à¤‚à¤¦ à¤•à¤°à¥‡à¤‚" : "Stop coach") : hi ? "à¤•à¥‹à¤š à¤¶à¥à¤°à¥‚ à¤•à¤°à¥‡à¤‚" : "Start coach"}
           >
             {voiceMode ? <Volume2 className="h-5 w-5" aria-hidden /> : <Mic className="h-5 w-5" aria-hidden />}
           </button>
@@ -621,7 +585,7 @@ function CoachPage() {
                   ? "border-gold bg-gold/20 text-gold scale-105"
                   : "border-border bg-elevated text-foreground"
             }`}
-            aria-label={hi ? "माइक से बात करें" : "Talk with microphone"}
+            aria-label={hi ? "à¤®à¤¾à¤‡à¤• à¤¸à¥‡ à¤¬à¤¾à¤¤ à¤•à¤°à¥‡à¤‚" : "Talk with microphone"}
           >
             {status === "speaking" ? <Volume2 className="h-10 w-10" aria-hidden /> : <Mic className="h-10 w-10" aria-hidden />}
           </button>
@@ -630,12 +594,8 @@ function CoachPage() {
             {voiceMode
               ? statusLabel[status]
               : hi
-                ? "माइक दबाकर अपनी बात शुरू करें। कोच तुरंत जवाब देगा।"
-<<<<<<< HEAD
-                : "Tap the mic and speak naturally. Your coach will answer in your voice."}
-=======
+                ? "à¤®à¤¾à¤‡à¤• à¤¦à¤¬à¤¾à¤•à¤° à¤…à¤ªà¤¨à¥€ à¤¬à¤¾à¤¤ à¤¶à¥à¤°à¥‚ à¤•à¤°à¥‡à¤‚à¥¤ à¤•à¥‹à¤š à¤¤à¥à¤°à¤‚à¤¤ à¤œà¤µà¤¾à¤¬ à¤¦à¥‡à¤—à¤¾à¥¤"
                 : "Tap the mic, speak, review your transcript, then get a personal reply."}
->>>>>>> 1150359 (Life Upgrade V2 UI UX redesign)
           </p>
 
           <div className="mt-4 h-2 w-full overflow-hidden rounded-full bg-muted">
@@ -649,10 +609,10 @@ function CoachPage() {
 
       {micPermission === "denied" ? (
         <Card className="space-y-1">
-          <p className="text-sm font-semibold">{hi ? "माइक्रोफ़ोन बंद है" : "Microphone is blocked"}</p>
+          <p className="text-sm font-semibold">{hi ? "à¤®à¤¾à¤‡à¤•à¥à¤°à¥‹à¤«à¤¼à¥‹à¤¨ à¤¬à¤‚à¤¦ à¤¹à¥ˆ" : "Microphone is blocked"}</p>
           <p className="text-xs text-muted-foreground">
             {hi
-              ? "आवाज़ से बात करने के लिए माइक की अनुमति ज़रूरी है।"
+              ? "à¤†à¤µà¤¾à¤œà¤¼ à¤¸à¥‡ à¤¬à¤¾à¤¤ à¤•à¤°à¤¨à¥‡ à¤•à¥‡ à¤²à¤¿à¤ à¤®à¤¾à¤‡à¤• à¤•à¥€ à¤…à¤¨à¥à¤®à¤¤à¤¿ à¤œà¤¼à¤°à¥‚à¤°à¥€ à¤¹à¥ˆà¥¤"
               : "Voice chat needs microphone access to work in audio-to-audio mode."}
           </p>
         </Card>
@@ -661,12 +621,12 @@ function CoachPage() {
       {showSettings ? (
         <Card className="space-y-4">
           <p className="flex items-center gap-2 font-display text-sm font-semibold">
-            <Settings2 className="h-4 w-4 text-primary" aria-hidden /> {hi ? "वॉइस मोड सेटिंग" : "Voice mode settings"}
+            <Settings2 className="h-4 w-4 text-primary" aria-hidden /> {hi ? "à¤µà¥‰à¤‡à¤¸ à¤®à¥‹à¤¡ à¤¸à¥‡à¤Ÿà¤¿à¤‚à¤—" : "Voice mode settings"}
           </p>
 
           <label className="block space-y-1.5">
             <span className="flex items-center justify-between text-xs">
-              <span className="text-muted-foreground">{hi ? "सुनने की संवेदनशीलता" : "Listening sensitivity"}</span>
+              <span className="text-muted-foreground">{hi ? "à¤¸à¥à¤¨à¤¨à¥‡ à¤•à¥€ à¤¸à¤‚à¤µà¥‡à¤¦à¤¨à¤¶à¥€à¤²à¤¤à¤¾" : "Listening sensitivity"}</span>
               <span className="font-semibold text-primary">{voice.sensitivity}/10</span>
             </span>
             <input
@@ -682,8 +642,8 @@ function CoachPage() {
 
           <label className="block space-y-1.5">
             <span className="flex items-center justify-between text-xs">
-              <span className="text-muted-foreground">{hi ? "बोलने की गति" : "Speaking speed"}</span>
-              <span className="font-semibold text-primary">{voice.speed.toFixed(2)}×</span>
+              <span className="text-muted-foreground">{hi ? "à¤¬à¥‹à¤²à¤¨à¥‡ à¤•à¥€ à¤—à¤¤à¤¿" : "Speaking speed"}</span>
+              <span className="font-semibold text-primary">{voice.speed.toFixed(2)}Ã—</span>
             </span>
             <input
               type="range"
@@ -698,8 +658,8 @@ function CoachPage() {
 
           <label className="block space-y-1.5">
             <span className="flex items-center justify-between text-xs">
-              <span className="text-muted-foreground">{hi ? "साइलेंस बाद रुकना" : "Auto-stop after silence"}</span>
-              <span className="font-semibold text-primary">{voice.autoStopSeconds ? `${voice.autoStopSeconds}s` : hi ? "कभी नहीं" : "Never"}</span>
+              <span className="text-muted-foreground">{hi ? "à¤¸à¤¾à¤‡à¤²à¥‡à¤‚à¤¸ à¤¬à¤¾à¤¦ à¤°à¥à¤•à¤¨à¤¾" : "Auto-stop after silence"}</span>
+              <span className="font-semibold text-primary">{voice.autoStopSeconds ? `${voice.autoStopSeconds}s` : hi ? "à¤•à¤­à¥€ à¤¨à¤¹à¥€à¤‚" : "Never"}</span>
             </span>
             <input
               type="range"
@@ -716,13 +676,13 @@ function CoachPage() {
 
       <Card className="space-y-3">
         <div className="flex items-center justify-between">
-          <p className="font-display text-sm font-semibold">{hi ? "हाल की बातचीत" : "Recent conversation"}</p>
+          <p className="font-display text-sm font-semibold">{hi ? "à¤¹à¤¾à¤² à¤•à¥€ à¤¬à¤¾à¤¤à¤šà¥€à¤¤" : "Recent conversation"}</p>
           {state.chat.length > 0 ? (
             <button
               onClick={() => clearChat()}
               className="text-xs font-medium text-muted-foreground"
             >
-              {hi ? "साफ़ करें" : "Clear"}
+              {hi ? "à¤¸à¤¾à¤«à¤¼ à¤•à¤°à¥‡à¤‚" : "Clear"}
             </button>
           ) : null}
         </div>
@@ -754,7 +714,7 @@ function CoachPage() {
                       onClick={() => void speak(m.content)}
                       className="mt-2 flex items-center gap-1 text-xs font-semibold text-primary"
                     >
-                      <Volume2 className="h-3.5 w-3.5" aria-hidden /> {hi ? "सुनें" : "Listen"}
+                      <Volume2 className="h-3.5 w-3.5" aria-hidden /> {hi ? "à¤¸à¥à¤¨à¥‡à¤‚" : "Listen"}
                     </button>
                   ) : null}
                 </div>
@@ -776,7 +736,7 @@ function CoachPage() {
         <div className="surface flex items-center gap-2 p-2">
           <button
             onClick={() => (status === "listening" ? recRef.current?.stop?.() : void startVoice())}
-            aria-label={hi ? "माइक से बात करें" : "Talk with microphone"}
+            aria-label={hi ? "à¤®à¤¾à¤‡à¤• à¤¸à¥‡ à¤¬à¤¾à¤¤ à¤•à¤°à¥‡à¤‚" : "Talk with microphone"}
             className={`press grid h-11 w-11 shrink-0 place-items-center rounded-xl border ${
               status === "listening" ? "border-primary bg-primary/20 text-primary" : "border-border text-muted-foreground"
             }`}
@@ -789,7 +749,7 @@ function CoachPage() {
             onKeyDown={(e) => {
               if (e.key === "Enter") void send(input);
             }}
-            placeholder={hi ? "या टाइप करके पूछें…" : "Or type if you prefer…"}
+            placeholder={hi ? "à¤¯à¤¾ à¤Ÿà¤¾à¤‡à¤ª à¤•à¤°à¤•à¥‡ à¤ªà¥‚à¤›à¥‡à¤‚â€¦" : "Or type if you preferâ€¦"}
             className="min-w-0 flex-1 bg-transparent px-1 py-2 text-base outline-none"
           />
           <button
