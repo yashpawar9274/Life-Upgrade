@@ -188,9 +188,46 @@ function UpgradePage() {
           LIFE UPGRADE <span className="gold-text">Premium</span>
         </h2>
         <p className="text-sm text-muted-foreground">
-          Monthly, yearly or lifetime · secure payment by Cashfree
+          Start free for 7 days · monthly, yearly or lifetime after that
         </p>
       </Card>
+
+      {trial?.eligible && (
+        <Card className="space-y-3 border-primary/50">
+          <div className="flex items-center gap-2">
+            <Gift className="h-5 w-5 shrink-0 text-primary" aria-hidden />
+            <h3 className="font-display text-lg font-semibold">7 days free, no card needed</h3>
+          </div>
+          <p className="text-sm text-muted-foreground">
+            Try everything in Premium — AI coach, voice coaching, smart planner, analytics and the
+            Luxury Life Roadmap. Nothing is charged, and it ends on its own after 7 days.
+          </p>
+          <button
+            onClick={() => void activateTrial()}
+            disabled={busy}
+            className="press flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-3.5 text-sm font-semibold text-primary-foreground disabled:opacity-60"
+          >
+            {busy ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden /> : null}
+            Start my 7-day free trial
+          </button>
+        </Card>
+      )}
+
+      {trial?.trialActive && trial.trialEndsAt && (
+        <Card className="space-y-1 border-primary/50">
+          <p className="font-display text-base font-semibold">Free trial active</p>
+          <p className="text-xs text-muted-foreground">
+            Full Premium until{" "}
+            {new Date(trial.trialEndsAt).toLocaleDateString("en-IN", {
+              day: "numeric",
+              month: "short",
+              year: "numeric",
+            })}
+            . Pick a plan below anytime to keep it going.
+          </p>
+        </Card>
+      )}
+
 
       {checking && (
         <Card className="flex items-center gap-2 text-sm text-muted-foreground">
