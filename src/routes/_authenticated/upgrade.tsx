@@ -11,9 +11,12 @@ import { loadCashfree } from "@/lib/cashfree-sdk";
 import {
   cancelMySubscription,
   getMySubscription,
+  getTrialStatus,
   startCheckout,
+  startFreeTrial,
   verifyCheckout,
 } from "@/lib/billing.functions";
+
 
 export const Route = createFileRoute("/_authenticated/upgrade")({
   head: () => ({
