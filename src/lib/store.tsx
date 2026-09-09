@@ -413,18 +413,50 @@ export function dayScore(s: AppState, key = todayKey()): number {
   return Math.min(100, Math.round((done / totals) * 100));
 }
 
+/** A day counts towards the streak when the user actually showed up:
+ *  any routine/habit step done, a mood check-in, or focus minutes logged. */
+export function dayKept(s: AppState, key = todayKey()): boolean {
+  const done = (s.routineLog[key]?.length ?? 0) + (s.habitLog[key]?.length ?? 0);
+  const totals = s.routines.length + s.habits.length;
+  const enough = totals ? done >= Math.min(2, totals) : done > 0;
+  return enough || !!s.moodLog?.[key] || (s.focusLog?.[key] ?? 0) > 0;
+}
+
 export function streak(s: AppState): number {
   let count = 0;
   for (let i = 0; i < 400; i++) {
     const d = new Date();
     d.setDate(d.getDate() - i);
     const key = todayKey(d);
-    if (dayScore(s, key) >= 50) count++;
+    if (dayKept(s, key)) count++;
     else if (i === 0) continue;
     else break;
   }
   return count;
 }
+
+/** AI-decided daily cap: no manual input. Starts from the user's own 7-day
+ *  average and steps down gradually, never below a safe floor. */
+export function aiLimitPlan(s: AppState, limit: Limit): { cap: number; reason: string } {
+  const keys = dayKeysBack(14);
+  const counts = keys.map((k) => s.limitLog[k]?.[limit.id] ?? 0);
+  const logged = counts.filter((c) => c > 0);
+  const avg = logged.length ? logged.reduce((a, b) => a + b, 0) / logged.length : limit.dailyLimit;
+  const recent = counts.slice(-7);
+  const recentAvg = recent.length ? recent.reduce((a, b) => a + b, 0) / recent.length : avg;
+  const floor = limit.unit === "minutes" ? 15 : 0;
+  const base = Math.max(avg, recentAvg);
+  let cap = Math.max(floor, Math.round(base * 0.85));
+  if (!logged.length) cap = limit.dailyLimit;
+  if (recentAvg <= cap * 0.6) cap = Math.max(floor, Math.round(cap * 0.85));
+  const reason = !logged.length
+    ? "Starting cap set by your coach — log a few days and it adapts."
+    : recentAvg <= cap
+      ? "You are under your cap, so the coach lowered it one gentle step."
+      : "Cap kept close to your current average — small reduction, no pressure.";
+  return { cap, reason };
+}
+
 
 export type Level = { name: string; index: number; next?: string; min: number; max: number };
 
