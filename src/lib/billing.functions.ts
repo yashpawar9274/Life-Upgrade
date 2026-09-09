@@ -164,3 +164,56 @@ export const cancelMySubscription = createServerFn({ method: "POST" })
       .eq("id", row.id);
     return { ok: true };
   });
+
+/** Whether the user can still start the one-time 7-day free trial. */
+export const getTrialStatus = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { data } = await context.supabase
+      .from("subscriptions")
+      .select("id, plan_code, status, current_period_end")
+      .order("created_at", { ascending: false });
+    const rows = data ?? [];
+    const trial = rows.find((r) => r.plan_code === "trial") ?? null;
+    const trialEndsAt = trial?.current_period_end ?? null;
+    const trialActive =
+      !!trialEndsAt && trial?.status === "active" && new Date(trialEndsAt) > new Date();
+    return {
+      eligible: rows.length === 0,
+      trialActive,
+      trialEndsAt,
+      trialUsed: !!trial,
+    };
+  });
+
+/** Starts the one-time 7-day Premium trial. No card, nothing charged. */
+export const startFreeTrial = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { userId, claims } = context;
+    const email = (claims["email"] as string | undefined) ?? null;
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+
+    const { data: existing } = await supabaseAdmin
+      .from("subscriptions")
+      .select("id")
+      .eq("user_id", userId)
+      .limit(1);
+    if (existing && existing.length > 0) {
+      throw new Error("Free trial is only available on a brand-new account.");
+    }
+
+    const endsAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString();
+    const { error } = await supabaseAdmin.from("subscriptions").insert({
+      user_id: userId,
+      email,
+      plan_code: "trial",
+      interval: "trial",
+      amount: 0,
+      status: "active",
+      provider: "trial",
+      current_period_end: endsAt,
+    });
+    if (error) throw new Error("Could not start the trial. Please try again.");
+    return { ok: true, trialEndsAt: endsAt };
+  });
