@@ -1,158 +1,140 @@
-# Life Upgrade
-
-Build a premium mobile-first web app named “LIFE UPGRADE” — a personal transformation coach that helps users improve their daily routine, health, discipline, mindset, money habits, and overall lifestyle.
-
-The app should feel like a personal trainer + life coach, not a basic habit tracker.
-
-Main goal:
-
-Help users leave unhealthy routines, build strong habits, stay consistent, and gradually move toward a confident, healthy, productive, luxury lifestyle. Use motivating but respectful language—never shame users for failures, smoking, drinking, laziness, or relapse. Guide them to reduce harmful habits safely and recommend professional help when appropriate.
-
-Platform:
-
-- Mobile-first Android-style UI
-
-- Fully responsive PWA that can be installed on Android home screen
-
-- Smooth app-like navigation, bottom tab bar
-
-- Prevent unwanted browser zooming and horizontal overflow
-
-- Clean, premium dark UI with black, white, deep navy, emerald green, subtle gold accents
-
-- Fast loading, accessible, polished micro-animations
-
-- Offline-friendly PWA support for routine check-ins and habit tracking
-
-Free Plan:
-
-Create a useful daily lifestyle-improvement system with:
-
-- Onboarding: user selects goals such as wake up early, exercise, weight loss, meditation, focus, better sleep, productivity, reduce smoking/drinking, stop wasting time, confidence, improve money habits, and healthier relationships.
-
-- Daily routine planner: morning, afternoon, evening, and night routine.
-
-- Habit tracker with streaks, weekly progress, reminders, and check-ins.
-
-- Daily tasks: water, walk/running, workout, meditation, reading, sleep on time, work focus, healthy food, no unnecessary spending.
-
-- “Bad Habit Control” section: user can set a limit for smoking, alcohol, junk food, scrolling, gaming, or other habits; the app tracks progress without judging.
-
-- Mood check-in: happy, stressed, low-energy, focused, anxious, motivated.
-
-- Daily motivational message.
-
-- Simple weekly report: completed habits, missed habits, streaks, and next-week improvement suggestions.
-
-- “Distance from Bad Friends / Bad Environment” goal: help users plan healthy boundaries, without accessing private communications or spying on people.
-
-- Progress levels: Reset → Discipline → Growth → Elite Routine.
-
-- A beautiful dashboard showing today’s score, current streak, completed tasks, and one key focus for the day.
-
-Premium Plan:
-
-Premium users get “LIFE AI COACH”:
-
-- Personal AI coach that creates personalized routines based on user goals, work timing, sleep pattern, fitness level, mood, and habits.
-
-- AI daily conversation in Hindi, Hinglish, and English.
-
-- AI gives realistic reminders, motivation, accountability, workout suggestions, meditation, focus planning, and healthy alternatives for urges.
-
-- AI analyzes manually entered routine data and creates weekly improvement plans.
-
-- AI helps users set limits for smoking/alcohol and track reduction goals; it must never claim medical treatment or force sudden quitting.
-
-- AI creates “Luxury Life Roadmap”: health, appearance, confidence, skills, work, savings, discipline, social circle, and lifestyle goals.
-
-- Smart daily planner based on user’s available time and work schedule.
-
-- Premium analytics: habit heatmap, mood trends, productivity report, sleep consistency, improvement score, relapse triggers based only on user-entered data.
-
-- Voice input for adding habits/tasks and talking to AI.
-
-- Export personal weekly progress report as a shareable image/PDF.
-
-Privacy and permissions:
-
-- Do NOT secretly monitor the user’s phone, microphone, messages, calls, browsing history, or private activities.
-
-- The app can only use data the user manually enters or explicitly grants permission for.
-
-- If location is enabled, use it only for optional routine reminders such as “time for a walk,” and clearly show why it is used.
-
-- Show a clear privacy dashboard where users can view, export, and delete their data.
-
-- No background audio recording or surveillance features.
-
-Core screens:
-
-1. Splash screen: “Your next version starts today.”
-
-2. Onboarding and goal selection
-
-3. Home dashboard
-
-4. Today’s routine and task checklist
-
-5. Habit tracker and streaks
-
-6. Bad Habit Control / Limits
-
-7. Workout, walking, running, meditation plans
-
-8. Focus mode with timer
-
-9. Progress and weekly reports
-
-10. AI Life Coach chat (Premium)
-
-11. Subscription / Upgrade screen
-
-12. Profile, reminders, privacy, data controls, and settings
-
-Bottom Navigation:
-
-Home | Routine | Progress | AI Coach | Profile
-
-Include:
-
-- Realistic sample data for a user
-
-- Functional CRUD for routines, goals, habits, limits, and daily check-ins
-
-- Local storage/database persistence
-
-- Premium plan UI with locked AI features for free users
-
-- Proper empty states, loading states, error states, and confirmation messages
-
-- Use modern icons, clean typography, and premium card layouts
-
-- Make all navigation and buttons functional
-
-- Add a clear disclaimer in the health/habit sections: “This app supports personal wellbeing and is not a substitute for medical or mental-health care.”
-
-This project was built with [Lovable](https://lovable.dev).
-
-**Live app**: https://mindset-mastery-app.lovable.app
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/e580e47b-d8ed-4afb-8d13-8fb6a70180ff).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
+# LIFE UPGRADE V2.0
+
+> Your Personal AI Discipline Coach
+
+LIFE UPGRADE is a mobile-first personal growth and wellbeing web application. It helps users build disciplined routines, improve focus, track habits, control unhealthy patterns, and work towards a stronger daily lifestyle.
+
+## What changed in V2.0
+
+### New UI/UX
+
+* Redesigned premium mobile-first interface
+* Floating bottom navigation
+* Updated navigation flow:
+
+  * Today
+  * Journey
+  * Insights
+  * Coach
+  * Profile
+* Improved app header, spacing, premium cards, shadows, and hierarchy
+* Cleaner, less cluttered dashboard experience
+* One clear next action instead of showing too many tasks together
+
+### Today Dashboard Redesign
+
+* Premium discipline score card
+* Current streak and growth level
+* “Your Next Step” section
+* Primary action button: **Start Next Step**
+* Daily mission and level progress
+* Mood check-in
+* Habit quick check-ins
+* Personal Coach shortcut
+
+### Personal AI Coach
+
+* Renamed from **LIFE AI COACH** to **Personal AI Coach**
+* Coach is designed to provide practical daily support in Hindi, Hinglish, and English
+* Uses routine, goals, work timing, sleep, mood, focus, habits, streaks, and limits as context
+* Helps users with:
+
+  * Daily planning
+  * Better routine
+  * Low energy days
+  * Focus improvement
+  * Smoking/drinking reduction guidance
+  * Scrolling control
+  * Weekly planning
+  * Confidence building
+* Missing AI configuration no longer crashes the app or creates a blank screen
+* Shows a safe message when the Personal AI Coach is not configured
+* Voice replies now show a clearer unavailable state if TTS setup is missing
+
+> Note: Browser voice input and voice replies work while the app is open. True continuous background microphone support requires a native Android application and is not promised in the web PWA.
+
+### SaaS Pricing Update
+
+| Plan                  |         Price | Includes                                                               |
+| --------------------- | ------------: | ---------------------------------------------------------------------- |
+| Free                  |            ₹0 | Basic routine, habits, mood, streaks and limits                        |
+| Starter Lifetime      | ₹299 one-time | Lifetime tracking, insights and challenges with 15 one-time AI credits |
+| Personal Coach        |    ₹199/month | Personal AI Coach, weekly reviews and fair-use AI credits              |
+| Personal Coach Yearly |   ₹1,499/year | Full Personal Coach access at a yearly discount                        |
+
+> Starter Lifetime does not include unlimited AI access. This keeps the product sustainable because AI usage has ongoing costs.
+
+## Core Features
+
+* Daily routine planner
+* Habit tracking and streaks
+* Focus timer
+* Mood check-ins
+* Control & Reduction Plan for scrolling, smoking, alcohol, junk food, gaming, and custom habits
+* Progress reports
+* Weekly performance insights
+* Premium Personal AI Coach
+* Voice input and text chat
+* Cloud sync with Supabase
+* Secure authentication
+* Cashfree subscription and payment support
+* Installable PWA support
+
+## Tech Stack
+
+* React
+* TypeScript
+* Vite
+* TanStack Router / TanStack Start
+* Tailwind CSS
+* Supabase Auth and Database
+* Cashfree Payments
+* Gemini AI
+* Lovable TTS Gateway
+* PWA / Service Worker
+
+## Environment Variables
+
+Create a `.env` file locally. Never upload this file to GitHub.
+
+```env
+GEMINI_API_KEY=
+LOVABLE_API_KEY=
+SUPABASE_URL=
+SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+CASHFREE_APP_ID=
+CASHFREE_SECRET_KEY=
+```
+
+* `GEMINI_API_KEY` is required for Personal AI Coach replies.
+* `LOVABLE_API_KEY` is required only for TTS voice replies.
+* Never use `VITE_` prefixes for secret server keys.
+
+## Run Locally
+
+```bash
+npm install
 npm run dev
 ```
+
+Production build:
+
+```bash
+npm run build
+```
+
+## Safety Note
+
+LIFE UPGRADE supports personal wellbeing and is not a substitute for medical or mental-health care. The app does not secretly monitor calls, messages, browsing history, microphone activity, or any private user activity.
+
+## Roadmap
+
+* Secure Coach Memory with view/edit/delete controls
+* AI credits and per-user usage limit
+* 30-Day Transformation Challenges
+* Weekly AI Upgrade Report
+* Export progress report as image/PDF
+* Referral system
+* Admin analytics dashboard
+* Native Android app for stronger voice support
