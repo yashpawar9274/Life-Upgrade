@@ -40,7 +40,7 @@ export const Route = createFileRoute("/_authenticated/coach")({
         content:
           "Plan your day, build discipline and get practical support in Hindi, Hinglish or English.",
       },
-      { property: "og:title", content: "Personal AI Coach â€” LIFE UPGRADE" },
+      { property: "og:title", content: "Personal AI Coach Ã¢â‚¬â€ LIFE UPGRADE" },
       {
         property: "og:description",
         content: "Voice conversations, personalised routines, urge alternatives and weekly plans.",
@@ -59,11 +59,11 @@ const PROMPTS_EN = [
 ];
 
 const PROMPTS_HI = [
-  "à¤•à¤² à¤•à¥‡ à¤²à¤¿à¤ à¤à¤• à¤…à¤¸à¤²à¥€ à¤°à¥‚à¤Ÿà¥€à¤¨ à¤¬à¤¨à¤¾à¤“",
-  "à¤†à¤œ à¤Šà¤°à¥à¤œà¤¾ à¤•à¤® à¤¹à¥ˆ, à¤•à¥à¤¯à¤¾ à¤•à¤°à¥‚à¤?",
-  "à¤¸à¤¿à¤—à¤°à¥‡à¤Ÿ à¤§à¥€à¤°à¥‡-à¤§à¥€à¤°à¥‡ à¤•à¤® à¤•à¤°à¤¨à¥‡ à¤®à¥‡à¤‚ à¤®à¤¦à¤¦ à¤•à¤°à¥‹",
-  "à¤®à¥‡à¤°à¤¾ à¤²à¤•à¥à¤œà¤¼à¤°à¥€ à¤²à¤¾à¤‡à¤« à¤°à¥‹à¤¡à¤®à¥ˆà¤ª à¤¬à¤¨à¤¾à¤“",
-  "à¤®à¥‡à¤°à¥‡ à¤¡à¥‡à¤Ÿà¤¾ à¤¸à¥‡ à¤¹à¤«à¤¼à¥à¤¤à¥‡ à¤•à¤¾ à¤ªà¥à¤²à¤¾à¤¨ à¤¬à¤¨à¤¾à¤“",
+  "Ã Â¤â€¢Ã Â¤Â² Ã Â¤â€¢Ã Â¥â€¡ Ã Â¤Â²Ã Â¤Â¿Ã Â¤Â Ã Â¤ÂÃ Â¤â€¢ Ã Â¤â€¦Ã Â¤Â¸Ã Â¤Â²Ã Â¥â‚¬ Ã Â¤Â°Ã Â¥â€šÃ Â¤Å¸Ã Â¥â‚¬Ã Â¤Â¨ Ã Â¤Â¬Ã Â¤Â¨Ã Â¤Â¾Ã Â¤â€œ",
+  "Ã Â¤â€ Ã Â¤Å“ Ã Â¤Å Ã Â¤Â°Ã Â¥ÂÃ Â¤Å“Ã Â¤Â¾ Ã Â¤â€¢Ã Â¤Â® Ã Â¤Â¹Ã Â¥Ë†, Ã Â¤â€¢Ã Â¥ÂÃ Â¤Â¯Ã Â¤Â¾ Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€šÃ Â¤Â?",
+  "Ã Â¤Â¸Ã Â¤Â¿Ã Â¤â€”Ã Â¤Â°Ã Â¥â€¡Ã Â¤Å¸ Ã Â¤Â§Ã Â¥â‚¬Ã Â¤Â°Ã Â¥â€¡-Ã Â¤Â§Ã Â¥â‚¬Ã Â¤Â°Ã Â¥â€¡ Ã Â¤â€¢Ã Â¤Â® Ã Â¤â€¢Ã Â¤Â°Ã Â¤Â¨Ã Â¥â€¡ Ã Â¤Â®Ã Â¥â€¡Ã Â¤â€š Ã Â¤Â®Ã Â¤Â¦Ã Â¤Â¦ Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¹",
+  "Ã Â¤Â®Ã Â¥â€¡Ã Â¤Â°Ã Â¤Â¾ Ã Â¤Â²Ã Â¤â€¢Ã Â¥ÂÃ Â¤Å“Ã Â¤Â¼Ã Â¤Â°Ã Â¥â‚¬ Ã Â¤Â²Ã Â¤Â¾Ã Â¤â€¡Ã Â¤Â« Ã Â¤Â°Ã Â¥â€¹Ã Â¤Â¡Ã Â¤Â®Ã Â¥Ë†Ã Â¤Âª Ã Â¤Â¬Ã Â¤Â¨Ã Â¤Â¾Ã Â¤â€œ",
+  "Ã Â¤Â®Ã Â¥â€¡Ã Â¤Â°Ã Â¥â€¡ Ã Â¤Â¡Ã Â¥â€¡Ã Â¤Å¸Ã Â¤Â¾ Ã Â¤Â¸Ã Â¥â€¡ Ã Â¤Â¹Ã Â¤Â«Ã Â¤Â¼Ã Â¥ÂÃ Â¤Â¤Ã Â¥â€¡ Ã Â¤â€¢Ã Â¤Â¾ Ã Â¤ÂªÃ Â¥ÂÃ Â¤Â²Ã Â¤Â¾Ã Â¤Â¨ Ã Â¤Â¬Ã Â¤Â¨Ã Â¤Â¾Ã Â¤â€œ",
 ];
 
 type Status = "idle" | "listening" | "thinking" | "speaking" | "background";
@@ -136,7 +136,7 @@ function CoachPage() {
       setMicPermission("denied");
       toast.error(
         hi
-          ? "à¤®à¤¾à¤‡à¤• à¤•à¥€ à¤…à¤¨à¥à¤®à¤¤à¤¿ à¤¨à¤¹à¥€à¤‚ à¤®à¤¿à¤²à¥€à¥¤ à¤¬à¥à¤°à¤¾à¤‰à¤œà¤¼à¤° à¤¸à¥‡à¤Ÿà¤¿à¤‚à¤— à¤®à¥‡à¤‚ à¤®à¤¾à¤‡à¤•à¥à¤°à¥‹à¤«à¤¼à¥‹à¤¨ à¤šà¤¾à¤²à¥‚ à¤•à¤°à¥‡à¤‚à¥¤"
+          ? "Ã Â¤Â®Ã Â¤Â¾Ã Â¤â€¡Ã Â¤â€¢ Ã Â¤â€¢Ã Â¥â‚¬ Ã Â¤â€¦Ã Â¤Â¨Ã Â¥ÂÃ Â¤Â®Ã Â¤Â¤Ã Â¤Â¿ Ã Â¤Â¨Ã Â¤Â¹Ã Â¥â‚¬Ã Â¤â€š Ã Â¤Â®Ã Â¤Â¿Ã Â¤Â²Ã Â¥â‚¬Ã Â¥Â¤ Ã Â¤Â¬Ã Â¥ÂÃ Â¤Â°Ã Â¤Â¾Ã Â¤â€°Ã Â¤Å“Ã Â¤Â¼Ã Â¤Â° Ã Â¤Â¸Ã Â¥â€¡Ã Â¤Å¸Ã Â¤Â¿Ã Â¤â€šÃ Â¤â€” Ã Â¤Â®Ã Â¥â€¡Ã Â¤â€š Ã Â¤Â®Ã Â¤Â¾Ã Â¤â€¡Ã Â¤â€¢Ã Â¥ÂÃ Â¤Â°Ã Â¥â€¹Ã Â¤Â«Ã Â¤Â¼Ã Â¥â€¹Ã Â¤Â¨ Ã Â¤Å¡Ã Â¤Â¾Ã Â¤Â²Ã Â¥â€š Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¡Ã Â¤â€šÃ Â¥Â¤"
           : "Microphone permission was blocked. Enable it in your browser settings.",
       );
       return null;
@@ -172,14 +172,14 @@ function CoachPage() {
         analyser.fftSize = 512;
         src.connect(analyser);
         const buf = new Uint8Array(analyser.frequencyBinCount);
-        const threshold = (11 - voice.sensitivity) / 100; // higher sensitivity â†’ lower threshold
+        const threshold = (11 - voice.sensitivity) / 100; // higher sensitivity Ã¢â€ â€™ lower threshold
         const tick = () => {
           analyser.getByteTimeDomainData(buf);
           let sum = 0;
           for (const v of buf) sum += (v - 128) * (v - 128);
           const rms = Math.sqrt(sum / buf.length) / 128;
           setLevel(Math.min(1, rms * 6));
-          if (rms > threshold) armAutoStop(); // still talking â†’ push the auto-stop timer out
+          if (rms > threshold) armAutoStop(); // still talking Ã¢â€ â€™ push the auto-stop timer out
           const raf = requestAnimationFrame(tick);
           if (meterRef.current) meterRef.current.raf = raf;
         };
@@ -198,7 +198,7 @@ function CoachPage() {
       const wl = (navigator as any).wakeLock;
       if (wl?.request) wakeLockRef.current = await wl.request("screen");
     } catch {
-      /* not supported â€” audio still continues */
+      /* not supported Ã¢â‚¬â€ audio still continues */
     }
   }, []);
 
@@ -301,8 +301,8 @@ function CoachPage() {
 
         if ("mediaSession" in navigator) {
           navigator.mediaSession.metadata = new MediaMetadata({
-            title: hi ? "à¤ªà¤°à¥à¤¸à¤¨à¤² à¤à¤†à¤ˆ à¤•à¥‹à¤š" : "Personal AI Coach",
-            artist: hi ? "à¤†à¤ªà¤•à¤¾ à¤²à¤¾à¤‡à¤« à¤•à¥‹à¤š" : "Your life coach",
+            title: hi ? "Ã Â¤ÂªÃ Â¤Â°Ã Â¥ÂÃ Â¤Â¸Ã Â¤Â¨Ã Â¤Â² Ã Â¤ÂÃ Â¤â€ Ã Â¤Ë† Ã Â¤â€¢Ã Â¥â€¹Ã Â¤Å¡" : "Personal AI Coach",
+            artist: hi ? "Ã Â¤â€ Ã Â¤ÂªÃ Â¤â€¢Ã Â¤Â¾ Ã Â¤Â²Ã Â¤Â¾Ã Â¤â€¡Ã Â¤Â« Ã Â¤â€¢Ã Â¥â€¹Ã Â¤Å¡" : "Your life coach",
             album: "LIFE UPGRADE",
             artwork: [{ src: "/icons/icon-192.png", sizes: "192x192", type: "image/png" }],
           });
@@ -334,7 +334,7 @@ function CoachPage() {
         await audio.play();
       } catch {
         setStat("idle");
-        toast.error(hi ? "à¤†à¤µà¤¾à¤œà¤¼ à¤…à¤­à¥€ à¤‰à¤ªà¤²à¤¬à¥à¤§ à¤¨à¤¹à¥€à¤‚ à¤¹à¥ˆà¥¤" : "Voice is unavailable right now.");
+        toast.error(hi ? "Ã Â¤â€ Ã Â¤ÂµÃ Â¤Â¾Ã Â¤Å“Ã Â¤Â¼ Ã Â¤â€¦Ã Â¤Â­Ã Â¥â‚¬ Ã Â¤â€°Ã Â¤ÂªÃ Â¤Â²Ã Â¤Â¬Ã Â¥ÂÃ Â¤Â§ Ã Â¤Â¨Ã Â¤Â¹Ã Â¥â‚¬Ã Â¤â€š Ã Â¤Â¹Ã Â¥Ë†Ã Â¥Â¤" : "Voice is unavailable right now.");
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -372,7 +372,7 @@ function CoachPage() {
       pushChat({
         role: "assistant",
         content: hi
-          ? "à¤…à¤­à¥€ à¤®à¥ˆà¤‚ à¤œà¤µà¤¾à¤¬ à¤¨à¤¹à¥€à¤‚ à¤²à¤¾ à¤ªà¤¾à¤¯à¤¾à¥¤ à¤¤à¤¬ à¤¤à¤•: 10 à¤—à¤¹à¤°à¥€ à¤¸à¤¾à¤‚à¤¸à¥‡à¤‚, 300ml à¤ªà¤¾à¤¨à¥€ à¤”à¤° 10 à¤®à¤¿à¤¨à¤Ÿ à¤•à¥€ à¤µà¥‰à¤•à¥¤ à¤¥à¥‹à¤¡à¤¼à¥€ à¤¦à¥‡à¤° à¤®à¥‡à¤‚ à¤«à¤¿à¤° à¤•à¥‹à¤¶à¤¿à¤¶ à¤•à¤°à¥‡à¤‚à¥¤"
+          ? "Ã Â¤â€¦Ã Â¤Â­Ã Â¥â‚¬ Ã Â¤Â®Ã Â¥Ë†Ã Â¤â€š Ã Â¤Å“Ã Â¤ÂµÃ Â¤Â¾Ã Â¤Â¬ Ã Â¤Â¨Ã Â¤Â¹Ã Â¥â‚¬Ã Â¤â€š Ã Â¤Â²Ã Â¤Â¾ Ã Â¤ÂªÃ Â¤Â¾Ã Â¤Â¯Ã Â¤Â¾Ã Â¥Â¤ Ã Â¤Â¤Ã Â¤Â¬ Ã Â¤Â¤Ã Â¤â€¢: 10 Ã Â¤â€”Ã Â¤Â¹Ã Â¤Â°Ã Â¥â‚¬ Ã Â¤Â¸Ã Â¤Â¾Ã Â¤â€šÃ Â¤Â¸Ã Â¥â€¡Ã Â¤â€š, 300ml Ã Â¤ÂªÃ Â¤Â¾Ã Â¤Â¨Ã Â¥â‚¬ Ã Â¤â€Ã Â¤Â° 10 Ã Â¤Â®Ã Â¤Â¿Ã Â¤Â¨Ã Â¤Å¸ Ã Â¤â€¢Ã Â¥â‚¬ Ã Â¤ÂµÃ Â¥â€°Ã Â¤â€¢Ã Â¥Â¤ Ã Â¤Â¥Ã Â¥â€¹Ã Â¤Â¡Ã Â¤Â¼Ã Â¥â‚¬ Ã Â¤Â¦Ã Â¥â€¡Ã Â¤Â° Ã Â¤Â®Ã Â¥â€¡Ã Â¤â€š Ã Â¤Â«Ã Â¤Â¿Ã Â¤Â° Ã Â¤â€¢Ã Â¥â€¹Ã Â¤Â¶Ã Â¤Â¿Ã Â¤Â¶ Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¡Ã Â¤â€šÃ Â¥Â¤"
           : "I couldn't reach my brain just now. Meanwhile: 10 slow breaths, 300ml water, and a 10 minute walk. Try again in a moment.",
       });
       if (voiceModeRef.current) setStat("idle");
@@ -388,7 +388,7 @@ function CoachPage() {
       const SR =
         (window as any).SpeechRecognition ?? (window as any).webkitSpeechRecognition;
       if (!SR) {
-        toast.error(hi ? "à¤‡à¤¸ à¤¬à¥à¤°à¤¾à¤‰à¤œà¤¼à¤° à¤®à¥‡à¤‚ à¤µà¥‰à¤‡à¤¸ à¤‡à¤¨à¤ªà¥à¤Ÿ à¤¨à¤¹à¥€à¤‚ à¤¹à¥ˆà¥¤" : "Voice input isn't supported in this browser.");
+        toast.error(hi ? "Ã Â¤â€¡Ã Â¤Â¸ Ã Â¤Â¬Ã Â¥ÂÃ Â¤Â°Ã Â¤Â¾Ã Â¤â€°Ã Â¤Å“Ã Â¤Â¼Ã Â¤Â° Ã Â¤Â®Ã Â¥â€¡Ã Â¤â€š Ã Â¤ÂµÃ Â¥â€°Ã Â¤â€¡Ã Â¤Â¸ Ã Â¤â€¡Ã Â¤Â¨Ã Â¤ÂªÃ Â¥ÂÃ Â¤Å¸ Ã Â¤Â¨Ã Â¤Â¹Ã Â¥â‚¬Ã Â¤â€š Ã Â¤Â¹Ã Â¥Ë†Ã Â¥Â¤" : "Voice input isn't supported in this browser.");
         return;
       }
       const stream = await requestMic();
@@ -481,7 +481,7 @@ function CoachPage() {
           <Sparkles className="mx-auto h-8 w-8 text-gold" aria-hidden />
           <h2 className="font-display text-xl font-semibold">Your personal AI life coach</h2>
           <p className="text-sm text-muted-foreground">
-            Talk out loud â€” voice in, voice out â€” in Hindi, Hinglish or English, with routines built from
+            Talk out loud Ã¢â‚¬â€ voice in, voice out Ã¢â‚¬â€ in Hindi, Hinglish or English, with routines built from
             your goals, sleep, work timing and mood.
           </p>
           <Link
@@ -512,23 +512,23 @@ function CoachPage() {
   const prompts = hi ? PROMPTS_HI : PROMPTS_EN;
 
   const statusLabel: Record<Status, string> = {
-    idle: hi ? "à¤¤à¥ˆà¤¯à¤¾à¤°" : "Ready",
-    listening: hi ? "à¤¸à¥à¤¨ à¤°à¤¹à¤¾ à¤¹à¥‚à¤â€¦" : "Listeningâ€¦",
-    thinking: hi ? "à¤¸à¥‹à¤š à¤°à¤¹à¤¾ à¤¹à¥‚à¤â€¦" : "Thinkingâ€¦",
-    speaking: hi ? "à¤¬à¥‹à¤² à¤°à¤¹à¤¾ à¤¹à¥‚à¤â€¦" : "Speakingâ€¦",
-    background: hi ? "à¤¬à¥ˆà¤•à¤—à¥à¤°à¤¾à¤‰à¤‚à¤¡ à¤®à¥‡à¤‚ à¤°à¥à¤•à¤¾ â€” à¤µà¤¾à¤ªà¤¸ à¤†à¤¤à¥‡ à¤¹à¥€ à¤šà¤¾à¤²à¥‚" : "Paused in background â€” resumes on return",
+    idle: hi ? "Ã Â¤Â¤Ã Â¥Ë†Ã Â¤Â¯Ã Â¤Â¾Ã Â¤Â°" : "Ready",
+    listening: hi ? "Ã Â¤Â¸Ã Â¥ÂÃ Â¤Â¨ Ã Â¤Â°Ã Â¤Â¹Ã Â¤Â¾ Ã Â¤Â¹Ã Â¥â€šÃ Â¤ÂÃ¢â‚¬Â¦" : "ListeningÃ¢â‚¬Â¦",
+    thinking: hi ? "Ã Â¤Â¸Ã Â¥â€¹Ã Â¤Å¡ Ã Â¤Â°Ã Â¤Â¹Ã Â¤Â¾ Ã Â¤Â¹Ã Â¥â€šÃ Â¤ÂÃ¢â‚¬Â¦" : "ThinkingÃ¢â‚¬Â¦",
+    speaking: hi ? "Ã Â¤Â¬Ã Â¥â€¹Ã Â¤Â² Ã Â¤Â°Ã Â¤Â¹Ã Â¤Â¾ Ã Â¤Â¹Ã Â¥â€šÃ Â¤ÂÃ¢â‚¬Â¦" : "SpeakingÃ¢â‚¬Â¦",
+    background: hi ? "Ã Â¤Â¬Ã Â¥Ë†Ã Â¤â€¢Ã Â¤â€”Ã Â¥ÂÃ Â¤Â°Ã Â¤Â¾Ã Â¤â€°Ã Â¤â€šÃ Â¤Â¡ Ã Â¤Â®Ã Â¥â€¡Ã Â¤â€š Ã Â¤Â°Ã Â¥ÂÃ Â¤â€¢Ã Â¤Â¾ Ã¢â‚¬â€ Ã Â¤ÂµÃ Â¤Â¾Ã Â¤ÂªÃ Â¤Â¸ Ã Â¤â€ Ã Â¤Â¤Ã Â¥â€¡ Ã Â¤Â¹Ã Â¥â‚¬ Ã Â¤Å¡Ã Â¤Â¾Ã Â¤Â²Ã Â¥â€š" : "Paused in background Ã¢â‚¬â€ resumes on return",
   };
 
   return (
     <AppShell
       title="Personal AI Coach"
-      subtitle={voiceMode ? (hi ? "à¤†à¤µà¤¾à¤œà¤¼ à¤šà¤¾à¤²à¥‚ à¤¹à¥ˆ" : "Voice mode active") : hi ? "à¤†à¤µà¤¾à¤œà¤¼ à¤¸à¥‡ à¤¬à¤¾à¤¤ à¤•à¤°à¥‡à¤‚" : "Talk by voice"}
+      subtitle={voiceMode ? (hi ? "Ã Â¤â€ Ã Â¤ÂµÃ Â¤Â¾Ã Â¤Å“Ã Â¤Â¼ Ã Â¤Å¡Ã Â¤Â¾Ã Â¤Â²Ã Â¥â€š Ã Â¤Â¹Ã Â¥Ë†" : "Voice mode active") : hi ? "Ã Â¤â€ Ã Â¤ÂµÃ Â¤Â¾Ã Â¤Å“Ã Â¤Â¼ Ã Â¤Â¸Ã Â¥â€¡ Ã Â¤Â¬Ã Â¤Â¾Ã Â¤Â¤ Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¡Ã Â¤â€š" : "Talk by voice"}
       action={
         <div className="mt-1 flex gap-1.5">
           <button
             onClick={() => setShowSettings((v) => !v)}
             aria-pressed={showSettings}
-            aria-label={hi ? "à¤µà¥‰à¤‡à¤¸ à¤¸à¥‡à¤Ÿà¤¿à¤‚à¤—" : "Voice settings"}
+            aria-label={hi ? "Ã Â¤ÂµÃ Â¥â€°Ã Â¤â€¡Ã Â¤Â¸ Ã Â¤Â¸Ã Â¥â€¡Ã Â¤Å¸Ã Â¤Â¿Ã Â¤â€šÃ Â¤â€”" : "Voice settings"}
             className={`press rounded-full border p-2 ${
               showSettings ? "border-primary bg-primary/15 text-primary" : "border-border text-muted-foreground"
             }`}
@@ -537,7 +537,7 @@ function CoachPage() {
           </button>
           <Link
             to="/voice-log"
-            aria-label={hi ? "à¤µà¥‰à¤‡à¤¸ à¤‡à¤¤à¤¿à¤¹à¤¾à¤¸" : "Voice history"}
+            aria-label={hi ? "Ã Â¤ÂµÃ Â¥â€°Ã Â¤â€¡Ã Â¤Â¸ Ã Â¤â€¡Ã Â¤Â¤Ã Â¤Â¿Ã Â¤Â¹Ã Â¤Â¾Ã Â¤Â¸" : "Voice history"}
             className="press rounded-full border border-border p-2 text-muted-foreground"
           >
             <History className="h-4 w-4" aria-hidden />
@@ -546,7 +546,7 @@ function CoachPage() {
             <button
               onClick={() => {
                 clearChat();
-                toast.success(hi ? "à¤šà¥ˆà¤Ÿ à¤¸à¤¾à¤«à¤¼ à¤¹à¥‹ à¤—à¤ˆà¥¤" : "Chat cleared.");
+                toast.success(hi ? "Ã Â¤Å¡Ã Â¥Ë†Ã Â¤Å¸ Ã Â¤Â¸Ã Â¤Â¾Ã Â¤Â«Ã Â¤Â¼ Ã Â¤Â¹Ã Â¥â€¹ Ã Â¤â€”Ã Â¤Ë†Ã Â¥Â¤" : "Chat cleared.");
               }}
               aria-label="Clear chat"
               className="press rounded-full border border-border p-2 text-muted-foreground"
@@ -569,7 +569,7 @@ function CoachPage() {
             className={`press grid h-12 w-12 place-items-center rounded-full border ${
               voiceMode ? "border-primary bg-primary text-primary-foreground" : "border-border bg-elevated text-foreground"
             }`}
-            aria-label={voiceMode ? (hi ? "à¤•à¥‹à¤š à¤¬à¤‚à¤¦ à¤•à¤°à¥‡à¤‚" : "Stop coach") : hi ? "à¤•à¥‹à¤š à¤¶à¥à¤°à¥‚ à¤•à¤°à¥‡à¤‚" : "Start coach"}
+            aria-label={voiceMode ? (hi ? "Ã Â¤â€¢Ã Â¥â€¹Ã Â¤Å¡ Ã Â¤Â¬Ã Â¤â€šÃ Â¤Â¦ Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¡Ã Â¤â€š" : "Stop coach") : hi ? "Ã Â¤â€¢Ã Â¥â€¹Ã Â¤Å¡ Ã Â¤Â¶Ã Â¥ÂÃ Â¤Â°Ã Â¥â€š Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¡Ã Â¤â€š" : "Start coach"}
           >
             {voiceMode ? <Volume2 className="h-5 w-5" aria-hidden /> : <Mic className="h-5 w-5" aria-hidden />}
           </button>
@@ -585,7 +585,7 @@ function CoachPage() {
                   ? "border-gold bg-gold/20 text-gold scale-105"
                   : "border-border bg-elevated text-foreground"
             }`}
-            aria-label={hi ? "à¤®à¤¾à¤‡à¤• à¤¸à¥‡ à¤¬à¤¾à¤¤ à¤•à¤°à¥‡à¤‚" : "Talk with microphone"}
+            aria-label={hi ? "Ã Â¤Â®Ã Â¤Â¾Ã Â¤â€¡Ã Â¤â€¢ Ã Â¤Â¸Ã Â¥â€¡ Ã Â¤Â¬Ã Â¤Â¾Ã Â¤Â¤ Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¡Ã Â¤â€š" : "Talk with microphone"}
           >
             {status === "speaking" ? <Volume2 className="h-10 w-10" aria-hidden /> : <Mic className="h-10 w-10" aria-hidden />}
           </button>
@@ -594,7 +594,7 @@ function CoachPage() {
             {voiceMode
               ? statusLabel[status]
               : hi
-                ? "à¤®à¤¾à¤‡à¤• à¤¦à¤¬à¤¾à¤•à¤° à¤…à¤ªà¤¨à¥€ à¤¬à¤¾à¤¤ à¤¶à¥à¤°à¥‚ à¤•à¤°à¥‡à¤‚à¥¤ à¤•à¥‹à¤š à¤¤à¥à¤°à¤‚à¤¤ à¤œà¤µà¤¾à¤¬ à¤¦à¥‡à¤—à¤¾à¥¤"
+                ? "Ã Â¤Â®Ã Â¤Â¾Ã Â¤â€¡Ã Â¤â€¢ Ã Â¤Â¦Ã Â¤Â¬Ã Â¤Â¾Ã Â¤â€¢Ã Â¤Â° Ã Â¤â€¦Ã Â¤ÂªÃ Â¤Â¨Ã Â¥â‚¬ Ã Â¤Â¬Ã Â¤Â¾Ã Â¤Â¤ Ã Â¤Â¶Ã Â¥ÂÃ Â¤Â°Ã Â¥â€š Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¡Ã Â¤â€šÃ Â¥Â¤ Ã Â¤â€¢Ã Â¥â€¹Ã Â¤Å¡ Ã Â¤Â¤Ã Â¥ÂÃ Â¤Â°Ã Â¤â€šÃ Â¤Â¤ Ã Â¤Å“Ã Â¤ÂµÃ Â¤Â¾Ã Â¤Â¬ Ã Â¤Â¦Ã Â¥â€¡Ã Â¤â€”Ã Â¤Â¾Ã Â¥Â¤"
                 : "Tap the mic, speak, review your transcript, then get a personal reply."}
           </p>
 
@@ -609,10 +609,10 @@ function CoachPage() {
 
       {micPermission === "denied" ? (
         <Card className="space-y-1">
-          <p className="text-sm font-semibold">{hi ? "à¤®à¤¾à¤‡à¤•à¥à¤°à¥‹à¤«à¤¼à¥‹à¤¨ à¤¬à¤‚à¤¦ à¤¹à¥ˆ" : "Microphone is blocked"}</p>
+          <p className="text-sm font-semibold">{hi ? "Ã Â¤Â®Ã Â¤Â¾Ã Â¤â€¡Ã Â¤â€¢Ã Â¥ÂÃ Â¤Â°Ã Â¥â€¹Ã Â¤Â«Ã Â¤Â¼Ã Â¥â€¹Ã Â¤Â¨ Ã Â¤Â¬Ã Â¤â€šÃ Â¤Â¦ Ã Â¤Â¹Ã Â¥Ë†" : "Microphone is blocked"}</p>
           <p className="text-xs text-muted-foreground">
             {hi
-              ? "à¤†à¤µà¤¾à¤œà¤¼ à¤¸à¥‡ à¤¬à¤¾à¤¤ à¤•à¤°à¤¨à¥‡ à¤•à¥‡ à¤²à¤¿à¤ à¤®à¤¾à¤‡à¤• à¤•à¥€ à¤…à¤¨à¥à¤®à¤¤à¤¿ à¤œà¤¼à¤°à¥‚à¤°à¥€ à¤¹à¥ˆà¥¤"
+              ? "Ã Â¤â€ Ã Â¤ÂµÃ Â¤Â¾Ã Â¤Å“Ã Â¤Â¼ Ã Â¤Â¸Ã Â¥â€¡ Ã Â¤Â¬Ã Â¤Â¾Ã Â¤Â¤ Ã Â¤â€¢Ã Â¤Â°Ã Â¤Â¨Ã Â¥â€¡ Ã Â¤â€¢Ã Â¥â€¡ Ã Â¤Â²Ã Â¤Â¿Ã Â¤Â Ã Â¤Â®Ã Â¤Â¾Ã Â¤â€¡Ã Â¤â€¢ Ã Â¤â€¢Ã Â¥â‚¬ Ã Â¤â€¦Ã Â¤Â¨Ã Â¥ÂÃ Â¤Â®Ã Â¤Â¤Ã Â¤Â¿ Ã Â¤Å“Ã Â¤Â¼Ã Â¤Â°Ã Â¥â€šÃ Â¤Â°Ã Â¥â‚¬ Ã Â¤Â¹Ã Â¥Ë†Ã Â¥Â¤"
               : "Voice chat needs microphone access to work in audio-to-audio mode."}
           </p>
         </Card>
@@ -621,12 +621,12 @@ function CoachPage() {
       {showSettings ? (
         <Card className="space-y-4">
           <p className="flex items-center gap-2 font-display text-sm font-semibold">
-            <Settings2 className="h-4 w-4 text-primary" aria-hidden /> {hi ? "à¤µà¥‰à¤‡à¤¸ à¤®à¥‹à¤¡ à¤¸à¥‡à¤Ÿà¤¿à¤‚à¤—" : "Voice mode settings"}
+            <Settings2 className="h-4 w-4 text-primary" aria-hidden /> {hi ? "Ã Â¤ÂµÃ Â¥â€°Ã Â¤â€¡Ã Â¤Â¸ Ã Â¤Â®Ã Â¥â€¹Ã Â¤Â¡ Ã Â¤Â¸Ã Â¥â€¡Ã Â¤Å¸Ã Â¤Â¿Ã Â¤â€šÃ Â¤â€”" : "Voice mode settings"}
           </p>
 
           <label className="block space-y-1.5">
             <span className="flex items-center justify-between text-xs">
-              <span className="text-muted-foreground">{hi ? "à¤¸à¥à¤¨à¤¨à¥‡ à¤•à¥€ à¤¸à¤‚à¤µà¥‡à¤¦à¤¨à¤¶à¥€à¤²à¤¤à¤¾" : "Listening sensitivity"}</span>
+              <span className="text-muted-foreground">{hi ? "Ã Â¤Â¸Ã Â¥ÂÃ Â¤Â¨Ã Â¤Â¨Ã Â¥â€¡ Ã Â¤â€¢Ã Â¥â‚¬ Ã Â¤Â¸Ã Â¤â€šÃ Â¤ÂµÃ Â¥â€¡Ã Â¤Â¦Ã Â¤Â¨Ã Â¤Â¶Ã Â¥â‚¬Ã Â¤Â²Ã Â¤Â¤Ã Â¤Â¾" : "Listening sensitivity"}</span>
               <span className="font-semibold text-primary">{voice.sensitivity}/10</span>
             </span>
             <input
@@ -642,8 +642,8 @@ function CoachPage() {
 
           <label className="block space-y-1.5">
             <span className="flex items-center justify-between text-xs">
-              <span className="text-muted-foreground">{hi ? "à¤¬à¥‹à¤²à¤¨à¥‡ à¤•à¥€ à¤—à¤¤à¤¿" : "Speaking speed"}</span>
-              <span className="font-semibold text-primary">{voice.speed.toFixed(2)}Ã—</span>
+              <span className="text-muted-foreground">{hi ? "Ã Â¤Â¬Ã Â¥â€¹Ã Â¤Â²Ã Â¤Â¨Ã Â¥â€¡ Ã Â¤â€¢Ã Â¥â‚¬ Ã Â¤â€”Ã Â¤Â¤Ã Â¤Â¿" : "Speaking speed"}</span>
+              <span className="font-semibold text-primary">{voice.speed.toFixed(2)}Ãƒâ€”</span>
             </span>
             <input
               type="range"
@@ -658,8 +658,8 @@ function CoachPage() {
 
           <label className="block space-y-1.5">
             <span className="flex items-center justify-between text-xs">
-              <span className="text-muted-foreground">{hi ? "à¤¸à¤¾à¤‡à¤²à¥‡à¤‚à¤¸ à¤¬à¤¾à¤¦ à¤°à¥à¤•à¤¨à¤¾" : "Auto-stop after silence"}</span>
-              <span className="font-semibold text-primary">{voice.autoStopSeconds ? `${voice.autoStopSeconds}s` : hi ? "à¤•à¤­à¥€ à¤¨à¤¹à¥€à¤‚" : "Never"}</span>
+              <span className="text-muted-foreground">{hi ? "Ã Â¤Â¸Ã Â¤Â¾Ã Â¤â€¡Ã Â¤Â²Ã Â¥â€¡Ã Â¤â€šÃ Â¤Â¸ Ã Â¤Â¬Ã Â¤Â¾Ã Â¤Â¦ Ã Â¤Â°Ã Â¥ÂÃ Â¤â€¢Ã Â¤Â¨Ã Â¤Â¾" : "Auto-stop after silence"}</span>
+              <span className="font-semibold text-primary">{voice.autoStopSeconds ? `${voice.autoStopSeconds}s` : hi ? "Ã Â¤â€¢Ã Â¤Â­Ã Â¥â‚¬ Ã Â¤Â¨Ã Â¤Â¹Ã Â¥â‚¬Ã Â¤â€š" : "Never"}</span>
             </span>
             <input
               type="range"
@@ -676,13 +676,13 @@ function CoachPage() {
 
       <Card className="space-y-3">
         <div className="flex items-center justify-between">
-          <p className="font-display text-sm font-semibold">{hi ? "à¤¹à¤¾à¤² à¤•à¥€ à¤¬à¤¾à¤¤à¤šà¥€à¤¤" : "Recent conversation"}</p>
+          <p className="font-display text-sm font-semibold">{hi ? "Ã Â¤Â¹Ã Â¤Â¾Ã Â¤Â² Ã Â¤â€¢Ã Â¥â‚¬ Ã Â¤Â¬Ã Â¤Â¾Ã Â¤Â¤Ã Â¤Å¡Ã Â¥â‚¬Ã Â¤Â¤" : "Recent conversation"}</p>
           {state.chat.length > 0 ? (
             <button
               onClick={() => clearChat()}
               className="text-xs font-medium text-muted-foreground"
             >
-              {hi ? "à¤¸à¤¾à¤«à¤¼ à¤•à¤°à¥‡à¤‚" : "Clear"}
+              {hi ? "Ã Â¤Â¸Ã Â¤Â¾Ã Â¤Â«Ã Â¤Â¼ Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¡Ã Â¤â€š" : "Clear"}
             </button>
           ) : null}
         </div>
@@ -714,7 +714,7 @@ function CoachPage() {
                       onClick={() => void speak(m.content)}
                       className="mt-2 flex items-center gap-1 text-xs font-semibold text-primary"
                     >
-                      <Volume2 className="h-3.5 w-3.5" aria-hidden /> {hi ? "à¤¸à¥à¤¨à¥‡à¤‚" : "Listen"}
+                      <Volume2 className="h-3.5 w-3.5" aria-hidden /> {hi ? "Ã Â¤Â¸Ã Â¥ÂÃ Â¤Â¨Ã Â¥â€¡Ã Â¤â€š" : "Listen"}
                     </button>
                   ) : null}
                 </div>
@@ -736,7 +736,7 @@ function CoachPage() {
         <div className="surface flex items-center gap-2 p-2">
           <button
             onClick={() => (status === "listening" ? recRef.current?.stop?.() : void startVoice())}
-            aria-label={hi ? "à¤®à¤¾à¤‡à¤• à¤¸à¥‡ à¤¬à¤¾à¤¤ à¤•à¤°à¥‡à¤‚" : "Talk with microphone"}
+            aria-label={hi ? "Ã Â¤Â®Ã Â¤Â¾Ã Â¤â€¡Ã Â¤â€¢ Ã Â¤Â¸Ã Â¥â€¡ Ã Â¤Â¬Ã Â¤Â¾Ã Â¤Â¤ Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¡Ã Â¤â€š" : "Talk with microphone"}
             className={`press grid h-11 w-11 shrink-0 place-items-center rounded-xl border ${
               status === "listening" ? "border-primary bg-primary/20 text-primary" : "border-border text-muted-foreground"
             }`}
@@ -749,7 +749,7 @@ function CoachPage() {
             onKeyDown={(e) => {
               if (e.key === "Enter") void send(input);
             }}
-            placeholder={hi ? "à¤¯à¤¾ à¤Ÿà¤¾à¤‡à¤ª à¤•à¤°à¤•à¥‡ à¤ªà¥‚à¤›à¥‡à¤‚â€¦" : "Or type if you preferâ€¦"}
+            placeholder={hi ? "Ã Â¤Â¯Ã Â¤Â¾ Ã Â¤Å¸Ã Â¤Â¾Ã Â¤â€¡Ã Â¤Âª Ã Â¤â€¢Ã Â¤Â°Ã Â¤â€¢Ã Â¥â€¡ Ã Â¤ÂªÃ Â¥â€šÃ Â¤â€ºÃ Â¥â€¡Ã Â¤â€šÃ¢â‚¬Â¦" : "Or type if you preferÃ¢â‚¬Â¦"}
             className="min-w-0 flex-1 bg-transparent px-1 py-2 text-base outline-none"
           />
           <button
