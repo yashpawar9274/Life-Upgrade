@@ -7,14 +7,13 @@ import { toast } from "sonner";
 import { AppShell, Card, Disclaimer, SectionTitle } from "@/components/AppShell";
 import { DISCLAIMER, useStore } from "@/lib/store";
 import { PLAN_OPTIONS, type PlanCode } from "@/lib/plans";
-import { loadCashfree } from "@/lib/cashfree-sdk";
 import {
   cancelMySubscription,
   getMySubscription,
   getTrialStatus,
-  startCheckout,
   startFreeTrial,
-  verifyCheckout,
+  startPayuCheckout,
+  verifyPayuCheckout,
 } from "@/lib/billing.functions";
 
 
