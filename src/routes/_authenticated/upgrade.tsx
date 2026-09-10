@@ -113,19 +113,21 @@ function UpgradePage() {
   };
 
 
-  // Coming back from Cashfree: confirm the payment and unlock Premium.
+  // Coming back from PayU: confirm the payment and unlock Premium.
   useEffect(() => {
     const ref = new URLSearchParams(window.location.search).get("ref");
     if (!ref) return;
     setChecking(true);
-    void verify({ data: { ref } })
+    void verify({ data: { txnid: ref } })
       .then((res) => {
         if (res.premium) {
           setProfile({ plan: "premium" });
           toast.success("Payment confirmed. Premium unlocked!");
           void loadSub({}).then((row) => setSub((row as SubRow | null) ?? null));
+        } else if (res.status === "pending") {
+          toast.message("Payment is still processing. We'll unlock Premium as soon as it clears.");
         } else {
-          toast.error("Payment was not completed. Nothing was charged twice.");
+          toast.error("Payment was not completed. Nothing was charged.");
         }
       })
       .catch(() => toast.error("We couldn't confirm the payment yet. Try refreshing in a minute."))
@@ -155,18 +157,22 @@ function UpgradePage() {
           origin: window.location.origin,
         },
       });
-      const cashfree = await loadCashfree();
-      if (res.mode === "order") {
-        await cashfree.checkout({ paymentSessionId: res.sessionId, redirectTarget: "_self" });
-      } else {
-        await cashfree.subscriptionsCheckout({
-          subsSessionId: res.sessionId,
-          redirectTarget: "_self",
-        });
+      // PayU uses a signed form POST to its hosted checkout page.
+      const form = document.createElement("form");
+      form.method = "POST";
+      form.action = res.action;
+      form.style.display = "none";
+      for (const [key, value] of Object.entries(res.fields)) {
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = key;
+        input.value = String(value);
+        form.appendChild(input);
       }
+      document.body.appendChild(form);
+      form.submit();
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Payment could not be started.");
-    } finally {
       setBusy(false);
     }
   };
