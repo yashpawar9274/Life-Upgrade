@@ -349,7 +349,7 @@ function UpgradePage() {
         </button>
         <p className="flex items-center justify-center gap-1.5 text-center text-[11px] text-muted-foreground">
           <ShieldCheck className="h-3.5 w-3.5 text-primary" aria-hidden />
-          UPI, cards, netbanking & wallets · handled by Cashfree, we never see your card details.
+          UPI, cards, netbanking & wallets · secured by PayU, we never see your card details.
         </p>
       </Card>
 
