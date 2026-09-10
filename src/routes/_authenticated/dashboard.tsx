@@ -31,17 +31,17 @@ import {
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
     meta: [
-      { title: "LIFE UPGRADE Ã¢â‚¬â€ Daily Discipline & Lifestyle Coach" },
+      { title: "LIFE UPGRADE â€” Daily Discipline & Lifestyle Coach" },
       {
         name: "description",
         content:
           "Build strong daily routines, track habits and streaks, reduce harmful habits gently, and move toward a confident, healthy, productive life.",
       },
-      { property: "og:title", content: "LIFE UPGRADE Ã¢â‚¬â€ Your next version starts today" },
+      { property: "og:title", content: "LIFE UPGRADE â€” Your next version starts today" },
       {
         property: "og:description",
         content:
-          "Premium mobile coach for routines, habits, focus, mood and progress Ã¢â‚¬â€ with an optional AI Life Coach.",
+          "Premium mobile coach for routines, habits, focus, mood and progress â€” with an optional AI Life Coach.",
       },
     ],
   }),
@@ -96,7 +96,7 @@ function Home() {
 
   return (
     <AppShell
-      title={`Hey ${state.profile.name || "there"} Ã°Å¸â€˜â€¹`}
+      title={`Hey ${state.profile.name || "there"} ðŸ‘‹`}
       subtitle={new Date().toLocaleDateString(undefined, {
         weekday: "long",
         day: "numeric",
@@ -119,12 +119,12 @@ function Home() {
             <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">Your discipline score</p>
             <p className="mt-1 font-display text-3xl font-semibold">{score}<span className="text-base text-muted-foreground">/100</span></p>
             <p className="mt-1 flex items-center gap-1.5 text-sm font-medium">
-              <Flame className="h-4 w-4 text-gold" aria-hidden /> {days} day streak Ã‚Â· {level.name}
+              <Flame className="h-4 w-4 text-gold" aria-hidden /> {days} day streak Â· {level.name}
             </p>
           </div>
         </div>
         <div className="relative mt-5 grid grid-cols-2 gap-2 border-t border-border/70 pt-4 text-xs">
-          <div><p className="text-muted-foreground">TodayÃ¢â‚¬â„¢s mission</p><p className="mt-1 font-semibold">Show up once</p></div>
+          <div><p className="text-muted-foreground">Todayâ€™s mission</p><p className="mt-1 font-semibold">Show up once</p></div>
           <div className="border-l border-border/70 pl-3"><p className="text-muted-foreground">Level</p><p className="mt-1 font-semibold text-primary">{level.name}</p></div>
         </div>
       </Card>
@@ -132,7 +132,7 @@ function Home() {
       <Card className="border-primary/20 bg-gradient-to-br from-card to-primary/5">
         <div className="flex items-center justify-between"><p className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">Your next step</p><span className="rounded-full bg-primary/10 px-2 py-1 text-[10px] font-semibold text-primary">DO THIS NOW</span></div>
         <p className="mt-3 font-display text-xl font-semibold">
-          {nextRoutine ? `${nextRoutine.time} Ã‚Â· ${nextRoutine.title}` : "All routine blocks done Ã°Å¸Å½â€°"}
+          {nextRoutine ? `${nextRoutine.time} Â· ${nextRoutine.title}` : "All routine blocks done ðŸŽ‰"}
         </p>
         <Link
           to="/routine"
@@ -162,7 +162,7 @@ function Home() {
         </div>
         {mood ? (
           <p className="mt-3 text-sm text-muted-foreground">
-            Logged. Thanks for being honest Ã¢â‚¬â€ we plan around how you actually feel.
+            Logged. Thanks for being honest â€” we plan around how you actually feel.
           </p>
         ) : null}
       </Card>
@@ -219,7 +219,7 @@ function Home() {
           <p className="text-xs text-muted-foreground">
             {state.profile.plan === "premium"
               ? "Talk in Hindi, Hinglish or English"
-              : "Premium Ã¢â‚¬â€ personalised routines & accountability"}
+              : "Premium â€” personalised routines & accountability"}
           </p>
         </div>
         <ChevronRight className="h-4 w-4 text-muted-foreground" aria-hidden />
