@@ -77,8 +77,8 @@ function UpgradePage() {
   const navigate = useNavigate();
   const premium = state.profile.plan === "premium";
 
-  const start = useServerFn(startCheckout);
-  const verify = useServerFn(verifyCheckout);
+  const start = useServerFn(startPayuCheckout);
+  const verify = useServerFn(verifyPayuCheckout);
   const loadSub = useServerFn(getMySubscription);
   const cancel = useServerFn(cancelMySubscription);
   const loadTrial = useServerFn(getTrialStatus);
