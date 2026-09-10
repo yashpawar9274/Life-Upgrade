@@ -80,6 +80,84 @@ export const startCheckout = createServerFn({ method: "POST" })
     return { mode: "subscription" as const, sessionId, ref };
   });
 
+/** Creates a PayU hosted-checkout request (form fields) for the signed-in user. */
+export const startPayuCheckout = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data) => startSchema.parse(data))
+  .handler(async ({ data, context }) => {
+    const { userId, claims } = context;
+    const email = (claims["email"] as string | undefined) ?? "";
+    if (!email) throw new Error("Your account needs an email address to pay.");
+
+    const amount = PRICES[data.planCode];
+    const interval =
+      data.planCode === "lifetime" ? "lifetime" : data.planCode === "monthly" ? "month" : "year";
+    const txnid = `LU${Date.now().toString(36)}${userId.replace(/-/g, "").slice(0, 8)}`.toUpperCase();
+
+    const payu = await import("@/lib/payu.server");
+    const { action, fields } = payu.buildPaymentRequest({
+      txnid,
+      amount,
+      productinfo: `LIFE UPGRADE Premium ${data.planCode}`,
+      firstname: data.name,
+      email,
+      phone: data.phone,
+      surl: `${data.origin}/api/public/payu-return`,
+      furl: `${data.origin}/api/public/payu-return`,
+      udf1: data.planCode,
+    });
+
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin.from("subscriptions").insert({
+      user_id: userId,
+      email,
+      plan_code: data.planCode,
+      interval,
+      amount,
+      status: "pending",
+      provider: "payu",
+      payu_txnid: txnid,
+    });
+    if (error) throw new Error("Could not start the payment. Please try again.");
+
+    return { action, fields, txnid };
+  });
+
+/** Confirms a PayU transaction server-to-server and unlocks Premium. */
+export const verifyPayuCheckout = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data) => z.object({ txnid: z.string().min(4).max(80) }).parse(data))
+  .handler(async ({ data, context }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: row } = await supabaseAdmin
+      .from("subscriptions")
+      .select("id, interval, status")
+      .eq("user_id", context.userId)
+      .eq("payu_txnid", data.txnid)
+      .maybeSingle();
+    if (!row) return { status: "unknown" as const, premium: false };
+
+    const payu = await import("@/lib/payu.server");
+    const verified = await payu.verifyPayment(data.txnid);
+    const paid = verified.status === "success";
+    const days = row.interval === "year" ? 366 : row.interval === "month" ? 32 : null;
+
+    await supabaseAdmin
+      .from("subscriptions")
+      .update({
+        status: paid ? (days ? "active" : "paid") : verified.status === "pending" ? "pending" : "failed",
+        payu_payment_id: verified.paymentId,
+        ...(paid && days
+          ? {
+              current_period_end: new Date(Date.now() + days * 24 * 60 * 60 * 1000).toISOString(),
+            }
+          : {}),
+      })
+      .eq("id", row.id);
+
+    return { status: verified.status, premium: paid };
+  });
+
 /** Reads the live status back from Cashfree after checkout and stores it. */
 export const verifyCheckout = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
