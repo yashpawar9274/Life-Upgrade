@@ -150,6 +150,8 @@ export type Database = {
           email: string | null
           id: string
           interval: string
+          payu_payment_id: string | null
+          payu_txnid: string | null
           plan_code: string
           provider: string
           status: string
@@ -168,6 +170,8 @@ export type Database = {
           email?: string | null
           id?: string
           interval: string
+          payu_payment_id?: string | null
+          payu_txnid?: string | null
           plan_code: string
           provider?: string
           status?: string
@@ -186,6 +190,8 @@ export type Database = {
           email?: string | null
           id?: string
           interval?: string
+          payu_payment_id?: string | null
+          payu_txnid?: string | null
           plan_code?: string
           provider?: string
           status?: string

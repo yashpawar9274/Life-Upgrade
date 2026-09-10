@@ -28,6 +28,8 @@ import { Route as AuthenticatedUpgradeRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedVoiceLogRouteImport } from './routes/_authenticated/voice-log'
 import { Route as ApiTtsRouteImport } from './routes/api/tts'
 import { Route as ApiPublicCashfreeWebhookRouteImport } from './routes/api/public/cashfree-webhook'
+import { Route as ApiPublicPayuReturnRouteImport } from './routes/api/public/payu-return'
+import { Route as ApiPublicPayuWebhookRouteImport } from './routes/api/public/payu-webhook'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -124,6 +126,16 @@ const ApiPublicCashfreeWebhookRoute =
     path: '/api/public/cashfree-webhook',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicPayuReturnRoute = ApiPublicPayuReturnRouteImport.update({
+  id: '/api/public/payu-return',
+  path: '/api/public/payu-return',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicPayuWebhookRoute = ApiPublicPayuWebhookRouteImport.update({
+  id: '/api/public/payu-webhook',
+  path: '/api/public/payu-webhook',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -144,6 +156,8 @@ export interface FileRoutesByFullPath {
   '/voice-log': typeof AuthenticatedVoiceLogRoute
   '/api/tts': typeof ApiTtsRoute
   '/api/public/cashfree-webhook': typeof ApiPublicCashfreeWebhookRoute
+  '/api/public/payu-return': typeof ApiPublicPayuReturnRoute
+  '/api/public/payu-webhook': typeof ApiPublicPayuWebhookRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -164,6 +178,8 @@ export interface FileRoutesByTo {
   '/voice-log': typeof AuthenticatedVoiceLogRoute
   '/api/tts': typeof ApiTtsRoute
   '/api/public/cashfree-webhook': typeof ApiPublicCashfreeWebhookRoute
+  '/api/public/payu-return': typeof ApiPublicPayuReturnRoute
+  '/api/public/payu-webhook': typeof ApiPublicPayuWebhookRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -186,6 +202,8 @@ export interface FileRoutesById {
   '/_authenticated/voice-log': typeof AuthenticatedVoiceLogRoute
   '/api/tts': typeof ApiTtsRoute
   '/api/public/cashfree-webhook': typeof ApiPublicCashfreeWebhookRoute
+  '/api/public/payu-return': typeof ApiPublicPayuReturnRoute
+  '/api/public/payu-webhook': typeof ApiPublicPayuWebhookRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -208,6 +226,8 @@ export interface FileRouteTypes {
     | '/voice-log'
     | '/api/tts'
     | '/api/public/cashfree-webhook'
+    | '/api/public/payu-return'
+    | '/api/public/payu-webhook'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -228,6 +248,8 @@ export interface FileRouteTypes {
     | '/voice-log'
     | '/api/tts'
     | '/api/public/cashfree-webhook'
+    | '/api/public/payu-return'
+    | '/api/public/payu-webhook'
   id:
     | '__root__'
     | '/'
@@ -249,6 +271,8 @@ export interface FileRouteTypes {
     | '/_authenticated/voice-log'
     | '/api/tts'
     | '/api/public/cashfree-webhook'
+    | '/api/public/payu-return'
+    | '/api/public/payu-webhook'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -257,6 +281,8 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   ApiTtsRoute: typeof ApiTtsRoute
   ApiPublicCashfreeWebhookRoute: typeof ApiPublicCashfreeWebhookRoute
+  ApiPublicPayuReturnRoute: typeof ApiPublicPayuReturnRoute
+  ApiPublicPayuWebhookRoute: typeof ApiPublicPayuWebhookRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -394,6 +420,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicCashfreeWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/payu-return': {
+      id: '/api/public/payu-return'
+      path: '/api/public/payu-return'
+      fullPath: '/api/public/payu-return'
+      preLoaderRoute: typeof ApiPublicPayuReturnRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/payu-webhook': {
+      id: '/api/public/payu-webhook'
+      path: '/api/public/payu-webhook'
+      fullPath: '/api/public/payu-webhook'
+      preLoaderRoute: typeof ApiPublicPayuWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -440,6 +480,8 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   ApiTtsRoute: ApiTtsRoute,
   ApiPublicCashfreeWebhookRoute: ApiPublicCashfreeWebhookRoute,
+  ApiPublicPayuReturnRoute: ApiPublicPayuReturnRoute,
+  ApiPublicPayuWebhookRoute: ApiPublicPayuWebhookRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
